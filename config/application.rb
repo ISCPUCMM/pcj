@@ -25,5 +25,6 @@ module Judge
     config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
     config.api_token = 'dPH4tU9uxkvMJE7HLhAV_Q'#temporary, now worries, this won't be the real key
+    config.api_token = ENV['JUDGE_TOKEN']
   end
 end

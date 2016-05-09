@@ -10,7 +10,7 @@ module Tasks
       end
 
       def authorized?
-
+        params[:token].eql? Judge::Application.config.api_token
       end
     end
 
@@ -19,8 +19,20 @@ module Tasks
     end
 
     resources :tasks do
+
+      params do
+        requires :token, type: String
+        optional :code, type: String
+        requires :input, type: String
+        optional :time_limit, type: String
+      end
       post :run do
-        { hello: 'world' }
+        { foo: params[:input] }
+      end
+
+      #THIS WILL ENQUEUE A DELAYED TASK TO RUN THE CODE
+      post :judge
+
       end
     end
   end
