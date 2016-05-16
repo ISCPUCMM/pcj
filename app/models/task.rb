@@ -7,7 +7,7 @@ class Task < ActiveRecord::Base
   def run
     create_tmp_directory
     prepare_files_for_processing
-    # run_container
+    run_code
     output_hash
   ensure
     FileUtils.remove_entry_secure tmp_directory
@@ -33,11 +33,20 @@ class Task < ActiveRecord::Base
     File.open("#{tmp_directory}/#{uuid}.code", 'w'){ |file| file.write code }
   end
 
+  private def run_code
+    `docker run -m 200M -v #{tmp_directory}/:/submitted_code docker_judge ruby code_runner/run.rb --pl=c_plus_plus --limit=1000 --uuid=#{uuid}`
+  end
+
   private def create_tmp_directory
-    @tmp_directory = Dir.mktmpdir
+    #when on linux machine
+    #@tmp_directory = Dir.mktmpdir
+
+    #TEMPORARY HACK NEEDED ON MAC
+
+    @tmp_directory = Dir.mktmpdir(nil, '/Users/mpgaillard/Dropbox/proyecto_final/judge/tmp/code_to_execute/')
   end
 
   private def output_hash
-    { output: File.read("{tmp_directory}/#{uuid}.out") }
+    { output: File.read("#{tmp_directory}/#{uuid}.out") }
   end
 end
