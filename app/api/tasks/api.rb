@@ -22,17 +22,17 @@ module Tasks
 
       params do
         requires :token, type: String
-        optional :code, type: String
+        requires :code, type: String
         requires :input, type: String
-        optional :time_limit, type: String
+        requires :time_limit, type: Integer
+        requires :language, type: String
       end
       post :run do
-        { foo: params[:input] }
+        Task.new(params.slice(:time_limit, :code, :input)).run
       end
 
       #THIS WILL ENQUEUE A DELAYED TASK TO RUN THE CODE
-      post :judge
-
+      post :judge do
       end
     end
   end
