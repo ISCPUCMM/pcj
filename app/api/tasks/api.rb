@@ -28,7 +28,7 @@ module Tasks
         requires :language, type: String
       end
       post :run do
-        Task.new(params.slice(:time_limit, :code, :input)).run
+        Task.new(params.slice(:code, :input, :time_limit, :language)).run
       end
 
       #THIS WILL ENQUEUE A DELAYED TASK TO RUN THE CODE
