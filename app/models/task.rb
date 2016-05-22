@@ -34,7 +34,7 @@ class Task < ActiveRecord::Base
   end
 
   private def run_code
-    `docker run -m 200M -v #{tmp_directory}/:/submitted_code judge ruby code_runner/run.rb --pl=#{language} --limit=#{time_limit} --uuid=#{uuid}`
+    system "docker run -m 200M -v #{tmp_directory}/:/submitted_code --rm judge ruby code_runner/run.rb --pl=#{language} --limit=#{time_limit} --uuid=#{uuid}"
   end
 
   private def create_tmp_directory
