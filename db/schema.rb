@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20160508030359) do
   create_table "tasks", force: :cascade do |t|
     t.integer  "time_limit", limit: 4
     t.string   "language",   limit: 255
+    t.string   "file_key",   limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end

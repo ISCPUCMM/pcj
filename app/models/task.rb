@@ -1,8 +1,7 @@
 class Task < ActiveRecord::Base
   attr_accessor :code, :input, :uuid
   attr_reader :tmp_directory
-
-  after_initialize :initialize_uuid
+  validates_presence_of :time_limit, :language, :file_key
 
   def run
     create_tmp_directory
@@ -14,10 +13,23 @@ class Task < ActiveRecord::Base
   end
 
   def judge
+    create_tmp_directory
+    #download_input_files
+    download_submission
+  ensure
+    FileUtils.remove_entry_secure tmp_directory
   end
 
-  private def initialize_uuid
-    @uuid = SecureRandom.uuid
+  private def uuid
+    @uuid ||= SecureRandom.uuid
+  end
+
+  private def download_submission
+    s3 = Aws::S3::Client.new
+
+    File.open(code_file_location, 'wb') do |file|
+      reap = s3.get_object({ bucket:'programming-class-judge-user-submissions', key: file_key }, target: file)
+    end
   end
 
   private def prepare_files_for_processing
@@ -25,12 +37,20 @@ class Task < ActiveRecord::Base
     create_code_file
   end
 
+  private def input_file_location
+    "#{tmp_directory}/#{uuid}.in"
+  end
+
+  private def code_file_location
+    "#{tmp_directory}/#{uuid}.code"
+  end
+
   private def create_input_file
-    File.open("#{tmp_directory}/#{uuid}.in", 'w'){ |file| file.write input }
+    File.open(input_file_location, 'w'){ |file| file.write input }
   end
 
   private def create_code_file
-    File.open("#{tmp_directory}/#{uuid}.code", 'w'){ |file| file.write code }
+    File.open(code_file_location, 'w'){ |file| file.write code }
   end
 
   private def run_code
