@@ -11,12 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160508030359) do
+ActiveRecord::Schema.define(version: 20160701201121) do
 
   create_table "tasks", force: :cascade do |t|
-    t.integer  "time_limit", limit: 4
-    t.string   "language",   limit: 255
-    t.string   "file_key",   limit: 255
+    t.integer  "time_limit",    limit: 4
+    t.string   "language",      limit: 255
+    t.string   "file_key",      limit: 255
+    t.integer  "submission_id", limit: 4
+    t.integer  "problem_id",    limit: 4
+    t.string   "type",          limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "email",      limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end

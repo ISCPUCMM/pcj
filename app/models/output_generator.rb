@@ -1,0 +1,39 @@
+class OutputGenerator < Task
+  attr_accessor :code
+  validates_presence_of :problem_id, :code, :language
+
+  def commit
+    prepare_files_for_processing
+    build_outputs# touch :outputs_uploaded_at if build_outputs
+  ensure
+    FileUtils.remove_entry_secure tmp_directory
+  end
+  #handle_asynchronously :commit, queue => 'tasks'
+
+  private def build_outputs
+    input_file_keys.each do |key|
+      move_input_file(path: "#{input_files_directory}#{key}")
+      run_code
+      return false if !status.eql?('OK')
+      upload_output(output_key: key.gsub('.in', '.out'))
+    end
+    true
+  end
+
+  private def upload_output(output_key:)
+    File.open("#{tmp_directory}/#{uuid}.out", 'rb') do |file|
+      s3.put_object(bucket: 'pcj-problem-outputs', key: output_key, body: file)
+    end
+  end
+
+  private def move_input_file(path:)
+    FileUtils.mv(path, input_file_location)
+  end
+
+
+  private def prepare_files_for_processing
+    create_tmp_directory
+    download_input_files
+    create_code_file(target_code: code)
+  end
+end

@@ -4,6 +4,9 @@ class CreateTasks < ActiveRecord::Migration
       t.integer :time_limit
       t.string :language
       t.string :file_key
+      t.integer :submission_id
+      t.integer :problem_id
+      t.string :type
 
       t.timestamps null: false
     end
