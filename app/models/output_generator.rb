@@ -4,32 +4,28 @@ class OutputGenerator < Task
 
   def commit
     prepare_files_for_processing
-    build_outputs# touch :outputs_uploaded_at if build_outputs
+    build_outputs
   ensure
     FileUtils.remove_entry_secure tmp_directory
   end
   #handle_asynchronously :commit, queue => 'tasks'
 
+  #fix this ugly method, consider a separate class runner for each output
   private def build_outputs
-    input_file_keys.each do |key|
+    input_file_keys.map do |key|
       move_input_file(path: "#{input_files_directory}#{key}")
       run_code
-      return false if !status.eql?('OK')
-      upload_output(output_key: key.gsub('.in', '.out'))
+      # return status if !status.eql?('OK')
+      upload_output(output_key: key.gsub('.in', '.out')) if status.eql?('OK')
+      { status: status }
     end
-    true
   end
 
   private def upload_output(output_key:)
-    File.open("#{tmp_directory}/#{uuid}.out", 'rb') do |file|
+    File.open(output_file_location, 'rb') do |file|
       s3.put_object(bucket: 'pcj-problem-outputs', key: output_key, body: file)
     end
   end
-
-  private def move_input_file(path:)
-    FileUtils.mv(path, input_file_location)
-  end
-
 
   private def prepare_files_for_processing
     create_tmp_directory

@@ -61,10 +61,12 @@ module Tasks
         requires :submission_id, type: Integer
         requires :problem_id, type: Integer
         optional :checker_key, type: String
+        optional :checker_language, type: String
       end
       post :judge do
         if(task = Grader.create(params.slice(:time_limit, :language, :file_key, :submission_id, :problem_id)))
-          task.commit
+          res = task.commit
+          byebug
           { status: 'enqueued' }
         else
           error!('422 Unable to create task', 422)

@@ -15,22 +15,6 @@ class Runner < Task
     create_code_file(target_code: code)
   end
 
-  # private def input_file_location
-  #   "#{tmp_directory}/#{uuid}.in"
-  # end
-
-  # private def create_input_file
-  #   File.open(input_file_location, 'w'){ |file| file.write input }
-  # end
-
-  # private def create_code_file
-  #   File.open(code_file_location, 'w'){ |file| file.write code }
-  # end
-
-  # private def run_code
-  #   system "docker run -m 200M -v #{tmp_directory}/:/submitted_code --rm judge ruby code_runner/run.rb --pl=#{language} --limit=#{time_limit} --uuid=#{uuid}"
-  # end
-
   private def output_hash
     {
       status: status,

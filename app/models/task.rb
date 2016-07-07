@@ -37,6 +37,14 @@ class Task < ActiveRecord::Base
     "#{tmp_directory}/#{uuid}.in"
   end
 
+  private def output_file_location
+    "#{tmp_directory}/#{uuid}.out"
+  end
+
+  private def checker_file_location
+    "#{tmp_directory}/#{uuid}.checker"
+  end
+
   private def create_input_file(target_input:)
     File.open(input_file_location, 'w'){ |file| file.write target_input }
   end
@@ -67,7 +75,11 @@ class Task < ActiveRecord::Base
 
   private def input_file_keys
     @input_file_keys ||= s3.list_objects(bucket: 'pcj-problem-inputs', prefix: "#{problem_id}/")
-      .contents.map(&:key).reject! { |key| key.eql?("#{problem_id}/") }
+      .contents.map(&:key).reject{ |key| key.eql?("#{problem_id}/") }.to_set
+  end
+
+  private def move_input_file(path:)
+    FileUtils.mv(path, input_file_location)
   end
 
   private def run_code

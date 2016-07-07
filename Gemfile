@@ -28,8 +28,10 @@ gem 'hashie-forbidden_attributes'
 gem 'aws-sdk', '~> 2'
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
+gem 'slim-rails'
+gem 'twitter-bootstrap-rails'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
