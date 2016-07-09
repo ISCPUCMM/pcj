@@ -27,6 +27,9 @@ en:
       sign_up: 'Sign Up'
       log_in: 'Log In'
       log_out: 'Log Out'
+      account: 'Account'
+      profile: 'Profile'
+
 
   sessions:
     new:

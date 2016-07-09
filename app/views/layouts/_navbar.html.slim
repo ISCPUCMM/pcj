@@ -22,14 +22,17 @@ nav.navbar.navbar-default
         - if logged_in?
           li.dropdown
             a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
-              | Account
+              | #{t('.account')}
               span.caret
             ul.dropdown-menu
               li
-                = link_to "Profile", current_user
+                = link_to t('.profile'), current_user
               li.divider role="separator"
               li
-                = link_to "Log out", logout_path, method: :delete
+                = link_to t('.log_out'), logout_path, method: :delete
+          li
+            = image_tag(gravatar_url(current_user.email, 48))
+
         - else
           li
             = link_to(t('.sign_up'), new_user_path)
