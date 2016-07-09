@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  def index
+    @users = User.all
+  end
+
   def show
     @user = User.find(params[:id])
   end
@@ -9,6 +13,16 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+  end
+
+  def destroy
+    if User.find(params[:id]).destroy
+      flash[:success] = 'Successfully deleted user'
+      redirect_to :back
+    else
+      flash[:warning] = 'Unable to delete user'
+      redirect_to :back
+    end
   end
 
   def create

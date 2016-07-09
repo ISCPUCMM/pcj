@@ -25,6 +25,13 @@ en:
   layouts:
     navbar:
       sign_up: 'Sign Up'
+      log_in: 'Log In'
+      log_out: 'Log Out'
+
+  sessions:
+    new:
+      log_in_header: 'Log In'
+      submit_button: 'Log In'
 
   users:
     new:

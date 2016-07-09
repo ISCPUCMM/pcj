@@ -9,9 +9,7 @@
 </head>
 <body>
   <%= render partial: 'layouts/navbar' %>
-  <% if flash[:success].present? %>
-  <div class="alert alert-success" role="alert"> <%= flash[:success] %></div>
-  <% end %>
+  <%= render partial: 'layouts/alerts' %>
 
 <%= yield %>
 
