@@ -1,12 +1,17 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-  <title>Judge</title>
+  <title>Programming Class Judge</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <%= render partial: 'layouts/navbar' %>
+  <% if flash[:success].present? %>
+  <div class="alert alert-success" role="alert"> <%= flash[:success] %></div>
+  <% end %>
 
 <%= yield %>
 

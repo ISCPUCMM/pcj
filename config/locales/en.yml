@@ -20,4 +20,12 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  hello: 'Hello world'
+
+  layouts:
+    navbar:
+      sign_up: 'Sign Up'
+
+  users:
+    new:
+      sign_up_header: 'Sign Up'

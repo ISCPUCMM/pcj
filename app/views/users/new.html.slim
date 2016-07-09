@@ -1,0 +1,6 @@
+- model_class = User
+div.container
+  div.jumbotron
+    .page-header
+      h2.centered-text=t '.title', default: t('.sign_up_header'), model: model_class.model_name.human.titleize
+    = render :partial => 'form'

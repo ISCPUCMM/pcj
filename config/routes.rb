@@ -33,6 +33,8 @@ Rails.application.routes.draw do
   #     resource :seller
   #   end
 
+  resources :users
+
   # Example resource route with more complex sub-resources:
   #   resources :products do
   #     resources :comments
