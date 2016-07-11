@@ -21,10 +21,24 @@
 
 en:
   hello: 'Hello world'
+  helpers:
+    label:
+      session:
+        remember_me: ''
 
   layouts:
     navbar:
       sign_up: 'Sign Up'
+      log_in: 'Log In'
+      log_out: 'Log Out'
+      account: 'Account'
+      profile: 'Profile'
+
+
+  sessions:
+    new:
+      log_in_header: 'Log In'
+      submit_button: 'Log In'
 
   users:
     new:

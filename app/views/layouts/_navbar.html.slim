@@ -15,29 +15,26 @@ nav.navbar.navbar-default
           a href="#about"  About
         li
           a href="#contact"  Contact
-        / li.dropdown
-        /   a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
-        /     | Dropdown
-        /     span.caret
-        /   ul.dropdown-menu
-        /     li
-        /       a href="#"  Action
-        /     li
-        /       a href="#"  Another action
-        /     li
-        /       a href="#"  Something else here
-        /     li.divider role="separator"
-        /     li.dropdown-header Nav header
-        /     li
-        /       a href="#"  Separated link
-        /     li
-        /       a href="#"  One more separated link
+
       ul.nav.navbar-nav.navbar-right
         li
-          a href="../navbar/"  Classes
-        li
-          a href="../navbar-static-top/"  Log In
-        li.active
-          a href= new_user_path
-            | #{t('.sign_up')}
-            span.sr-only (current)
+          a href="../users/"  Classes
+        - if logged_in?
+          li.dropdown
+            a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
+              | #{t('.account')}
+              span.caret
+            ul.dropdown-menu
+              li
+                = link_to t('.profile'), current_user
+              li.divider role="separator"
+              li
+                = link_to t('.log_out'), logout_path, method: :delete
+          li
+            = image_tag(gravatar_url(current_user.email, 48))
+
+        - else
+          li
+            = link_to(t('.sign_up'), new_user_path)
+          li
+            = link_to(t('.log_in'), login_path)

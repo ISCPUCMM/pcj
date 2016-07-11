@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'sessions/new'
+
   mount Tasks::API => '/'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -34,6 +36,9 @@ Rails.application.routes.draw do
   #   end
 
   resources :users
+  get    '/login',   to: 'sessions#new'
+  post   '/login',   to: 'sessions#create'
+  delete '/logout',  to: 'sessions#destroy'
 
   # Example resource route with more complex sub-resources:
   #   resources :products do

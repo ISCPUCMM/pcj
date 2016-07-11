@@ -1,0 +1,27 @@
+div.container
+  div.jumbotron
+    .page-header
+      h2.centered-text=t '.title', default: t('.log_in_header')
+    = form_for(:session, url: login_path, html: { class: "form form-horizontal session" }) do |f|
+      .form-group
+        = f.label :email, :class => 'control-label col-lg-2'
+        .col-lg-10
+          = f.text_field :email, :class => 'form-control'
+        = f.error_span(:email)
+      .form-group
+        = f.label :password, :class => 'control-label col-lg-2'
+        .col-lg-10
+          = f.password_field :password, :class => 'form-control'
+        = f.error_span(:password)
+      .form-group
+        = f.label :remember_me, :class => 'checkbox inline control-label col-lg-2'
+        .col-lg-10
+          = f.check_box :remember_me
+      .form-group
+        .col-lg-offset-2.col-lg-10
+          = f.submit t('.submit_button'), :class => 'btn btn-primary'
+
+      p.new_user_path
+        | New User?&nbsp;
+        = link_to("Sign up now!", new_user_path)
+

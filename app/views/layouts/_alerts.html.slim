@@ -1,0 +1,8 @@
+- if flash[:success].present?
+  div.alert.alert-success role='alert' = flash[:success]
+
+- if flash[:warning].present?
+  div.alert.alert-warning role='alert' = flash[:warning]
+
+- if flash[:danger].present?
+  div.alert.alert-danger role='alert' = flash[:danger]
