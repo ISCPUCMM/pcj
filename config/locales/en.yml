@@ -21,6 +21,10 @@
 
 en:
   hello: 'Hello world'
+  helpers:
+    label:
+      session:
+        remember_me: ''
 
   layouts:
     navbar:
