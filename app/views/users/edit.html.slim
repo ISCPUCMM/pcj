@@ -1,4 +1,10 @@
 - model_class = User
-.page-header
-  h1=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize
-= render :partial => "form"
+div.container
+  div.jumbotron
+    .page-header
+      h1=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize
+
+    = render :partial => "form"
+    = image_tag(gravatar_url(current_user.email))
+    p
+      a href='http://gravatar.com/emails' target='_blank' = t('.change_gravatar')

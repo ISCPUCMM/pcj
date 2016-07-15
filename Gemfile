@@ -32,6 +32,9 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'slim-rails'
 gem 'twitter-bootstrap-rails'
+
+gem 'will_paginate',           '3.1.0'
+gem 'bootstrap-will_paginate', '0.0.10'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -42,6 +45,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'rspec-rails', '~> 3.0'
+  gem 'faker',          '1.6.3'
 end
 
 group :development do
