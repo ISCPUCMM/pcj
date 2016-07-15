@@ -33,6 +33,9 @@ en:
       log_out: 'Log Out'
       account: 'Account'
       profile: 'Profile'
+      classes: 'Classes'
+      users: 'Users'
+      connections: 'Connections'
 
 
   sessions:
@@ -43,3 +46,5 @@ en:
   users:
     new:
       sign_up_header: 'Sign Up'
+    edit:
+      change_gravatar: 'change'
