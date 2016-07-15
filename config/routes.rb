@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'users#index'
+  root 'application#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -35,11 +35,14 @@ Rails.application.routes.draw do
   #     resource :seller
   #   end
 
-  resources :users
+  resources :users  do
+    get 'administration'
+  end
+
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
-
+  resources :account_activations, only: [:edit]
   # Example resource route with more complex sub-resources:
   #   resources :products do
   #     resources :comments

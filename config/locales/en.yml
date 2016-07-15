@@ -33,9 +33,10 @@ en:
       log_out: 'Log Out'
       account: 'Account'
       profile: 'Profile'
-      classes: 'Classes'
+      my_classes: 'My Classes'
       users: 'Users'
       connections: 'Connections'
+      administration: 'Administration'
 
 
   sessions:
@@ -48,3 +49,5 @@ en:
       sign_up_header: 'Sign Up'
     edit:
       change_gravatar: 'change'
+    administration:
+      title: 'Administration'
