@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  has_many :course_students
+  has_many :courses, through: :course_students
+
   attr_accessor :remember_token, :activation_token
   before_save { email.downcase! }
   before_save   :downcase_email
