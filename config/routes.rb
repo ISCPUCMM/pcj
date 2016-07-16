@@ -40,6 +40,9 @@ Rails.application.routes.draw do
     get 'connections'
   end
 
+  #THIS SHOULD PROBABLY BE NESTED WITHIN THE USER RESOURCE
+  resources :courses
+
   get '/users/:connection_token/connect', to: 'users#connect', as: :user_connect
 
   get    '/login',   to: 'sessions#new'

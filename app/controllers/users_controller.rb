@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :connect, :connections]
   before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: [:index, :destroy]
+  before_action :admin_user,     only: [:index, :destroy]#USE CANCAN INSTEAD OF FILTERS!!!
 
   def index
     @users = User.where(activated: true).paginate(page: params[:page], per_page: 30)
@@ -42,6 +42,8 @@ class UsersController < ApplicationController
   end
 
   def administration
+    @user = User.find(params[:user_id])
+    @courses = @user.course_ownerships
   end
 
   def destroy
@@ -86,12 +88,20 @@ class UsersController < ApplicationController
 
   private def correct_user
     @user = User.find(params[:id])
-    flash[:danger] = "You do not have access to view page"
-    redirect_to(root_url) unless current_user?(@user)
+    if current_user?(@user)
+      true
+    else
+      flash[:danger] = "You do not have access to view page"
+      redirect_to(root_url)
+    end
   end
 
   private def admin_user
-    flash[:danger] = "Must have admin privilege to view page"
-    redirect_to(root_url) unless current_user.admin?
+    if current_user.admin?
+      true
+    else
+      flash[:danger] = "Must have admin privilege to view page"
+      redirect_to(root_url)
+    end
   end
 end

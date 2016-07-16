@@ -2,7 +2,7 @@
 div.container
   div.jumbotron
     .page-header
-      h1=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize
+      h2=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize
 
     = render :partial => "form"
     = image_tag(gravatar_url(current_user.email))

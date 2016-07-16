@@ -5,4 +5,5 @@ class Course < ActiveRecord::Base
   validates_presence_of :name, :owner
   alias students users
 
+  scope :owned_by, -> (user) { where(owner: user) }
 end
