@@ -37,7 +37,10 @@ Rails.application.routes.draw do
 
   resources :users  do
     get 'administration'
+    get 'connections'
   end
+
+  get '/users/:connection_token/connect', to: 'users#connect', as: :user_connect
 
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'

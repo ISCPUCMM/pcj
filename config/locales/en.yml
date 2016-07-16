@@ -45,9 +45,13 @@ en:
       submit_button: 'Log In'
 
   users:
-    new:
-      sign_up_header: 'Sign Up'
-    edit:
-      change_gravatar: 'change'
     administration:
       title: 'Administration'
+    edit:
+      change_gravatar: 'change'
+    connections:
+      title: 'My Connections'
+    new:
+      sign_up_header: 'Sign Up'
+    show:
+      connection_url: 'Connection URL(share with friends/students)'

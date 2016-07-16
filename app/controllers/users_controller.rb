@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :connect, :connections]
   before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: :destroy
+  before_action :admin_user,     only: [:index, :destroy]
 
   def index
     @users = User.where(activated: true).paginate(page: params[:page], per_page: 30)
@@ -14,6 +14,27 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+  end
+
+  def connect
+    connecting_user = User.find_by_connection_token(params[:connection_token])
+
+    if connecting_user.present?
+      if connecting_user.connect(current_user)
+        flash[:info] = "You are now connected with #{connecting_user.name}"
+      else
+        flash[:warning] = 'Unable to connect with this user. This user is most likely already a connection.'
+      end
+    else
+      flash[:warning] = 'Invalid Connection Link'
+    end
+
+    redirect_to root_url
+  end
+
+  def connections
+    @user = User.find(params[:user_id])
+    @connections = @user.connections.paginate(page: params[:page], per_page: 30)
   end
 
   def edit
@@ -65,10 +86,12 @@ class UsersController < ApplicationController
 
   private def correct_user
     @user = User.find(params[:id])
+    flash[:danger] = "You do not have access to view page"
     redirect_to(root_url) unless current_user?(@user)
   end
 
   private def admin_user
+    flash[:danger] = "Must have admin privilege to view page"
     redirect_to(root_url) unless current_user.admin?
   end
 end

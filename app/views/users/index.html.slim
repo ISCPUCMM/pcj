@@ -10,7 +10,6 @@ table.table.table-striped
       th= model_class.human_attribute_name(:created_at)
       th=t '.actions', :default => t("helpers.actions")
   tbody
-    - will_paginate
     - @users.each do |user|
       tr
         td= link_to user.id, user_path(user)
@@ -21,6 +20,6 @@ table.table.table-striped
           = link_to t('.edit', :default => t("helpers.links.edit")), edit_user_path(user), :class => 'btn btn-default btn-xs'
           '
           = link_to t('.destroy', :default => t("helpers.links.destroy")), user_path(user), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
-    = will_paginate
+    = will_paginate @users
 
-= link_to t('.new', :default => t("helpers.links.new")), new_user_path, :class => 'btn btn-primary'
+// = link_to t('.new', :default => t("helpers.links.new")), new_user_path, :class => 'btn btn-primary'

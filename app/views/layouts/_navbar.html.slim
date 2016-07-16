@@ -28,7 +28,7 @@ nav.navbar.navbar-default
               li
                 = link_to t('.profile'), current_user
               li
-                = link_to t('.connections'), current_user
+                = link_to t('.connections'), user_connections_path(current_user)
               li
                 = link_to t('.administration'), user_administration_path(current_user)
               li.divider role="separator"

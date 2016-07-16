@@ -11,6 +11,11 @@ p
   br
   = @user.email
 
+p
+  strong= "#{t('.connection_url')}:"
+  br
+  = link_to user_connect_url(@user.connection_token), user_connect_url(@user.connection_token)
+
 = link_to t('.back', :default => t("helpers.links.back")), users_path, :class => 'btn btn-default'
 '
 = link_to t('.edit', :default => t("helpers.links.edit")), edit_user_path(@user), :class => 'btn btn-default'
