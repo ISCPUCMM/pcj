@@ -33,7 +33,7 @@ en:
       log_out: 'Log Out'
       account: 'Account'
       profile: 'Profile'
-      my_classes: 'My Classes'
+      my_classes: 'My Courses'
       users: 'Users'
       connections: 'Connections'
       administration: 'Administration'
@@ -44,10 +44,30 @@ en:
       log_in_header: 'Log In'
       submit_button: 'Log In'
 
-  users:
+  courses:
     new:
-      sign_up_header: 'Sign Up'
+      title: New Course
+    edit:
+      general_desc_tab: General Description
+      assignments_tab: Assignments
+    students:
+      student_name: Name
+      student_email: Email
+      student_remove: Remove
+      student_add: Add Student
+  users:
+    administration:
+      title: Administration
+      course_name: Course Name
+      new_course_button: New Course
+      manage_courses: Manage Courses
+      manage_assignments: Manage Assignments
+      manage_problems: Manage Problems
     edit:
       change_gravatar: 'change'
-    administration:
-      title: 'Administration'
+    connections:
+      title: 'My Connections'
+    new:
+      sign_up_header: 'Sign Up'
+    show:
+      connection_url: 'Connection URL(share with friends/students)'

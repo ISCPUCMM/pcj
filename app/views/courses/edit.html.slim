@@ -1,0 +1,13 @@
+- model_class = Course
+div.container
+  div.jumbotron
+    .page-header
+      h2=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize
+    ul.nav.nav-tabs.nav-justified.management-tabs
+      li.active role="presentation"
+        a href="#general" = t('.general_desc_tab')
+      li role="presentation"
+        a href="#assignments" = t('.assignments_tab')
+
+    = render partial: 'form'
+    = render partial: 'students'

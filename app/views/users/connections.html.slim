@@ -1,0 +1,15 @@
+- model_class = User
+.page-header
+  h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
+table.table.table-striped
+  thead
+    tr
+      th= model_class.human_attribute_name(:name)
+      th= model_class.human_attribute_name(:email)
+  tbody
+    - @connections.each do |connection|
+      tr
+        td= connection.name
+        td= connection.email
+
+    / = will_paginate

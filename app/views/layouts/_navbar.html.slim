@@ -28,9 +28,9 @@ nav.navbar.navbar-default
               li
                 = link_to t('.profile'), current_user
               li
-                = link_to t('.connections'), current_user
+                = link_to t('.connections'), connections_user_path(current_user)
               li
-                = link_to t('.administration'), user_administration_path(current_user)
+                = link_to t('.administration'), administration_user_path(current_user)
               li.divider role="separator"
               li
                 = link_to t('.log_out'), logout_path, method: :delete

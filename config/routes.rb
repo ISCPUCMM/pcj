@@ -36,8 +36,16 @@ Rails.application.routes.draw do
   #   end
 
   resources :users  do
-    get 'administration'
+    get 'administration', on: :member
+    get 'connections', on: :member
   end
+
+  resources :courses do
+    post 'add_student', on: :member
+    delete 'remove_student', on: :member
+  end
+
+  get '/users/:connection_token/connect', to: 'users#connect', as: :user_connect
 
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'

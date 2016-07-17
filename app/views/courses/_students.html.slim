@@ -1,0 +1,33 @@
+div.container
+  h3 Students
+  table.table.table-striped
+    thead
+      tr
+        th= t('.student_name')
+        th= t('.student_email')
+        th= t('.student_remove')
+    tbody
+      - @course.students.each do |student|
+        tr
+          td= student.name
+          td= student.email
+          td
+            = link_to remove_student_course_path(id: @course.id, student_id: student.id), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
+              do
+                span.fa.fa-times aria-hidden='true'
+              end
+
+  = form_for @course, url: {action: 'add_student', id: @course.id}, html: { method: 'POST', class: "form form-horizontal course", id: 'add_student' } do |f|
+    .form_group
+      .row
+        .col-md-4
+          select.form-control name="course[student]" id='#course_student'
+            option value=''
+            - @course.unadded_students.each do |student|
+              option value="#{student.id}" = student.name
+            end
+        .col-md-8
+          = f.submit t('.student_add'), :class => 'btn btn-primary'
+
+
+  / = select('course', 'students', @course.students.map(&:name),  include_blank: true)

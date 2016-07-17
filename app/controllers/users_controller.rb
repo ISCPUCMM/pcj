@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
-  before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: :destroy
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :connect, :connections]
+  before_action :correct_user,   only: [:edit, :update, :connections, :connect]
+  before_action :admin_user,     only: [:index, :destroy]#USE CANCAN INSTEAD OF FILTERS!!!
 
   def index
     @users = User.where(activated: true).paginate(page: params[:page], per_page: 30)
@@ -16,11 +16,34 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def connect
+    connecting_user = User.find_by_connection_token(params[:connection_token])
+
+    if connecting_user.present?
+      if connecting_user.connect(current_user)
+        flash[:info] = "You are now connected with #{connecting_user.name}"
+      else
+        flash[:warning] = 'Unable to connect with this user. This user is most likely already a connection.'
+      end
+    else
+      flash[:warning] = 'Invalid Connection Link'
+    end
+
+    redirect_to root_url
+  end
+
+  def connections
+    @user = User.find(params[:id])
+    @connections = @user.connections.paginate(page: params[:page], per_page: 30)
+  end
+
   def edit
     @user = User.find(params[:id])
   end
 
   def administration
+    @user = User.find(params[:id])
+    @courses = @user.course_ownerships
   end
 
   def destroy
@@ -65,10 +88,20 @@ class UsersController < ApplicationController
 
   private def correct_user
     @user = User.find(params[:id])
-    redirect_to(root_url) unless current_user?(@user)
+    if current_user?(@user)
+      true
+    else
+      flash[:danger] = "You do not have access to view page"
+      redirect_to(root_url)
+    end
   end
 
   private def admin_user
-    redirect_to(root_url) unless current_user.admin?
+    if current_user.admin?
+      true
+    else
+      flash[:danger] = "Must have admin privilege to view page"
+      redirect_to(root_url)
+    end
   end
 end
