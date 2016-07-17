@@ -36,8 +36,8 @@ Rails.application.routes.draw do
   #   end
 
   resources :users  do
-    get 'administration'
-    get 'connections'
+    get 'administration', on: :member
+    get 'connections', on: :member
   end
 
   resources :courses do

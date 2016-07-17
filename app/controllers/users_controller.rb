@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :connect, :connections]
-  before_action :correct_user,   only: [:edit, :update]
+  before_action :correct_user,   only: [:edit, :update, :connections, :connect]
   before_action :admin_user,     only: [:index, :destroy]#USE CANCAN INSTEAD OF FILTERS!!!
 
   def index
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
   end
 
   def connections
-    @user = User.find(params[:user_id])
+    @user = User.find(params[:id])
     @connections = @user.connections.paginate(page: params[:page], per_page: 30)
   end
 
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
   end
 
   def administration
-    @user = User.find(params[:user_id])
+    @user = User.find(params[:id])
     @courses = @user.course_ownerships
   end
 

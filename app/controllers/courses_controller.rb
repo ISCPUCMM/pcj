@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   before_action :logged_in_user
-  before_action :check_course_ownership, only: [:show, :edit, :update, :destroy]
+  before_action :check_course_ownership, only: [:show, :edit, :update, :destroy, :add_student, :remove_student]
 
   def index
     @courses = Course.owned_by(current_user)
