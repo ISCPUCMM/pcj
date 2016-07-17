@@ -25,7 +25,7 @@ class CoursesController < ApplicationController
   end
 
   def add_student
-    @course = Course.find(params[:course_id])
+    @course = Course.find(params[:id])
     student_id = student_params[:student]
 
     if @course.add_student(student_id)
@@ -33,11 +33,11 @@ class CoursesController < ApplicationController
     else
       flash[:warning] = 'Invalid selection'
     end
-    redirect_to edit_course_path(params[:course_id])
+    redirect_to edit_course_path(params[:id])
   end
 
   def remove_student
-    @course = Course.find(params[:course_id])
+    @course = Course.find(params[:id])
     student_id = params[:student_id]
 
     if @course.remove_student(student_id)
@@ -46,7 +46,7 @@ class CoursesController < ApplicationController
       flash[:warning] = 'Something funky happened :)'
     end
 
-    redirect_to edit_course_path(params[:course_id])
+    redirect_to edit_course_path(params[:id])
   end
 
   def create
