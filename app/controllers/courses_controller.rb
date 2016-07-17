@@ -24,6 +24,25 @@ class CoursesController < ApplicationController
     redirect_to user_administration_path(current_user)
   end
 
+  def add_student
+    @course = Course.find(params[:course_id])
+    student_id = student_params[:student]
+
+    if @course.add_student(student_id)
+      flash[:success] = 'Student added successfully'
+    else
+      flash[:warning] = 'Invalid selection'
+    end
+    redirect_to edit_course_path(params[:course_id])
+  end
+
+  def remove_student
+    @course = Course.find(params[:course_id])
+    student_id = student_params[:student]
+
+    redirect_to edit_course_path(params[:course_id])
+  end
+
   def create
     @course = Course.new(course_params.merge(owner: current_user))
     if @course.save
@@ -46,6 +65,10 @@ class CoursesController < ApplicationController
 
   private  def course_params
     params.require(:course).permit(:name)
+  end
+
+  private def student_params
+    params.require(:course).permit(:student)
   end
 
   private def logged_in_user

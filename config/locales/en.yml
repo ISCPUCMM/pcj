@@ -50,6 +50,11 @@ en:
     edit:
       general_desc_tab: General Description
       assignments_tab: Assignments
+    students:
+      student_name: Name
+      student_email: Email
+      student_remove: Remove
+      student_add: Add Student
   users:
     administration:
       title: Administration

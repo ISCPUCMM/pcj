@@ -41,7 +41,9 @@ Rails.application.routes.draw do
   end
 
   #THIS SHOULD PROBABLY BE NESTED WITHIN THE USER RESOURCE
-  resources :courses
+  resources :courses do
+    post 'add_student'
+  end
 
   get '/users/:connection_token/connect', to: 'users#connect', as: :user_connect
 
