@@ -40,9 +40,9 @@ Rails.application.routes.draw do
     get 'connections'
   end
 
-  #THIS SHOULD PROBABLY BE NESTED WITHIN THE USER RESOURCE
   resources :courses do
     post 'add_student'
+    delete 'remove_student'
   end
 
   get '/users/:connection_token/connect', to: 'users#connect', as: :user_connect

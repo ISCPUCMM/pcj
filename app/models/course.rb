@@ -11,6 +11,11 @@ class Course < ActiveRecord::Base
     owner.connections.where.not(id: students.pluck(:id))
   end
 
+  def remove_student(student_id)
+    student_relation = CourseStudent.find_by_course_id_and_user_id(self, student_id)
+    student_relation.present? ? student_relation.destroy : false
+  end
+
   def add_student(student_id)
     if (student_id.blank? || students.find_by_id(student_id))
       false

@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   before_action :logged_in_user
-  before_action :check_course_ownership, only: [:show, :edit, :update, :drestroy]
+  before_action :check_course_ownership, only: [:show, :edit, :update, :destroy]
 
   def index
     @courses = Course.owned_by(current_user)
@@ -38,7 +38,13 @@ class CoursesController < ApplicationController
 
   def remove_student
     @course = Course.find(params[:course_id])
-    student_id = student_params[:student]
+    student_id = params[:student_id]
+
+    if @course.remove_student(student_id)
+      flash[:success] = 'Student removed successfully'
+    else
+      flash[:warning] = 'Something funky happened :)'
+    end
 
     redirect_to edit_course_path(params[:course_id])
   end
