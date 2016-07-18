@@ -21,7 +21,7 @@ class CoursesController < ApplicationController
   def destroy
     Course.find(params[:id]).destroy
     flash[:success] = 'Course deleted'
-    redirect_to user_administration_path(current_user)
+    redirect_to administration_user_path(current_user)
   end
 
   def add_student
@@ -53,7 +53,7 @@ class CoursesController < ApplicationController
     @course = Course.new(course_params.merge(owner: current_user))
     if @course.save
       flash[:info] = 'Course created successfully'
-      redirect_to user_administration_path(current_user)
+      redirect_to administration_user_path(current_user)
     else
       render 'new'
     end
@@ -63,7 +63,7 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
     if @course.update_attributes(course_params)
       flash[:success] = 'Course updated'
-      redirect_to user_administration_path(current_user)
+      redirect_to administration_user_path(current_user)
     else
       render 'edit'
     end

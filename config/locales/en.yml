@@ -59,14 +59,15 @@ en:
     administration:
       title: Administration
       course_name: Course Name
-      new_course_button: New Course
       manage_courses: Manage Courses
       manage_assignments: Manage Assignments
       manage_problems: Manage Problems
-    edit:
-      change_gravatar: 'change'
     connections:
       title: 'My Connections'
+    courses:
+      new_course_button: New Course
+    edit:
+      change_gravatar: 'change'
     new:
       sign_up_header: 'Sign Up'
     show:

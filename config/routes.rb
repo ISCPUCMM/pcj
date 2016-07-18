@@ -45,6 +45,8 @@ Rails.application.routes.draw do
     delete 'remove_student', on: :member
   end
 
+  resources :problems
+
   get '/users/:connection_token/connect', to: 'users#connect', as: :user_connect
 
   get    '/login',   to: 'sessions#new'
