@@ -1,0 +1,6 @@
+- model_class = Problem
+div.container
+  div.jumbotron
+    .page-header
+      h2=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize
+    = render :partial => "form"

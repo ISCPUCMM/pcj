@@ -1,0 +1,38 @@
+- model_class = Problem
+.page-header
+  h1=t '.title', :default => model_class.model_name.human.titleize
+
+p
+  strong= model_class.human_attribute_name(:name) + ':'
+  br
+  = @problem.name
+p
+  strong= model_class.human_attribute_name(:statement) + ':'
+  br
+  = @problem.statement
+p
+  strong= model_class.human_attribute_name(:input_format) + ':'
+  br
+  = @problem.input_format
+p
+  strong= model_class.human_attribute_name(:output_format) + ':'
+  br
+  = @problem.output_format
+p
+  strong= model_class.human_attribute_name(:examples) + ':'
+  br
+  = @problem.examples
+p
+  strong= model_class.human_attribute_name(:notes) + ':'
+  br
+  = @problem.notes
+p
+  strong= model_class.human_attribute_name(:owner_id) + ':'
+  br
+  = @problem.owner_id
+
+= link_to t('.back', :default => t("helpers.links.back")), problems_path, :class => 'btn btn-default'
+'
+= link_to t('.edit', :default => t("helpers.links.edit")), edit_problem_path(@problem), :class => 'btn btn-default'
+'
+= link_to t('.destroy', :default => t("helpers.links.destroy")), problem_path(@problem), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'

@@ -1,0 +1,34 @@
+- model_class = Problem
+.page-header
+  h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
+table.table.table-striped
+  thead
+    tr
+      th= model_class.human_attribute_name(:id)
+      th= model_class.human_attribute_name(:name)
+      th= model_class.human_attribute_name(:statement)
+      th= model_class.human_attribute_name(:input_format)
+      th= model_class.human_attribute_name(:output_format)
+      th= model_class.human_attribute_name(:examples)
+      th= model_class.human_attribute_name(:notes)
+      th= model_class.human_attribute_name(:owner_id)
+      th= model_class.human_attribute_name(:created_at)
+      th=t '.actions', :default => t("helpers.actions")
+  tbody
+    - @problems.each do |problem|
+      tr
+        td= link_to problem.id, problem_path(problem)
+        td= problem.name
+        td= problem.statement
+        td= problem.input_format
+        td= problem.output_format
+        td= problem.examples
+        td= problem.notes
+        td= problem.owner_id
+        td=l problem.created_at
+        td
+          = link_to t('.edit', :default => t("helpers.links.edit")), edit_problem_path(problem), :class => 'btn btn-default btn-xs'
+          '
+          = link_to t('.destroy', :default => t("helpers.links.destroy")), problem_path(problem), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
+
+= link_to t('.new', :default => t("helpers.links.new")), new_problem_path, :class => 'btn btn-primary'

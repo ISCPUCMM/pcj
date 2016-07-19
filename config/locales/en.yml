@@ -58,17 +58,21 @@ en:
   users:
     administration:
       title: Administration
-      course_name: Course Name
       manage_courses: Manage Courses
       manage_assignments: Manage Assignments
       manage_problems: Manage Problems
     connections:
       title: 'My Connections'
     courses:
+      course_name: Course Name
       new_course_button: New Course
     edit:
       change_gravatar: 'change'
     new:
       sign_up_header: 'Sign Up'
+    problems:
+      name: Name
+      new_problem_button: New Problem
+      problem_id: ID
     show:
       connection_url: 'Connection URL(share with friends/students)'

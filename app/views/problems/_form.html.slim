@@ -1,0 +1,36 @@
+= form_for @problem, html: { class: "form form-horizontal problem" } do |f|
+  .form-group
+    = f.label :name, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :name, :class => 'form-control'
+    = f.error_span(:name)
+  .form-group
+    = f.label :statement, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_area :statement, :class => 'form-control'
+    = f.error_span(:statement)
+  .form-group
+    = f.label :input_format, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_area :input_format, :class => 'form-control'
+    = f.error_span(:input_format)
+  .form-group
+    = f.label :output_format, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_area :output_format, :class => 'form-control'
+    = f.error_span(:output_format)
+  .form-group
+    = f.label :examples, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_area :examples, :class => 'form-control'
+    = f.error_span(:examples)
+  .form-group
+    = f.label :notes, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_area :notes, :class => 'form-control'
+    = f.error_span(:notes)
+  .form-group
+    .col-lg-offset-2.col-lg-10
+      = f.submit nil, :class => 'btn btn-primary'
+      '
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), administration_user_path(current_user), :class => 'btn'
