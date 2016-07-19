@@ -55,6 +55,14 @@ en:
       student_email: Email
       student_remove: Remove
       student_add: Add Student
+
+  problems:
+    edit:
+      general_desc_tab: General Description
+      test_cases_tab: Test Cases
+      output_gen_tab: Output Generator
+      checker_tab: Checker
+
   users:
     administration:
       title: Administration
@@ -76,3 +84,4 @@ en:
       problem_id: ID
     show:
       connection_url: 'Connection URL(share with friends/students)'
+      title: Profile

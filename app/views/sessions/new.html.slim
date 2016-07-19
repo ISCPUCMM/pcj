@@ -14,9 +14,11 @@ div.container
           = f.password_field :password, :class => 'form-control'
         = f.error_span(:password)
       .form-group
-        = f.label :remember_me, :class => 'checkbox inline control-label col-lg-2'
         .col-lg-10
-          = f.check_box :remember_me
+          .pull-right
+            = f.check_box :remember_me
+            = f.label :remember_me
+            / fix the styling of this ugly remember me!
       .form-group
         .col-lg-offset-2.col-lg-10
           = f.submit t('.submit_button'), :class => 'btn btn-primary'

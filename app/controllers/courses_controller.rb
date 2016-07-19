@@ -29,7 +29,7 @@ class CoursesController < ApplicationController
     student_id = student_params[:student]
 
     if @course.add_student(student_id)
-      flash[:success] = 'Student added successfully'
+      flash[:success] = 'Student added successfully to course'
     else
       flash[:warning] = 'Invalid selection'
     end
@@ -41,7 +41,7 @@ class CoursesController < ApplicationController
     student_id = params[:student_id]
 
     if @course.remove_student(student_id)
-      flash[:success] = 'Student removed successfully'
+      flash[:success] = 'Student removed successfully from course'
     else
       flash[:warning] = 'Something funky happened :)'
     end
@@ -52,8 +52,8 @@ class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params.merge(owner: current_user))
     if @course.save
-      flash[:info] = 'Course created successfully'
-      redirect_to administration_user_path(current_user)
+      flash[:info] = 'Course created successfully. Add students below or press cancel to go back to the menu.'
+      redirect_to edit_course_path(@course)
     else
       render 'new'
     end
