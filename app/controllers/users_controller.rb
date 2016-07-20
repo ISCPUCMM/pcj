@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :connect, :connections, :administration]
-  before_action :correct_user,   only: [:edit, :update, :connections, :administration]
+  before_action :logged_in_user, only: [:index, :edit, :show, :update, :destroy, :connect, :connections, :administration]
+  before_action :correct_user,   only: [:edit, :show, :update, :connections, :administration]
   before_action :admin_user,     only: [:index, :destroy]#USE CANCAN INSTEAD OF FILTERS!!!
 
   def index
