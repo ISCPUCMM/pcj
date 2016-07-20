@@ -1,5 +1,7 @@
 class ProblemsController < ApplicationController
   before_action :logged_in_user
+  before_action :check_problem_ownership, only: [:show, :edit, :update, :destroy, :upload_input_files]
+
 
   def index
     @problems = Problem.owned_by(current_user)
@@ -17,6 +19,11 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(params[:id])
   end
 
+  def upload_input_files
+    @problem = Problem.find(params[:id])
+    flash[:success] = 'Input files uploaded successfully' if @problem.upload_input_files(upload_input_files_params)
+    redirect_to :back
+  end
   # def destroy
   #   Course.find(params[:id]).destroy
   #   flash[:success] = 'Course deleted'
@@ -46,22 +53,32 @@ class ProblemsController < ApplicationController
     end
   end
 
-  # def update
-  #   @course = Course.find(params[:id])
-  #   if @course.update_attributes(course_params)
-  #     flash[:success] = 'Course updated'
-  #     redirect_to administration_user_path(current_user)
-  #   else
-  #     render 'edit'
-  #   end
-  # end
+  def update
+    @problem = Problem.find(params[:id])
+    if @problem.update_attributes(problem_params)
+      flash[:success] = 'Problem updated'
+      redirect_to administration_user_path(current_user)
+    else
+      render 'edit'
+    end
+  end
 
   private  def problem_params
     params.require(:problem).permit(:name, :statement, :input_format, :output_format, :examples, :notes)
   end
 
+  private  def upload_input_files_params
+    params.require(:problem).permit(:input_files)
+  end
   # private def student_params
   #   params.require(:course).permit(:student)
   # end
-
+  private def check_problem_ownership
+    if current_user?(Problem.find(params[:id]).owner)
+      true
+    else
+      flash[:danger] = "You do not have access to view page"
+      redirect_to(root_url)
+    end
+  end
 end

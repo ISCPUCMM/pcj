@@ -17,7 +17,7 @@ class OutputGenerator < Task
       run_code
       # return status if !status.eql?('OK')
       upload_output(output_key: key.gsub('.in', '.out')) if status.eql?('OK')
-      { status: status }
+      { input_file: key, status: status }
     end
   end
 

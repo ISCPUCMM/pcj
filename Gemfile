@@ -38,6 +38,8 @@ gem 'bootstrap-will_paginate', '0.0.10'
 
 gem 'sendgrid'
 gem 'cancan'
+gem 'rubyzip'
+gem 'delayed_job_active_record'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

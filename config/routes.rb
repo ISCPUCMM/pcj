@@ -45,7 +45,9 @@ Rails.application.routes.draw do
     delete 'remove_student', on: :member
   end
 
-  resources :problems
+  resources :problems do
+    put 'upload_input_files', on: :member
+  end
 
   get '/users/:connection_token/connect', to: 'users#connect', as: :user_connect
 
