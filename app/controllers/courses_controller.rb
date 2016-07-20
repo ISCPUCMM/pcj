@@ -21,7 +21,7 @@ class CoursesController < ApplicationController
   def destroy
     Course.find(params[:id]).destroy
     flash[:success] = 'Course deleted'
-    redirect_to user_administration_path(current_user)
+    redirect_to administration_user_path(current_user)
   end
 
   def add_student
@@ -29,7 +29,7 @@ class CoursesController < ApplicationController
     student_id = student_params[:student]
 
     if @course.add_student(student_id)
-      flash[:success] = 'Student added successfully'
+      flash[:success] = 'Student added successfully to course'
     else
       flash[:warning] = 'Invalid selection'
     end
@@ -41,7 +41,7 @@ class CoursesController < ApplicationController
     student_id = params[:student_id]
 
     if @course.remove_student(student_id)
-      flash[:success] = 'Student removed successfully'
+      flash[:success] = 'Student removed successfully from course'
     else
       flash[:warning] = 'Something funky happened :)'
     end
@@ -52,8 +52,8 @@ class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params.merge(owner: current_user))
     if @course.save
-      flash[:info] = 'Course created successfully'
-      redirect_to user_administration_path(current_user)
+      flash[:info] = 'Course created successfully. Add students below or press cancel to go back to the menu.'
+      redirect_to edit_course_path(@course)
     else
       render 'new'
     end
@@ -63,7 +63,7 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
     if @course.update_attributes(course_params)
       flash[:success] = 'Course updated'
-      redirect_to user_administration_path(current_user)
+      redirect_to administration_user_path(current_user)
     else
       render 'edit'
     end
@@ -77,13 +77,6 @@ class CoursesController < ApplicationController
     params.require(:course).permit(:student)
   end
 
-  private def logged_in_user
-    unless logged_in?
-      store_location
-      flash[:danger] = "Please log in."
-      redirect_to login_url
-    end
-  end
 
   private def check_course_ownership
     if current_user?(Course.find(params[:id]).owner)

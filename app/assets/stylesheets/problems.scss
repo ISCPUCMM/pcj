@@ -1,0 +1,20 @@
+.problem {
+  .form-group{
+    textarea.form-control {
+      height: 9em;
+
+        &#problem_code {
+        height: 20em;
+      }
+    }
+
+  }
+  .navbar {
+    margin-bottom: 0em;
+  }
+}
+
+#test-cases-form, #output-gen-form, #checker-form {
+  display: none;
+}
+

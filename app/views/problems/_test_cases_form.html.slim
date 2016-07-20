@@ -1,0 +1,13 @@
+= form_for @problem, url: upload_input_files_problem_path(@problem), method: 'put', html: { class: "form form-horizontal course" } do |f|
+  .form-group
+    = f.label :input_files, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.file_field :input_files, :class => 'form-control btn btn-primary'
+  .form-group
+    .col-lg-10.pull-right
+      = link_to "Download sample input", "www.google.com"
+  .form-group
+    .col-lg-offset-2.col-lg-10
+      = f.submit "#{t('.upload_input_files_button')}", :class => 'btn btn-primary'
+      - if @problem.input_files_uploaded_at?
+        .pull-right.label.label-success = t('.input_files_uploaded_label', uploaded_date: @problem.input_files_uploaded_at)

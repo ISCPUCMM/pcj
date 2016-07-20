@@ -4,31 +4,25 @@ div.container
       h2=t '.title'
 
     ul.nav.nav-tabs.nav-justified.management-tabs
-      li.active role="presentation"
+      li.active role="presentation" data-table_id='courses_table'
         a href="#courses" = t('.manage_courses')
-      li role="presentation"
+      li role="presentation" data-table_id='assignments_table'
         a href="#assignments" = t('.manage_assignments')
-      li role="presentation"
+      li role="presentation" data-table_id='problems_table'
         a href="#presentation" = t('.manage_problems')
 
-    .course-info
-      table.table.table-striped
-        thead
-          tr
-            th= t('.course_name')
-            th= t '.actions', :default => t("helpers.actions")
-        tbody
-          - @courses.each do |course|
-            tr
-              td= course.name
-              td
-                = link_to t('.edit', :default => t("helpers.links.edit")), edit_course_path(course), :class => 'btn btn-info btn-xs'
-      = link_to t('.new_course_button'), new_course_path, :class => 'btn btn-primary'
+    .management-tab-content id='courses_table'
+      = render partial: 'courses'
+    .management-tab-content id='assignments_table'
+      = render partial: 'assignments'
+    .management-tab-content id= 'problems_table'
+      = render partial: 'problems'
 
 coffee:
-
   $('.management-tabs li').click( () ->
     $('.management-tabs li.active').removeClass('active')
     $(@).addClass('active')
-  )
 
+    $('.management-tab-content').hide()
+    $("##{$(@).data('table_id')}").show()
+  )

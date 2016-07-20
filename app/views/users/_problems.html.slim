@@ -1,0 +1,13 @@
+table.table.table-striped
+  thead
+    tr
+      th= t('.problem_name')
+      th= t '.actions', :default => t("helpers.actions")
+  tbody
+    - @problems.each do |problem|
+      tr
+        td= problem.name
+        td
+          = link_to t('.edit', :default => t("helpers.links.edit")), edit_problem_path(problem), :class => 'btn btn-info btn-xs'
+
+= link_to t('.new_problem_button'), new_problem_path, :class => 'btn btn-primary'

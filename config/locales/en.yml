@@ -55,19 +55,38 @@ en:
       student_email: Email
       student_remove: Remove
       student_add: Add Student
+
+  problems:
+    edit:
+      general_desc_tab: General Description
+      test_cases_tab: Test Cases
+      output_gen_tab: Output Generator
+      checker_tab: Checker
+    test_cases_form:
+      upload_input_files_button: Upload Files
+      input_files_uploaded_label: Input files uploaded at %{uploaded_date}
+    output_gen_form:
+      generate_outputs_button: Generate
+      outputs_generated_at_label: Output files generated at %{generation_date}
   users:
     administration:
       title: Administration
-      course_name: Course Name
-      new_course_button: New Course
       manage_courses: Manage Courses
       manage_assignments: Manage Assignments
       manage_problems: Manage Problems
-    edit:
-      change_gravatar: 'change'
     connections:
       title: 'My Connections'
+    courses:
+      course_name: Course Name
+      new_course_button: New Course
+    edit:
+      change_gravatar: 'change'
     new:
       sign_up_header: 'Sign Up'
+    problems:
+      name: Name
+      new_problem_button: New Problem
+      problem_id: ID
     show:
       connection_url: 'Connection URL(share with friends/students)'
+      title: Profile
