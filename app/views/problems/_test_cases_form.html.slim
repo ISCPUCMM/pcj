@@ -9,4 +9,5 @@
   .form-group
     .col-lg-offset-2.col-lg-10
       = f.submit "#{t('.upload_input_files_button')}", :class => 'btn btn-primary'
-      .pull-right.label.label-success = t('.input_files_uploaded_label', uploaded_date: @problem.input_files_uploaded_at)
+      - if @problem.input_files_uploaded_at?
+        .pull-right.label.label-success = t('.input_files_uploaded_label', uploaded_date: @problem.input_files_uploaded_at)

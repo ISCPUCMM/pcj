@@ -1,7 +1,7 @@
 class ProblemsController < ApplicationController
   before_action :logged_in_user
-  before_action :check_problem_ownership, only: [:show, :edit, :update, :destroy, :upload_input_files]
-
+  before_action :check_problem_ownership, only: [:show, :edit, :update, :destroy, :upload_input_files, :generate_outputs]
+  before_action :check_input_files_uploaded, only: [:generate_outputs]
 
   def index
     @problems = Problem.owned_by(current_user)
@@ -24,24 +24,17 @@ class ProblemsController < ApplicationController
     flash[:success] = 'Input files uploaded successfully' if @problem.upload_input_files(upload_input_files_params)
     redirect_to :back
   end
-  # def destroy
-  #   Course.find(params[:id]).destroy
-  #   flash[:success] = 'Course deleted'
-  #   redirect_to administration_user_path(current_user)
-  # end
 
-  # def remove_student
-  #   @course = Course.find(params[:id])
-  #   student_id = params[:student_id]
+  def generate_outputs
+    @problem = Problem.find(params[:id])
+    if @problem.generate_outputs(generate_outputs_params)
+      flash[:success] = 'Generation of output enqueued, reload page in a minute to view status.'
+    else
+      flash[:danger] = 'Unable to generate output with provided options.'
+    end
 
-  #   if @course.remove_student(student_id)
-  #     flash[:success] = 'Student removed successfully'
-  #   else
-  #     flash[:warning] = 'Something funky happened :)'
-  #   end
-
-  #   redirect_to edit_course_path(params[:id])
-  # end
+    redirect_to(edit_problem_path(@problem))
+  end
 
   def create
     @problem = Problem.new(problem_params.merge(owner: current_user))
@@ -70,15 +63,26 @@ class ProblemsController < ApplicationController
   private  def upload_input_files_params
     params.require(:problem).permit(:input_files)
   end
-  # private def student_params
-  #   params.require(:course).permit(:student)
-  # end
+
+  private def generate_outputs_params
+    params.require(:problem).permit(:code, :language)
+  end
+
   private def check_problem_ownership
     if current_user?(Problem.find(params[:id]).owner)
       true
     else
       flash[:danger] = "You do not have access to view page"
       redirect_to(root_url)
+    end
+  end
+
+  private def check_input_files_uploaded
+    if (problem = Problem.find(params[:id])).input_files_uploaded_at?
+      true
+    else
+      flash[:danger] = 'You must upload input files before generating an output'
+      redirect_to(edit_problem_path(problem))
     end
   end
 end

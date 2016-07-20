@@ -47,6 +47,7 @@ Rails.application.routes.draw do
 
   resources :problems do
     put 'upload_input_files', on: :member
+    post 'generate_outputs', on: :member
   end
 
   get '/users/:connection_token/connect', to: 'users#connect', as: :user_connect

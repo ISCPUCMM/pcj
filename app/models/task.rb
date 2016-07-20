@@ -1,5 +1,5 @@
 class Task < ActiveRecord::Base
-  attr_accessor :uuid, :code, :input
+  attr_accessor :uuid, :input
   attr_reader :tmp_directory
 
   validates_presence_of :time_limit, :language

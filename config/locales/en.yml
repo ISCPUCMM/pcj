@@ -65,7 +65,9 @@ en:
     test_cases_form:
       upload_input_files_button: Upload Files
       input_files_uploaded_label: Input files uploaded at %{uploaded_date}
-
+    output_gen_form:
+      generate_outputs_button: Generate
+      outputs_generated_at_label: Output files generated at %{generation_date}
   users:
     administration:
       title: Administration
