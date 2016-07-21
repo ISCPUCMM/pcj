@@ -62,7 +62,7 @@ class AssignmentsController < ApplicationController
   def update
     @assignment = Assignment.find(params[:id])
     if @assignment.update_attributes(assignment_params)
-      flash[:success] = 'Assignemnt updated'
+      flash[:success] = 'Assignment updated'
       redirect_to administration_user_path(current_user)
     else
       render 'edit'
