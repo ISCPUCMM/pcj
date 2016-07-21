@@ -45,6 +45,11 @@ Rails.application.routes.draw do
     delete 'remove_student', on: :member
   end
 
+  resources :assignments do
+    post 'add_problem', on: :member
+    delete 'remove_problem', on: :member
+  end
+
   resources :problems do
     put 'upload_input_files', on: :member
     post 'generate_outputs', on: :member

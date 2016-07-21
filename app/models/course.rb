@@ -1,4 +1,6 @@
 class Course < ActiveRecord::Base
+  has_many :course_assignments
+  has_many :assignments, through: :course_assignments
   has_many :course_students
   has_many :users, through: :course_students
   belongs_to :owner, class_name: :User

@@ -1,0 +1,28 @@
+= form_for @assignment, html: { class: "form form-horizontal assignment" } do |f|
+  .form-group
+    = f.label :name, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :name, :class => 'form-control'
+    = f.error_span(:name)
+  .form-group
+    = f.label :starts_at, :class => 'control-label col-lg-2'
+    .col-lg-10
+      - Time.use_zone(Judge::Application.config.time_zone) do
+        = f.datetime_select :starts_at, start_year: DateTime.now.year,:class => 'form-control'
+    = f.error_span(:starts_at)
+  .form-group
+    - Time.use_zone(Judge::Application.config.time_zone) do
+      = f.label :ends_at, start_year: DateTime.now.year, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.datetime_select :ends_at, :class => 'form-control'
+    = f.error_span(:ends_at)
+  .form-group
+    = f.label :description, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :description, :class => 'form-control'
+    = f.error_span(:description)
+  .form-group
+    .col-lg-offset-2.col-lg-10
+      = f.submit nil, :class => 'btn btn-primary'
+      '
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), administration_user_path(current_user), :class => 'btn'

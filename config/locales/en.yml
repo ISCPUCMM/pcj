@@ -44,6 +44,14 @@ en:
       log_in_header: 'Log In'
       submit_button: 'Log In'
 
+  assignments:
+    problems:
+      problem_id: ID
+      problem_name: Name
+      problem_remove: Remove
+      problem_add: Add Problem
+
+
   courses:
     new:
       title: New Course
@@ -83,6 +91,11 @@ en:
       change_gravatar: 'change'
     new:
       sign_up_header: 'Sign Up'
+    assignments:
+      name: Name
+      start_time: Start Time
+      end_time: End Time
+      new_assignment_button: New Assignment
     problems:
       name: Name
       new_problem_button: New Problem

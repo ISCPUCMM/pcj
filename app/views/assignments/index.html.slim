@@ -1,0 +1,30 @@
+- model_class = Assignment
+.page-header
+  h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
+table.table.table-striped
+  thead
+    tr
+      th= model_class.human_attribute_name(:id)
+      th= model_class.human_attribute_name(:name)
+      th= model_class.human_attribute_name(:starts_at)
+      th= model_class.human_attribute_name(:ends_at)
+      th= model_class.human_attribute_name(:description)
+      th= model_class.human_attribute_name(:owner_id)
+      th= model_class.human_attribute_name(:created_at)
+      th=t '.actions', :default => t("helpers.actions")
+  tbody
+    - @assignments.each do |assignment|
+      tr
+        td= link_to assignment.id, assignment_path(assignment)
+        td= assignment.name
+        td= assignment.starts_at
+        td= assignment.ends_at
+        td= assignment.description
+        td= assignment.owner_id
+        td=l assignment.created_at
+        td
+          = link_to t('.edit', :default => t("helpers.links.edit")), edit_assignment_path(assignment), :class => 'btn btn-default btn-xs'
+          '
+          = link_to t('.destroy', :default => t("helpers.links.destroy")), assignment_path(assignment), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
+
+= link_to t('.new', :default => t("helpers.links.new")), new_assignment_path, :class => 'btn btn-primary'
