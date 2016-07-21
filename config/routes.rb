@@ -43,6 +43,8 @@ Rails.application.routes.draw do
   resources :courses do
     post 'add_student', on: :member
     delete 'remove_student', on: :member
+    post 'add_assignment', on: :member
+    delete 'remove_assignment', on: :member
   end
 
   resources :assignments do

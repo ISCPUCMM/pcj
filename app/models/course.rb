@@ -13,6 +13,10 @@ class Course < ActiveRecord::Base
     owner.connections.where.not(id: students.pluck(:id))
   end
 
+  def unadded_assignments
+    owner.assignment_ownerships.where.not(id: assignments.pluck(:id))
+  end
+
   def remove_student(student_id)
     student_relation = CourseStudent.find_by_course_id_and_user_id(self, student_id)
     student_relation.present? ? student_relation.destroy : false
@@ -23,6 +27,21 @@ class Course < ActiveRecord::Base
       false
     else
       students << User.find_by_id(student_id)
+      save!
+      true
+    end
+  end
+
+  def remove_assignment(assignment_id)
+    assignment_relation = CourseAssignment.find_by_course_id_and_assignment_id(self, assignment_id)
+    assignment_relation.present? ? assignment_relation.destroy : false
+  end
+
+  def add_assignment(assignment_id)
+    if (assignment_id.blank? || assignments.find_by_id(assignment_id))
+      false
+    else
+      assignments << Assignment.find_by_id(assignment_id)
       save!
       true
     end

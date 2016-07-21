@@ -63,6 +63,10 @@ en:
       student_email: Email
       student_remove: Remove
       student_add: Add Student
+    assignments:
+      name: Name
+      assignment_add: Add Assignment
+      assignment_remove: Remove
 
   problems:
     edit:
