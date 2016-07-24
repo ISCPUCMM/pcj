@@ -1,7 +1,7 @@
 require 'output_checker'
 
 class Grader < Task
-  validates_presence_of :file_key, :submission_id, :problem_id
+  validates_presence_of :file_key, :submission_id, :problem_id, :time_limit, :language
 
   def commit
     prepare_files_for_processing

@@ -1,33 +1,36 @@
 class InputFileUploader < Task
-  validates_presence_of :problem_id
+  attr_accessor :zip_inputs_path
+  validates_presence_of :problem_id, :zip_inputs_path
+
+  after_initialize :create_tmp_directory
 
   def commit
-    prepare_files_for_processing
-    # build_outputs
+    destroy_existing_files
+    upload_inputs
   ensure
     FileUtils.remove_entry_secure tmp_directory
   end
 
-  # #fix this ugly method, consider a separate class runner for each output
-  # private def build_outputs
-  #   input_file_keys.map do |key|
-  #     move_input_file(path: "#{input_files_directory}#{key}")
-  #     run_code
-  #     # return status if !status.eql?('OK')
-  #     upload_output(output_key: key.gsub('.in', '.out')) if status.eql?('OK')
-  #     { input_file: key, status: status }
-  #   end
-  # end
+  private def destroy_existing_files
+    input_file_keys.each do |key|
+      s3.delete_object(bucket: 'pcj-problem-inputs', key: key)
+    end
+  end
 
-  # private def upload_output(output_key:)
-  #   File.open(output_file_location, 'rb') do |file|
-  #     s3.put_object(bucket: 'pcj-problem-outputs', key: output_key, body: file)
-  #   end
-  # end
+  private def upload_inputs
+    Zip::File.open(zip_inputs_path) do |zip_file|
+      zip_file.reject { |entry| entry.name =~ /__MACOSX/ or entry.name =~ /\.DS_Store/ or !entry.file? }.each_with_index do |entry, idx|
+        dest_file = "#{tmp_directory}/#{idx}.in"
+        entry.extract(dest_file)
 
-  # private def prepare_files_for_processing
-  #   create_tmp_directory
-  #   download_input_files
-  #   create_code_file(target_code: code)
-  # end
+        upload_input(dest_file: dest_file, key: "#{problem_id}/#{idx}.in")
+      end
+    end
+  end
+
+  private def upload_input(dest_file:, key:)
+    File.open(dest_file, 'rb') do |file|
+      s3.put_object(bucket: 'pcj-problem-inputs', key: key, body: file)
+    end
+  end
 end

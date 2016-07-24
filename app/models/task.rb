@@ -2,7 +2,8 @@ class Task < ActiveRecord::Base
   attr_accessor :uuid, :input
   attr_reader :tmp_directory
 
-  validates_presence_of :time_limit, :language
+  #BAD modeling. Try to separate s3 in the future from this task stuff
+  # validates_presence_of :time_limit, :language
 
   def commit
     raise NotImplementedError, 'must implement this method'
