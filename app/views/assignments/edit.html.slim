@@ -1,0 +1,8 @@
+- model_class = Assignment
+div.container
+  div.jumbotron
+    .page-header
+      h2=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize
+    = render :partial => "form"
+    hr
+    = render partial: 'problems'

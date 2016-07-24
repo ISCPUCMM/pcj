@@ -1,0 +1,33 @@
+div.container
+  h3 Problems
+  table.table.table-striped
+    thead
+      tr
+        th= t('.problem_id')
+        th= t('.problem_name')
+        th= t('.problem_remove')
+    tbody
+      - @assignment.problems.each do |problem|
+        tr
+          td= problem.id
+          td= problem.name
+          td
+            = link_to remove_problem_assignment_path(id: @assignment.id, problem_id: problem.id), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
+              do
+                span.fa.fa-times aria-hidden='true'
+              end
+
+  = form_for @assignment, url: {action: 'add_problem', id: @assignment.id}, html: { method: 'POST', class: "form form-horizontal course", id: 'add_problem' } do |f|
+    .form_group
+      .row
+        .col-md-4
+          select.form-control name="assignment[problem]" id='#assignment_problem'
+            option value=''
+            - @assignment.unadded_problems.each do |problem|
+              option value="#{problem.id}" = problem.name
+            end
+        .col-md-8
+          = f.submit t('.problem_add'), :class => 'btn btn-primary'
+
+
+  / = select('course', 'students', @course.students.map(&:name),  include_blank: true)

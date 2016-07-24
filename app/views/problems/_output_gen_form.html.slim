@@ -17,6 +17,6 @@
       - if @problem.outputs_generated_at?
         .pull-right.label.label-success = t('.outputs_generated_at_label', generation_date: @problem.outputs_generated_at)
 
-- if @problem.outputs_generated_at?
+- if !@problem.outputs_generation_info.blank?
   div.container
-    .alert.alert-info = "Generated outputs info: #{@problem.outputs_generation_info}"
+    .alert.alert-info = "Last output generation info: #{@problem.outputs_generation_info}"

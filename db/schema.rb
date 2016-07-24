@@ -11,7 +11,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160720193915) do
+ActiveRecord::Schema.define(version: 20160721200335) do
+
+  create_table "assignment_problems", force: :cascade do |t|
+    t.integer  "assignment_id", limit: 4
+    t.integer  "problem_id",    limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "assignment_problems", ["assignment_id", "problem_id"], name: "index_assignment_problems_on_assignment_id_and_problem_id", unique: true, using: :btree
+  add_index "assignment_problems", ["assignment_id"], name: "index_assignment_problems_on_assignment_id", using: :btree
+  add_index "assignment_problems", ["problem_id"], name: "index_assignment_problems_on_problem_id", using: :btree
+
+  create_table "assignments", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.text     "description", limit: 65535
+    t.integer  "owner_id",    limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  create_table "course_assignments", force: :cascade do |t|
+    t.integer  "course_id",     limit: 4
+    t.integer  "assignment_id", limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "course_assignments", ["assignment_id"], name: "index_course_assignments_on_assignment_id", using: :btree
+  add_index "course_assignments", ["course_id", "assignment_id"], name: "index_course_assignments_on_course_id_and_assignment_id", unique: true, using: :btree
+  add_index "course_assignments", ["course_id"], name: "index_course_assignments_on_course_id", using: :btree
 
   create_table "course_students", force: :cascade do |t|
     t.integer  "user_id",    limit: 4

@@ -45,6 +45,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @courses = @user.course_ownerships
     @problems = @user.problem_ownerships
+    @assignments = @user.assignment_ownerships
   end
 
   def destroy
@@ -57,7 +58,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       @user.send_activation_email
-      flash[:info] = 'Please check your email to administrationctivate your account.'
+      flash[:info] = 'Please check your email to activate your account.'
       redirect_to root_url
     else
       render 'new'

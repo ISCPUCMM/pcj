@@ -1,5 +1,5 @@
 class Runner < Task
-  validates_presence_of :code, :language
+  validates_presence_of :code, :language, :time_limit, :language
 
   def commit
     prepare_files_for_processing
