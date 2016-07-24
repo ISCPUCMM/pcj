@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160721200335) do
+ActiveRecord::Schema.define(version: 20160724224248) do
 
   create_table "assignment_problems", force: :cascade do |t|
     t.integer  "assignment_id", limit: 4
@@ -80,18 +80,19 @@ ActiveRecord::Schema.define(version: 20160721200335) do
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "problems", force: :cascade do |t|
-    t.string   "name",                    limit: 255
-    t.text     "statement",               limit: 65535
-    t.text     "input_format",            limit: 65535
-    t.text     "output_format",           limit: 65535
-    t.text     "examples",                limit: 65535
-    t.text     "notes",                   limit: 65535
-    t.integer  "owner_id",                limit: 4
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.string   "name",                           limit: 255
+    t.text     "statement",                      limit: 65535
+    t.text     "input_format",                   limit: 65535
+    t.text     "output_format",                  limit: 65535
+    t.text     "examples",                       limit: 65535
+    t.text     "notes",                          limit: 65535
+    t.integer  "owner_id",                       limit: 4
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.datetime "input_files_uploaded_at"
     t.datetime "outputs_generated_at"
-    t.text     "outputs_generation_info", limit: 65535
+    t.text     "outputs_generation_info",        limit: 65535
+    t.boolean  "outputs_generation_in_progress"
   end
 
   create_table "tasks", force: :cascade do |t|

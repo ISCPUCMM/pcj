@@ -74,6 +74,7 @@ en:
       test_cases_tab: Test Cases
       output_gen_tab: Output Generator
       checker_tab: Checker
+      outputs_generation_in_progress_message: Problem modification forms will be back once outputs have been generated
     test_cases_form:
       upload_input_files_button: Upload Files
       input_files_uploaded_label: Input files uploaded at %{uploaded_date}

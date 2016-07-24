@@ -3,25 +3,27 @@ div.container
   div.jumbotron
     .page-header
       h2=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize
+    - if !@problem.outputs_generation_in_progress?
+      ul.nav.nav-tabs.nav-justified.problem-tabs
+        li.active role="presentation" data-form_id='main-form'
+          a href="#general_desc" = t('.general_desc_tab')
+        li role="presentation" data-form_id='test-cases-form'
+          a href="#test_cases" = t('.test_cases_tab')
+        li role="presentation" data-form_id='output-gen-form'
+          a href="#presentation" = t('.output_gen_tab')
+        li role="presentation" data-form_id='checker-form'
+          a href="#presentation" = t('.checker_tab')
 
-    ul.nav.nav-tabs.nav-justified.problem-tabs
-      li.active role="presentation" data-form_id='main-form'
-        a href="#general_desc" = t('.general_desc_tab')
-      li role="presentation" data-form_id='test-cases-form'
-        a href="#test_cases" = t('.test_cases_tab')
-      li role="presentation" data-form_id='output-gen-form'
-        a href="#presentation" = t('.output_gen_tab')
-      li role="presentation" data-form_id='checker-form'
-        a href="#presentation" = t('.checker_tab')
-
-    .problem-tab-content id='main-form'
-      = render :partial => "form"
-    .problem-tab-content id='test-cases-form'
-      = render :partial => "test_cases_form"
-    .problem-tab-content id='output-gen-form'
-      = render :partial => "output_gen_form"
-      .problem-tab-content id='checker-form'
-      = render :partial => "checker_form"
+      .problem-tab-content id='main-form'
+        = render :partial => "form"
+      .problem-tab-content id='test-cases-form'
+        = render :partial => "test_cases_form"
+      .problem-tab-content id='output-gen-form'
+        = render :partial => "output_gen_form"
+        .problem-tab-content id='checker-form'
+        = render :partial => "checker_form"
+    - else
+      h4.alert.alert-info = t('.outputs_generation_in_progress_message')
 
 / repetitive js that can be DRY'd up or using existing libraries for this
 coffee:
