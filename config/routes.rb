@@ -57,6 +57,11 @@ Rails.application.routes.draw do
     post 'generate_outputs', on: :member
   end
 
+  resources :test_cases, only: [] do
+    get 'show_input_file', on: :member
+    get 'show_output_file', on: :member
+  end
+
   get '/users/:connection_token/connect', to: 'users#connect', as: :user_connect
 
   get    '/login',   to: 'sessions#new'

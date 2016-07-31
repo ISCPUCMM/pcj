@@ -15,6 +15,8 @@ class InputFileUploader < Task
     input_file_keys.each do |key|
       s3.delete_object(bucket: 'pcj-problem-inputs', key: key)
     end
+
+    problem.test_cases.destroy_all
   end
 
   private def upload_inputs
@@ -23,7 +25,8 @@ class InputFileUploader < Task
         dest_file = "#{tmp_directory}/#{idx}.in"
         entry.extract(dest_file)
 
-        upload_input(dest_file: dest_file, key: "#{problem_id}/#{idx}.in")
+        test_case = TestCase.create!(tc_index: idx, problem: problem)
+        upload_input(dest_file: dest_file, key: test_case.s3_input_key)
       end
     end
   end

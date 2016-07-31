@@ -11,8 +11,9 @@ class Problem < ActiveRecord::Base
 
   has_many :assignment_problems
   has_many :assignments, through: :assignment_problems
-  attr_accessor :code, :tmp_directory, :input_file_keys#use task model
+  has_many :test_cases
   belongs_to :owner, class_name: :User
+  attr_accessor :code
 
   validates_presence_of :name, :owner
 

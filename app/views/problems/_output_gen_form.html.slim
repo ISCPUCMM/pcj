@@ -20,3 +20,5 @@
 - if !@problem.outputs_generation_info.blank?
   div.container
     .alert.alert-info = "Last output generation info: #{@problem.outputs_generation_info}"
+hr
+  = render partial: 'test_cases_table'
