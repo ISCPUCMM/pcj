@@ -1,0 +1,15 @@
+div.container
+  h3 = t('.generated_files')
+  table.table.table-striped
+    thead
+      tr
+        th= t('.input_file')
+        th= t('.output_file')
+        th= t('.weight')
+    tbody
+      - @problem.test_cases.each do |test_case|
+        tr
+          td= tc_input_file_row_text_for test_case
+          td= tc_output_file_row_text_for test_case
+          td NIL
+

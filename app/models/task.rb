@@ -75,8 +75,7 @@ class Task < ActiveRecord::Base
   end
 
   private def input_file_keys
-    @input_file_keys ||= s3.list_objects(bucket: 'pcj-problem-inputs', prefix: "#{problem_id}/")
-      .contents.map(&:key).reject{ |key| key.eql?("#{problem_id}/") }.to_set
+    @input_file_keys ||= problem.test_cases.map(&:s3_input_key)
   end
 
   private def move_input_file(path:)
@@ -85,5 +84,9 @@ class Task < ActiveRecord::Base
 
   private def run_code
     system "docker run -m 200M -v #{tmp_directory}/:/submitted_code --rm judge ruby code_runner/run.rb --pl=#{language} --limit=#{time_limit} --uuid=#{uuid}"
+  end
+
+  private def problem
+    @problem ||= Problem.find(problem_id)
   end
 end
