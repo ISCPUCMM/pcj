@@ -9,4 +9,12 @@ class TestCase < ActiveRecord::Base
   def s3_output_key
     "#{problem_id}/#{tc_index}.out"
   end
+
+  def input_file_url
+    Aws::S3::Object.new('pcj-problem-inputs', s3_input_key).presigned_url(:get, expires_in: 2.minutes)
+  end
+
+  def output_file_url
+    Aws::S3::Object.new('pcj-problem-outputs', s3_output_key).presigned_url(:get, expires_in: 2.minutes)
+  end
 end

@@ -9,7 +9,6 @@ div.container
     tbody
       - @problem.test_cases.each do |test_case|
         tr
-          td= tc_input_file_row_text_for test_case
-          td= tc_output_file_row_text_for test_case
+          td= link_to tc_input_file_row_text_for(test_case), show_input_file_test_case_path(test_case), target: '_blank'
+          td= link_to tc_output_file_row_text_for(test_case), show_output_file_test_case_path(test_case), target: '_blank'
           td NIL
-

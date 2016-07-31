@@ -15,6 +15,6 @@ module ProblemsHelper
   end
 
   def tc_output_file_row_text_for(test_case)
-    "#{test_case.tc_index}.in"
+    "#{test_case.tc_index}.out"
   end
 end
