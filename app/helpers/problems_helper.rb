@@ -17,4 +17,8 @@ module ProblemsHelper
   def tc_output_file_row_text_for(test_case)
     "#{test_case.tc_index}.out"
   end
+
+  def time_limit_select
+    Problem::TIME_LIMIT_RANGE.map { |t_l| ["#{t_l}s", t_l] }
+  end
 end

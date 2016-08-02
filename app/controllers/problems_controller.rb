@@ -49,15 +49,16 @@ class ProblemsController < ApplicationController
   def update
     @problem = Problem.find(params[:id])
     if @problem.update_attributes(problem_params)
-      flash[:success] = 'Problem updated'
-      redirect_to administration_user_path(current_user)
+      flash[:success] = 'Problem updated successfully'
+      redirect_to edit_problem_path(@problem)
     else
+      flash[:danger] = 'There was an error updating the problem'
       render 'edit'
     end
   end
 
   private  def problem_params
-    params.require(:problem).permit(:name, :statement, :input_format, :output_format, :examples, :notes)
+    params.require(:problem).permit(:name, :statement, :input_format, :output_format, :examples, :notes, :time_limit)
   end
 
   private  def upload_input_files_params

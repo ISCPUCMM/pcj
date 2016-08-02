@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160731011816) do
+ActiveRecord::Schema.define(version: 20160802221651) do
 
   create_table "assignment_problems", force: :cascade do |t|
     t.integer  "assignment_id", limit: 4
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 20160731011816) do
     t.datetime "outputs_generated_at"
     t.text     "outputs_generation_info",        limit: 65535
     t.boolean  "outputs_generation_in_progress"
+    t.integer  "time_limit",                     limit: 4
   end
 
   create_table "tasks", force: :cascade do |t|

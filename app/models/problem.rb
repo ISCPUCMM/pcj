@@ -9,6 +9,8 @@ class Problem < ActiveRecord::Base
     ruby
   )
 
+  TIME_LIMIT_RANGE = (1..60).to_a
+
   has_many :assignment_problems
   has_many :assignments, through: :assignment_problems
   has_many :test_cases
@@ -16,6 +18,7 @@ class Problem < ActiveRecord::Base
   attr_accessor :code
 
   validates_presence_of :name, :owner
+  validates :time_limit, inclusion: { within: TIME_LIMIT_RANGE, message: "time limit must be between 1-60 seconds"  }
 
   scope :owned_by, -> (user) { where(owner: user) }
 
@@ -28,7 +31,7 @@ class Problem < ActiveRecord::Base
   def generate_outputs(output_options)
     return false if output_options[:code].blank? || output_options[:language].blank?
     update_attributes(outputs_generated_at: nil, outputs_generation_in_progress: true)
-    OutputGenerator.create(output_options.merge(problem_id: id, time_limit: 2)).commit
+    OutputGenerator.create(output_options.merge(problem_id: id, time_limit: time_limit)).commit
   end
 
   def set_output_generation(output_results)
