@@ -30,6 +30,11 @@
       = f.text_area :notes, :class => 'form-control'
     = f.error_span(:notes)
   .form-group
+    = f.label :time_limit, t('.time_limit_label'), :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.select :time_limit, time_limit_select, { include_blank: true }, { class: 'form-control' }
+    = f.error_span(:time_limit)
+  .form-group
     .col-lg-offset-2.col-lg-10
       = f.submit nil, :class => 'btn btn-primary'
       '
