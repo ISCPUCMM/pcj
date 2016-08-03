@@ -40,7 +40,7 @@ Rails.application.routes.draw do
     get 'connections', on: :member
   end
 
-  resources :courses do
+  resources :courses, except: [:index] do
     post 'add_student', on: :member
     delete 'remove_student', on: :member
     post 'add_assignment', on: :member

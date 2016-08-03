@@ -1,15 +1,16 @@
 class ProblemsController < ApplicationController
   before_action :logged_in_user
-  before_action :check_problem_ownership, only: [:show, :edit, :update, :destroy, :upload_input_files, :generate_outputs]
+  before_action :check_problem_ownership, except: [:index, :new, :create]
   before_action :check_input_files_uploaded, only: [:generate_outputs]
 
   def index
     @problems = Problem.owned_by(current_user)
   end
 
-  # def show
-  #   @problem = Problem.find(params[:id])
-  # end
+  def show
+    @problem = Problem.find(params[:id])
+    redirect_to(edit_problem_path(@problem))
+  end
 
   def new
     @problem = Problem.new

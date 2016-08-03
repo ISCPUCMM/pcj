@@ -1,6 +1,6 @@
 class AssignmentsController < ApplicationController
   before_action :logged_in_user
-  before_action :check_assignment_ownership, only: [:show, :edit, :update, :destroy, :add_problem, :remove_problem]
+  before_action :check_assignment_ownership, except: [:index, :new, :create]
 
   def index
     @assignments = Assignment.owned_by(current_user)
@@ -8,21 +8,33 @@ class AssignmentsController < ApplicationController
 
   def show
     @assignment = Assignment.find(params[:id])
+    redirect_to edit_assignment_path(@assignment)
   end
 
   def new
     @assignment = Assignment.new
   end
 
+  def create
+    @assignment = Assignment.new(assignment_params.merge(owner: current_user))
+    if @assignment.save
+      flash[:info] = 'Assignment created successfully.'
+      redirect_to edit_assignment_path(@assignment)
+    else
+      render 'new'
+    end
+  end
+
   def edit
     @assignment = Assignment.find(params[:id])
   end
 
-  def destroy
-    Assignment.find(params[:id]).destroy
-    flash[:success] = 'Assignment deleted'
-    redirect_to administration_user_path(current_user)
-  end
+  #disables destroy until soft delete added
+  # def destroy
+  #   Assignment.find(params[:id]).destroy
+  #   flash[:success] = 'Assignment deleted'
+  #   redirect_to administration_user_path(current_user)
+  # end
 
   def add_problem
     @assignment = Assignment.find(params[:id])
@@ -47,16 +59,6 @@ class AssignmentsController < ApplicationController
     end
 
     redirect_to edit_assignment_path(params[:id])
-  end
-
-  def create
-    @assignment = Assignment.new(assignment_params.merge(owner: current_user))
-    if @assignment.save
-      flash[:info] = 'Assignment created successfully.'
-      redirect_to edit_assignment_path(@assignment)
-    else
-      render 'new'
-    end
   end
 
   def update

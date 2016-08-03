@@ -24,7 +24,6 @@ class Assignment < ActiveRecord::Base
       false
     else
       problems << Problem.find_by_id(problem_id)
-      save!
       true
     end
   end

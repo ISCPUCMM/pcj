@@ -17,8 +17,8 @@ class Problem < ActiveRecord::Base
   belongs_to :owner, class_name: :User
   attr_accessor :code
 
-  validates_presence_of :name, :owner
-  validates :time_limit, inclusion: { within: TIME_LIMIT_RANGE, message: "time limit must be between 1-60 seconds"  }
+  validates_presence_of :name, :owner, :statement
+  validates :time_limit, inclusion: { within: TIME_LIMIT_RANGE, message: "must be between 1-60 seconds"  }
 
   scope :owned_by, -> (user) { where(owner: user) }
 

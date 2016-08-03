@@ -1,10 +1,6 @@
 class CoursesController < ApplicationController
   before_action :logged_in_user
-  before_action :check_course_ownership, only: [:show, :edit, :update, :destroy, :add_student, :remove_student]
-
-  def index
-    @courses = Course.owned_by(current_user)
-  end
+  before_action :check_course_ownership, except: [:index, :new, :create]
 
   def show
     @course = Course.find(params[:id])
@@ -14,15 +10,26 @@ class CoursesController < ApplicationController
     @course = Course.new
   end
 
+  def create
+    @course = Course.new(course_params.merge(owner: current_user))
+    if @course.save
+      flash[:info] = 'Course created successfully. Add students below or press cancel to go back to the menu.'
+      redirect_to edit_course_path(@course)
+    else
+      render 'new'
+    end
+  end
+
   def edit
     @course = Course.find(params[:id])
   end
 
-  def destroy
-    Course.find(params[:id]).destroy
-    flash[:success] = 'Course deleted'
-    redirect_to administration_user_path(current_user)
-  end
+  #disables destroy until soft_delete added
+  # def destroy
+  #   Course.find(params[:id]).destroy
+  #   flash[:success] = 'Course deleted'
+  #   redirect_to administration_user_path(current_user)
+  # end
 
   def add_student
     @course = Course.find(params[:id])
@@ -72,16 +79,6 @@ class CoursesController < ApplicationController
     end
 
     redirect_to edit_course_path(params[:id])
-  end
-
-  def create
-    @course = Course.new(course_params.merge(owner: current_user))
-    if @course.save
-      flash[:info] = 'Course created successfully. Add students below or press cancel to go back to the menu.'
-      redirect_to edit_course_path(@course)
-    else
-      render 'new'
-    end
   end
 
   def update

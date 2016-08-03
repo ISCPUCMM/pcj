@@ -27,7 +27,6 @@ class Course < ActiveRecord::Base
       false
     else
       students << User.find_by_id(student_id)
-      save!
       true
     end
   end
@@ -42,7 +41,6 @@ class Course < ActiveRecord::Base
       false
     else
       assignments << Assignment.find_by_id(assignment_id)
-      save!
       true
     end
   end
