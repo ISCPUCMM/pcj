@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, except: [:new, :create]
-  before_action :correct_user, except: [:index, :destroy, :new, :create, :connect ]
+  before_action :correct_user, except: [:index, :destroy, :new, :create, :connect]
   before_action :admin_user, only: [:index, :destroy]#USE CANCAN INSTEAD OF FILTERS!!!
 
   def index
@@ -75,6 +75,9 @@ class UsersController < ApplicationController
     end
   end
 
+  def student_portal
+    @user = User.find(params[:id])
+  end
 
   private  def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)

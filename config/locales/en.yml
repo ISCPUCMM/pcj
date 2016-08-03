@@ -33,7 +33,7 @@ en:
       log_out: 'Log Out'
       account: 'Account'
       profile: 'Profile'
-      my_classes: 'My Courses'
+      student_portal: 'Student Portal'
       users: 'Users'
       connections: 'Connections'
       administration: 'Administration'
@@ -115,3 +115,7 @@ en:
     show:
       connection_url: 'Connection URL(share with friends/students)'
       title: Profile
+    student_portal:
+      title: My Student Portal
+      course_name_header: Course
+      professor_name_header: Professor

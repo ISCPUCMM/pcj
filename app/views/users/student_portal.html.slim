@@ -1,0 +1,16 @@
+.page-header
+  h2 = t '.title'
+
+.container
+  h3 My Courses
+  table.table.table-striped
+    thead
+      tr
+        th= t('.course_name')
+        th= t('.professor_name')
+    tbody
+      - @user.courses.each do |course|
+        tr
+          td= course.name
+          td= course.owner.name
+

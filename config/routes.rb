@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   resources :users  do
     get 'administration', on: :member
     get 'connections', on: :member
+    get 'student_portal', on: :member
   end
 
   resources :courses, except: [:index] do
