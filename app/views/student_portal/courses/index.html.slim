@@ -11,9 +11,8 @@
           th= t('.professor_name')
           th= t('.enter')
       tbody
-        - @user.courses.each do |course|
+        - @courses.each do |course|
           tr
             td= course.name
             td= course.owner.name
             td= link_to('', root_path, class: 'fa fa-rocket')
-

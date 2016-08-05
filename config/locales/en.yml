@@ -116,6 +116,6 @@ en:
       connection_url: 'Connection URL(share with friends/students)'
       title: Profile
     student_portal:
-      title: My Student Portal
+      title: Student Portal
       course_name_header: Course
       professor_name_header: Professor

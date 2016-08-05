@@ -19,7 +19,7 @@ nav.navbar.navbar-default
       ul.nav.navbar-nav.navbar-right
         - if logged_in?
           li
-            = link_to(t('.student_portal') , student_portal_user_path(current_user))
+            = link_to(t('.student_portal') , user_student_portal_courses_path(current_user))
           li.dropdown
             a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
               | #{t('.account')}
