@@ -10,6 +10,7 @@
               select.form-control name="problem[language]" id='#problem_language'
                 option value=''
                 - language_selection_options.each do |opt|
+                  option value=opt[:value] = opt[:text]
       .code-editor id='editor'
       .mapping-hidden-text-area = f.text_area :code, :class => 'form-control'
   .form-group
