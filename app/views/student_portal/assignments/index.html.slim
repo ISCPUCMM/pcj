@@ -1,0 +1,20 @@
+= render partial: 'student_portal/shared/header'
+
+.container
+  .jumbotron
+    h3 = t '.title'
+    table.table.table-striped
+      thead
+        tr
+          th= t '.assignment_name_header'
+          th= t '.start_time_header'
+          th= t '.end_time_header'
+          th= t '.enter_header'
+
+      tbody
+        - @assignments.each do |assignment|
+          tr
+            td= assignment.name
+            td= assignment.starts_at.strftime("%I:%M%p on %m/%d/%Y(ET)")
+            td= assignment.ends_at.strftime("%I:%M%p on %m/%d/%Y(ET)")
+            td= link_to('', root_url, class: 'fa fa-level-down fa-rotate-90')

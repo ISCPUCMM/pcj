@@ -1,14 +1,18 @@
 module StudentPortal
   class CoursesController < ApplicationController
+    before_action :load_user
     before_action :logged_in_user
     before_action :correct_user
 
     def index
-      @courses = User.find(params[:user_id]).courses
+      @courses = @user.courses
+    end
+
+    private def load_user
+      @user = User.find_by_id(params[:user_id]) or not_found
     end
 
     private def correct_user
-      @user = User.find(params[:user_id])
       if current_user?(@user)
         true
       else

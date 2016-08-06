@@ -15,3 +15,6 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree .
+//= require ace-min/ace
+//= require ace-min/theme-tomorrow_night
+//= require ace-min/mode-c_cpp

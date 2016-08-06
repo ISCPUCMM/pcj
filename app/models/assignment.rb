@@ -8,8 +8,6 @@ class Assignment < ActiveRecord::Base
   validate :time_span
   scope :owned_by, -> (user) { where(owner: user) }
 
-  #ADD ENDS_AT > STARTED_AT VALIDATION
-
   def unadded_problems
     owner.problem_ownerships.where.not(id: problems.pluck(:id))
   end

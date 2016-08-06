@@ -115,7 +115,21 @@ en:
     show:
       connection_url: 'Connection URL(share with friends/students)'
       title: Profile
-    student_portal:
-      title: Student Portal
-      course_name_header: Course
-      professor_name_header: Professor
+
+  student_portal:
+    shared:
+      header:
+        page_header_title: Student Portal
+    courses:
+      index:
+        title: My Courses
+        course_name_header: Course
+        professor_name_header: Professor
+        enter_header: Enter
+    assignments:
+      index:
+        title: My Assignments
+        assignment_name_header: Assignment
+        start_time_header: Start Time
+        end_time_header: End Time
+        enter_header: Enter

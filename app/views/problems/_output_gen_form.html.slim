@@ -1,16 +1,17 @@
 = form_for @problem, url: generate_outputs_problem_path(@problem), method: 'post', html: { class: "form form-horizontal problem" } do |f|
-  .navbar.navbar-default
-    .container-fluid
-      .navbar-header
-        .navbar-brand  Language
-      .navbar-left.navbar-form
-        .form-group
-          select.form-control name="problem[language]" id='#problem_language'
-            option value=''
-            - language_selection_options.each do |opt|
-              option value=opt[:value] = opt[:text]
-  .form-group.col-lg-10
-    = f.text_area :code, :class => 'form-control'
+  .form-group
+    .code-group
+      .navbar.navbar-default
+        .container-fluid
+          .navbar-header
+            .navbar-brand  Language
+          .navbar-left.navbar-form
+            .form-group
+              select.form-control name="problem[language]" id='#problem_language'
+                option value=''
+                - language_selection_options.each do |opt|
+      .code-editor id='editor'
+      .mapping-hidden-text-area = f.text_area :code, :class => 'form-control'
   .form-group
     .col-lg-offset-2.col-lg-10
       = f.submit t('.generate_outputs_button'), :class => 'btn btn-primary'
@@ -22,3 +23,4 @@
     .alert.alert-info = "Last output generation info: #{@problem.outputs_generation_info}"
 hr
   = render partial: 'test_cases_table'
+

@@ -1,18 +1,17 @@
-.page-header
-  h2 = t '.title'
+= render partial: 'student_portal/shared/header'
 
 .container
   .jumbotron
-    h3 My Courses
+    h3 = t '.title'
     table.table.table-striped
       thead
         tr
-          th= t('.course_name')
-          th= t('.professor_name')
-          th= t('.enter')
+          th= t '.course_name_header'
+          th= t '.professor_name_header'
+          th= t '.enter_header'
       tbody
         - @courses.each do |course|
           tr
             td= course.name
             td= course.owner.name
-            td= link_to('', root_path, class: 'fa fa-rocket')
+            td= link_to('', user_student_portal_course_assignments_path(user_id: current_user, course_id: course.id), class: 'fa fa-level-down fa-rotate-90')
