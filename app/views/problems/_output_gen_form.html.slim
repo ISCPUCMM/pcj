@@ -7,7 +7,7 @@
             .navbar-brand  Language
           .navbar-left.navbar-form
             .form-group
-              select.form-control name="problem[language]" id='#problem_language'
+              select.form-control.code-select name="problem[language]" id='#problem_language'
                 option value=''
                 - language_selection_options.each do |opt|
                   option value=opt[:value] = opt[:text]

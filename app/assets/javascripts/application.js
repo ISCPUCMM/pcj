@@ -18,3 +18,7 @@
 //= require ace-min/ace
 //= require ace-min/theme-tomorrow_night
 //= require ace-min/mode-c_cpp
+//= require ace-min/mode-plain_text
+//= require ace-min/mode-python
+//= require ace-min/mode-ruby
+
