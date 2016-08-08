@@ -125,11 +125,14 @@ en:
         title: My Courses
         course_name_header: Course
         professor_name_header: Professor
-        enter_header: Enter
     assignments:
       index:
         title: My Assignments
         assignment_name_header: Assignment
         start_time_header: Start Time
         end_time_header: End Time
-        enter_header: Enter
+    problems:
+      index:
+        title: Problems
+        problem_name_header: Name
+        problem_status_header: Status

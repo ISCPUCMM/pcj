@@ -1,0 +1,15 @@
+= render partial: 'student_portal/shared/header'
+
+.container
+  .jumbotron
+    h3 = @assignment.name
+    table.table.table-striped
+      thead
+        tr
+          th= t '.problem_name_header'
+          th= t '.problem_status_header'
+      tbody
+        - @problems.each do |problem|
+          tr
+            td= problem.name
+            td bgcolor="#FF9999" = 'WA :)'

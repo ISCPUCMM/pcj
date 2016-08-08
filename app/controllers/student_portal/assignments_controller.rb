@@ -1,8 +1,9 @@
 module StudentPortal
   class AssignmentsController < ApplicationController
+    before_action :logged_in_user
     before_action :load_user
     before_action :load_course
-    before_action :logged_in_user
+
     before_action :correct_user
     before_action :correct_course
 
@@ -23,7 +24,7 @@ module StudentPortal
         true
       else
         flash[:danger] = 'You do not have access to view page'
-        redirect_to(root_url)
+        redirect_to(root_url) and return false
       end
     end
 
@@ -31,8 +32,7 @@ module StudentPortal
       if @course.students.where(id: @user).present?
         true
       else
-        flash[:danger] = 'You do not have access to view page'
-        redirect_to(user_student_portal_courses_path(@user))
+        unauthorized_access_message_and_redirect_to user_student_portal_courses_path(@user)
       end
     end
   end

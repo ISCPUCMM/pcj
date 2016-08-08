@@ -3,7 +3,6 @@ $(document).on('ready page:load',  () ->
     editor_id = $(@).find('.code-editor').attr('id')
     hidden_text = $(@).find('.mapping-hidden-text-area textarea')
     editor = ace.edit(editor_id)
-    # editor.session.setMode("ace/mode/c_cpp");
     editor.setTheme('ace/theme/tomorrow_night')
     editor.getSession().on('change', () ->
       hidden_text.val(editor.getSession().getValue())

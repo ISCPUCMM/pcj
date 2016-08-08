@@ -1,0 +1,33 @@
+= render partial: 'student_portal/shared/header'
+.container
+  .jumbotron
+    h2 = "#{@assignment.name} problems will be available in:"
+    .countdown-clock id='clockdiv'
+      div
+        span.days
+        .smalltext Days
+      div
+        span.hours
+        .smalltext Hours
+      div
+        span.minutes
+        .smalltext Minutes
+      div
+        span.seconds
+        .smalltext Seconds
+
+    div id='assignment-rem-time' data-ms_left_to_start=@assignment_time_until_start_in_ms
+    div id='assignment-problems-url' data-assignment_url=user_student_portal_course_assignment_problems_url(user_id: current_user, course_id: @course.id, assignment_id: @assignment.id)
+
+
+coffee:
+  until_start = $('#assignment-rem-time').data('ms_left_to_start')
+  deadline = new Date(Date.parse(new Date()) + until_start);
+
+  countdown_reached_callback = ->
+    alert('The problems are available and you now are being redirected.')
+    window.location.href =  $('#assignment-problems-url').data('assignment_url')
+
+  new Date(Date.parse(new Date()) + until_start);
+  clock = new Clock
+  clock.initializeClock 'clockdiv', deadline, countdown_reached_callback

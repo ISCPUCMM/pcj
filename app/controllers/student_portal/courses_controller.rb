@@ -1,7 +1,7 @@
 module StudentPortal
   class CoursesController < ApplicationController
-    before_action :load_user
     before_action :logged_in_user
+    before_action :load_user
     before_action :correct_user
 
     def index

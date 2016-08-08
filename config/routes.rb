@@ -40,8 +40,12 @@ Rails.application.routes.draw do
     get 'connections', on: :member
 
     namespace :student_portal do
-      resources :courses, only: [:index, :show] do
-        resources :assignments, only: [:index]
+      resources :courses, only: [:index] do
+        resources :assignments, only: [:index] do
+          resources :problems, only: [:index] do
+            get 'assignment_start_countdown', on: :collection, as: :asc
+          end
+        end
       end
     end
   end

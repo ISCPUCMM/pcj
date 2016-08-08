@@ -8,10 +8,8 @@
         tr
           th= t '.course_name_header'
           th= t '.professor_name_header'
-          th= t '.enter_header'
       tbody
         - @courses.each do |course|
           tr
-            td= course.name
+            td= link_to(course.name, user_student_portal_course_assignments_path(user_id: current_user, course_id: course.id))
             td= course.owner.name
-            td= link_to('', user_student_portal_course_assignments_path(user_id: current_user, course_id: course.id), class: 'fa fa-level-down fa-rotate-90')
