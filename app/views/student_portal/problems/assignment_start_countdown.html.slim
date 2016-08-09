@@ -6,7 +6,7 @@
       div.col-md-5 id='clockdiv'
         = render partial: 'shared/countdown_clock'
 
-    div id='assignment-rem-time' data-ms_left_to_start=@assignment_time_until_start_in_ms
+    div id='assignment-rem-time' data-ms_left_to_start=@assignment.ms_left_to_start
     div id='assignment-problems-url' data-assignment_url=user_student_portal_course_assignment_problems_url(user_id: current_user, course_id: @course.id, assignment_id: @assignment.id)
 
 
@@ -18,6 +18,5 @@ coffee:
     alert('The problems are available and you now are being redirected.')
     window.location.href =  $('#assignment-problems-url').data('assignment_url')
 
-  new Date(Date.parse(new Date()) + until_start);
   clock = new Clock
   clock.initializeClock 'clockdiv', deadline, countdown_reached_callback

@@ -26,6 +26,13 @@ class Assignment < ActiveRecord::Base
     end
   end
 
+  def ms_left_to_start
+    (starts_at - DateTime.now).ceil * 1000
+  end
+
+  def ms_left_to_end
+    (ends_at - DateTime.now).ceil * 1000
+  end
 
   private def time_span
     if starts_at < DateTime.now

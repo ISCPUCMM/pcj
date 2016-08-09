@@ -144,5 +144,6 @@ en:
         title: Problems
         problem_name_header: Name
         problem_status_header: Status
+        time_remaining_text: 'Time remaining until deadline reached:'
       assignment_start_countdown:
         countdown_info_label: "%{assignment_name} problems will be available in"
