@@ -145,5 +145,7 @@ en:
         problem_name_header: Name
         problem_status_header: Status
         time_remaining_text: 'Time remaining until deadline reached:'
+        deadline_reached_message: The deadline for this problem set has been reached. You may still submit for 0 points.
       assignment_start_countdown:
         countdown_info_label: "%{assignment_name} problems will be available in"
+        assignment_started_message: The problems are available and you now are being redirected.
