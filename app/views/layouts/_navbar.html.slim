@@ -1,4 +1,4 @@
-nav.navbar.navbar-default
+nav.navbar.navbar-inverse
   .container
     .navbar-header
       button.navbar-toggle.collapsed aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" type="button"
@@ -17,9 +17,9 @@ nav.navbar.navbar-default
           a href="#contact"  Contact
 
       ul.nav.navbar-nav.navbar-right
-        li
-          = link_to(t('.my_classes') , users_path)
         - if logged_in?
+          li
+            = link_to(t('.student_portal') , user_student_portal_courses_path(current_user))
           li.dropdown
             a.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
               | #{t('.account')}

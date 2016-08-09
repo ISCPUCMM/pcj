@@ -38,6 +38,16 @@ Rails.application.routes.draw do
   resources :users  do
     get 'administration', on: :member
     get 'connections', on: :member
+
+    namespace :student_portal do
+      resources :courses, only: [:index] do
+        resources :assignments, only: [:index] do
+          resources :problems, only: [:index, :show] do
+            get 'assignment_start_countdown', on: :collection, as: :asc
+          end
+        end
+      end
+    end
   end
 
   resources :courses, except: [:index] do

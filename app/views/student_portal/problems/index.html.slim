@@ -1,0 +1,32 @@
+= render partial: 'student_portal/shared/header'
+
+.container
+  .jumbotron
+    h3 = @assignment.name
+    table.table.table-striped
+      thead
+        tr
+          th= t '.problem_name_header'
+          th= t '.problem_status_header'
+      tbody
+        - @problems.each do |problem|
+          tr
+            td= link_to(problem.name, user_student_portal_course_assignment_problem_path(user_id: current_user, course_id: @course.id, assignment_id: @assignment.id, id: problem.id))
+            td bgcolor="#FF9999" = 'WA :)'
+  .row
+    h3.col-md-5 = t('.time_remaining_text')
+    div.col-md-7 id='clockdiv'
+      = render partial: 'shared/countdown_clock'
+div id='assignment-ms-to-end' data-ms_left_to_end=@assignment.ms_left_to_end data-deadline_reached_message=t('.deadline_reached_message')
+
+coffee:
+  selector =$('#assignment-ms-to-end')
+  until_end = selector.data('ms_left_to_end')
+  deadline_message = selector.data('deadline_reached_message')
+  deadline = new Date(Date.parse(new Date()) + until_end);
+
+  countdown_reached_callback = ->
+    alert(deadline_message)
+
+  clock = new Clock
+  clock.initializeClock 'clockdiv', deadline, countdown_reached_callback

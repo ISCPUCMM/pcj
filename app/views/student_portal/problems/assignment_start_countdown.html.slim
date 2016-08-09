@@ -1,0 +1,24 @@
+= render partial: 'student_portal/shared/header'
+.container
+  .jumbotron
+    .row
+      h3.col-md-7 = t('.countdown_info_label', assignment_name: @assignment.name)
+      div.col-md-5 id='clockdiv'
+        = render partial: 'shared/countdown_clock'
+
+    div id='assignment-rem-time' data-ms_left_to_start=@assignment.ms_left_to_start data-assignment_started_message=t('.assignment_started_message') data-assignment_url=user_student_portal_course_assignment_problems_url(user_id: current_user, course_id: @course.id, assignment_id: @assignment.id)
+
+coffee:
+  selector = $('#assignment-rem-time')
+  until_start = selector.data('ms_left_to_start')
+  assignment_started_message = selector.data('assignment_started_message')
+  assignment_url = selector.data('assignment_url')
+
+  deadline = new Date(Date.parse(new Date()) + until_start);
+
+  countdown_reached_callback = ->
+    alert(assignment_started_message)
+    window.location.href =  assignment_url
+
+  clock = new Clock
+  clock.initializeClock 'clockdiv', deadline, countdown_reached_callback

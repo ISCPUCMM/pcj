@@ -8,8 +8,6 @@ class Assignment < ActiveRecord::Base
   validate :time_span
   scope :owned_by, -> (user) { where(owner: user) }
 
-  #ADD ENDS_AT > STARTED_AT VALIDATION
-
   def unadded_problems
     owner.problem_ownerships.where.not(id: problems.pluck(:id))
   end
@@ -28,6 +26,13 @@ class Assignment < ActiveRecord::Base
     end
   end
 
+  def ms_left_to_start
+    (starts_at - DateTime.now).ceil * 1000
+  end
+
+  def ms_left_to_end
+    (ends_at - DateTime.now).ceil * 1000
+  end
 
   private def time_span
     if starts_at < DateTime.now

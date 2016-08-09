@@ -1,0 +1,29 @@
+.countdown-clock{
+  font-family: sans-serif;
+  color: #fff;
+  display: inline-block;
+  font-weight: 100;
+  text-align: center;
+  font-size: 1em;
+}
+
+.countdown-clock > div{
+  padding: 0.5em;
+  background: #4a4848;
+  display: inline-block;
+
+  .smalltext{
+    padding-top: 0.25em;
+    font-size: 1em;
+  }
+}
+
+.countdown-clock div > span{
+  padding: 1em;
+  padding-top: 0.75em;
+  padding-bottom: 0.75em;
+  border-radius: 0.25em;
+  background: #2f2f2f;
+  display: inline-block;
+}
+

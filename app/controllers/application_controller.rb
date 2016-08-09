@@ -15,4 +15,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  private def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
+
+  private def unauthorized_access_message_and_redirect_to(redirect)
+    flash[:danger] = 'You do not have access to view page'
+    redirect_to((redirect || root_url)) and return false
+  end
 end

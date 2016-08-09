@@ -1,0 +1,19 @@
+.page-header
+  h2 = t '.title'
+
+.container
+  .jumbotron
+    h3 My Courses
+    table.table.table-striped
+      thead
+        tr
+          th= t('.course_name')
+          th= t('.professor_name')
+          th= t('.enter')
+      tbody
+        - @user.courses.each do |course|
+          tr
+            td= course.name
+            td= course.owner.name
+            td= link_to('', root_path, class: 'fa fa-rocket')
+
