@@ -11,5 +11,6 @@
       tbody
         - @problems.each do |problem|
           tr
-            td= problem.name
+            td= link_to(problem.name, user_student_portal_course_assignment_problem_path(user_id: current_user, course_id: @course.id, assignment_id: @assignment.id, id: problem.id))
             td bgcolor="#FF9999" = 'WA :)'
+

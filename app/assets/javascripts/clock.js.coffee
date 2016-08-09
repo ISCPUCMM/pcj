@@ -16,7 +16,7 @@ class Clock
       'seconds': Math.max(seconds, 0)
     }
 
-  initializeClock: (id, endtime, countdown_reached_callback) ->
+  initializeClock: (id, endtime, countdown_reached_callback = () -> {}) ->
     clock = document.getElementById(id)
     daysSpan = clock.querySelector('.days')
     hoursSpan = clock.querySelector('.hours')

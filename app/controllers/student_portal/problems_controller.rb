@@ -13,6 +13,10 @@ module StudentPortal
       @problems = @assignment.problems
     end
 
+    def show
+      @problem = @assignment.problems.find(params[:id])
+    end
+
     def assignment_start_countdown
       @assignment_time_until_start_in_ms = (@assignment.starts_at - DateTime.now).ceil * 1000
     end

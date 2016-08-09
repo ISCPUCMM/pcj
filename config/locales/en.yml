@@ -44,6 +44,13 @@ en:
       log_in_header: 'Log In'
       submit_button: 'Log In'
 
+  shared:
+    countdown_clock:
+      days_label: Days
+      hours_label: Hours
+      minutes_label: Minutes
+      seconds_label: Seconds
+
   assignments:
     problems:
       problem_id: ID
@@ -131,8 +138,11 @@ en:
         assignment_name_header: Assignment
         start_time_header: Start Time
         end_time_header: End Time
+        duration_header: Duration
     problems:
       index:
         title: Problems
         problem_name_header: Name
         problem_status_header: Status
+      assignment_start_countdown:
+        countdown_info_label: "%{assignment_name} problems will be available in"
