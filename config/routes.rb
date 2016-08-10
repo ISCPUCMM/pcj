@@ -50,6 +50,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :student_portal do
+    resources :problem_solutions, only: [:show]
+  end
+
   resources :courses, except: [:index] do
     post 'add_student', on: :member
     delete 'remove_student', on: :member

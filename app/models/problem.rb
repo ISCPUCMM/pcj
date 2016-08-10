@@ -9,6 +9,16 @@ class Problem < ActiveRecord::Base
     ruby
   )
 
+  # allow multiple compilers in future by passing a param to docker container for version
+  # make sure when deploying to production machines have the matching version of compilers
+  LANGUAGE_VERSION_MAP = {
+    c: 'gcc 5.3',
+    c_plus_plus: 'g++ 5.3',
+    java: '1.8',
+    python: '2.7',
+    ruby: '2.3'
+  }.with_indifferent_access
+
   TIME_LIMIT_RANGE = (1..60).to_a
 
   has_many :assignment_problems

@@ -4,6 +4,7 @@ $(document).on('ready page:load',  () ->
     hidden_text = $(@).find('.mapping-hidden-text-area textarea')
     editor = ace.edit(editor_id)
     editor.setTheme('ace/theme/tomorrow_night')
+    editor.setShowPrintMargin(false);
     editor.getSession().on('change', () ->
       hidden_text.val(editor.getSession().getValue())
     )
@@ -11,6 +12,7 @@ $(document).on('ready page:load',  () ->
     $(@).find('select.code-select').change( () ->
       mode = switch @.value
         when 'c', 'c_plus_plus' then 'c_cpp'
+        when 'java' then 'java'
         when 'ruby' then 'ruby'
         when 'python' then 'python'
         else 'plain_text'
