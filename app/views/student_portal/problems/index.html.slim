@@ -4,6 +4,7 @@
   = render partial: 'problems_nav'
   .jumbotron
     h3 = @assignment.name
+    = simple_format(@assignment.description, class: 'small')
     table.table.table-striped
       thead
         tr

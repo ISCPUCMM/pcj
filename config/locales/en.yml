@@ -158,3 +158,8 @@ en:
         output_format_header: Output Format
         examples_header: Examples
         notes_header: Notes
+        test_solution_button: Test Solution
+        submit_solution_button: Submit Solution
+        run_modal_title: Test Solution
+      test_solution_form:
+        test_solution_button: Run

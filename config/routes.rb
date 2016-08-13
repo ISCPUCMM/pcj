@@ -51,7 +51,9 @@ Rails.application.routes.draw do
   end
 
   namespace :student_portal do
-    resources :problem_solutions, only: [:show]
+    resources :problem_solutions, only: [] do
+      post 'test_solution', on: :member
+    end
   end
 
   resources :courses, except: [:index] do

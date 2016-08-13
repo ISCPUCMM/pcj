@@ -11,6 +11,10 @@ module StudentPortal
 
     def show
       @problem = @assignment.problems.find(params[:id])
+      @problem_solution = StudentPortal::ProblemSolution.find_or_create_by(course: @course,
+                                                                           assignment: @assignment,
+                                                                           problem: @problem,
+                                                                           user: @user)
     end
 
     def assignment_start_countdown

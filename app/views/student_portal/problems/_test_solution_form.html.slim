@@ -1,0 +1,49 @@
+= form_for @problem_solution, remote: true, url: test_solution_student_portal_problem_solution_path(@problem_solution), method: 'post', html: { :id => 'run_test_solution', :class => "form form-horizontal problem", :'data-type' => 'json' } do |f|
+  = f.hidden_field :code
+  = f.hidden_field :language
+  div.alert.alert-danger.col-lg-12 role='alert' id='param_errors' style= "display:none;"
+  div.alert.alert-warning.col-lg-12 role='alert' id='run_errors' style= "display:none;"
+  div.alert.alert-success.col-lg-12 role='alert' id='run_success' style= "display:none;"
+  .form-group
+    .col-lg-12
+      = f.label :input
+      = f.text_area :input, :class => 'form-control noresize', :wrap => 'off'
+  .form-group
+    .col-lg-12
+      .pull-right = f.submit t('.test_solution_button'), :class => 'btn btn-primary'
+
+.row
+  .col-lg-12
+    = label_tag "Output"
+  .col-lg-12
+    = text_area_tag :problem_solution_output, nil, rows: 8, disabled: true, wrap: 'off', class: 'form-control noresize'
+
+coffee:
+  # MOVE ALL THIS LOGIC OUT OF THE VIEW AND REFACTOR MORE NEATLY!
+  hide_alerts = () ->
+    run_test_solution = $('#run_test_solution')
+    run_test_solution.find('#param_errors').hide()
+    run_test_solution.find('#run_errors').hide()
+    run_test_solution.find('#run_success').hide()
+
+  $('#run_test_solution').on('ajax:success', (e, data, status, xhr) ->
+    hide_alerts()
+    run_result = JSON.parse(xhr.responseText)
+    if run_result['status'] == 'OK'
+      $('#problem_solution_output').val(run_result['output'])
+      $(@).find('#run_success').show().text(run_result['status'])
+    else
+      $(@).find('#run_errors').show().text(run_result['status'])
+
+  ).on 'ajax:error', (e, xhr, status, error) ->
+    hide_alerts()
+    $(@).find('#param_errors').show().text(JSON.parse(xhr.responseText)['errors'])
+
+  $('#run_test_solution').submit( ->
+    editor_container = $('#submit_proble_solution .code-group')
+    code = editor_container.find('.mapping-hidden-text-area textarea').val()
+    selected_language = editor_container.find("select[name='problem[language]']").val()
+
+    $(@).find('#student_portal_problem_solution_code').val(code)
+    $(@).find('#student_portal_problem_solution_language').val(selected_language)
+  )

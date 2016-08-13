@@ -20,7 +20,7 @@
     h4 = t('.notes_header')
     = simple_format(@problem.notes, class: 'small')
 
-  = form_for @problem, url: generate_outputs_problem_path(@problem), method: 'post', html: { class: "form form-horizontal problem" } do |f|
+  = form_for @problem_solution, url: test_solution_student_portal_problem_solution_path(@problem_solution), method: 'post', html: { id: 'submit_proble_solution', class: "form form-horizontal problem" } do |f|
     .form-group
       .code-group
         .navbar.navbar-default
@@ -37,11 +37,12 @@
         .mapping-hidden-text-area = f.text_area :code, :class => 'form-control'
     .form-group
       .col-lg-offset-2.col-lg-10
-        = f.submit t('.generate_outputs_button'), :class => 'btn btn-primary'
+        .pull-right
+          = content_tag :a, t('.test_solution_button'), id: 'foobar', href: "#run_modal", class: 'btn btn-info', data: {toggle: 'modal'}
+          '
+          = f.submit t('.submit_solution_button'), :class => 'btn btn-primary'
 
-= content_tag :a, "Modal", id: 'foobar', href: "#modal", class: 'btn', data: {toggle: 'modal'}
-
-= modal_dialog id: "modal",
-         header: { show_close: true, dismiss: 'modal', title: 'Output:' },
-         body:   { content: 'This is the body' },
-         footer: { content: content_tag(:a, 'Close', href: '#modal',class: 'btn', data: {toggle: 'modal'}) }
+= modal_dialog id: "run_modal",
+         header: { show_close: true, dismiss: 'modal', title: t('.run_modal_title') },
+         body:   { content:  (render partial: 'test_solution_form') },
+         footer: { content: content_tag(:a, 'Close', href: '#run_modal',class: 'btn', data: {toggle: 'modal'}) }

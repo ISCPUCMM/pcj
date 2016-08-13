@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160802221651) do
+ActiveRecord::Schema.define(version: 20160810204142) do
 
   create_table "assignment_problems", force: :cascade do |t|
     t.integer  "assignment_id", limit: 4
@@ -95,6 +95,22 @@ ActiveRecord::Schema.define(version: 20160802221651) do
     t.boolean  "outputs_generation_in_progress"
     t.integer  "time_limit",                     limit: 4
   end
+
+  create_table "student_portal_problem_solutions", force: :cascade do |t|
+    t.integer  "user_id",       limit: 4
+    t.integer  "course_id",     limit: 4
+    t.integer  "assignment_id", limit: 4
+    t.integer  "problem_id",    limit: 4
+    t.text     "code",          limit: 65535
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "student_portal_problem_solutions", ["assignment_id"], name: "index_student_portal_problem_solutions_on_assignment_id", using: :btree
+  add_index "student_portal_problem_solutions", ["course_id", "assignment_id", "problem_id", "user_id"], name: "problem_solution_index", unique: true, using: :btree
+  add_index "student_portal_problem_solutions", ["course_id"], name: "index_student_portal_problem_solutions_on_course_id", using: :btree
+  add_index "student_portal_problem_solutions", ["problem_id"], name: "index_student_portal_problem_solutions_on_problem_id", using: :btree
+  add_index "student_portal_problem_solutions", ["user_id"], name: "index_student_portal_problem_solutions_on_user_id", using: :btree
 
   create_table "tasks", force: :cascade do |t|
     t.integer  "time_limit",    limit: 4
