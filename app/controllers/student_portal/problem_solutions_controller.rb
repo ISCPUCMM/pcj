@@ -3,7 +3,7 @@ module StudentPortal
     before_action :load_problem_solution
     before_action :correct_user
 
-    def test_solution
+    def test
       task = Runner.new(test_solution_params.slice(:code, :input, :language).merge(time_limit: @problem_solution.time_limit))
       if task.valid?
         render json: task.commit, status: :ok
@@ -12,6 +12,13 @@ module StudentPortal
       end
     end
 
+    def submit
+      byebug
+    end
+
+    def save_code
+      byebug
+    end
 
     private  def test_solution_params
       params.require(:student_portal_problem_solution).permit(:id, :input, :code, :language)

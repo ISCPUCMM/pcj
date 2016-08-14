@@ -1,4 +1,4 @@
-= form_for @problem_solution, remote: true, url: test_solution_student_portal_problem_solution_path(@problem_solution), method: 'post', html: { :id => 'run_test_solution', :class => "form form-horizontal problem", :'data-type' => 'json' } do |f|
+= form_for @problem_solution, remote: true, url: test_student_portal_problem_solution_path(@problem_solution), method: 'post', html: { :id => 'run_test_solution', :class => "form form-horizontal problem", :'data-type' => 'json' } do |f|
   = f.hidden_field :code
   = f.hidden_field :language
   div.alert.alert-danger.col-lg-12 role='alert' id='param_errors' style= "display:none;"
@@ -20,6 +20,14 @@
 
 coffee:
   # MOVE ALL THIS LOGIC OUT OF THE VIEW AND REFACTOR MORE NEATLY!
+  $('#run_test_solution').submit( ->
+    editor_container = $('#submit_problem_solution .code-group')
+    code = editor_container.find('.mapping-hidden-text-area textarea').val()
+    selected_language = editor_container.find("select[name='student_portal_problem_solution[language]']").val()
+    $(@).find('#student_portal_problem_solution_code').val(code)
+    $(@).find('#student_portal_problem_solution_language').val(selected_language)
+  )
+
   hide_alerts = () ->
     run_test_solution = $('#run_test_solution')
     run_test_solution.find('#param_errors').hide()
@@ -39,11 +47,3 @@ coffee:
     hide_alerts()
     $(@).find('#param_errors').show().text(JSON.parse(xhr.responseText)['errors'])
 
-  $('#run_test_solution').submit( ->
-    editor_container = $('#submit_proble_solution .code-group')
-    code = editor_container.find('.mapping-hidden-text-area textarea').val()
-    selected_language = editor_container.find("select[name='problem[language]']").val()
-
-    $(@).find('#student_portal_problem_solution_code').val(code)
-    $(@).find('#student_portal_problem_solution_language').val(selected_language)
-  )

@@ -1,4 +1,4 @@
-= form_for @problem, url: generate_outputs_problem_path(@problem), method: 'post', html: { class: "form form-horizontal problem" } do |f|
+= form_for @problem, url: generate_outputs_problem_path(@problem), method: 'post', html: { class: "form form-horizontal problem", id: 'generate_outputs_form' } do |f|
   .form-group
     .code-group
       .navbar.navbar-default
@@ -25,3 +25,5 @@
 hr
   = render partial: 'test_cases_table'
 
+coffee:
+  new CodeEditor($('#generate_outputs_form .code-group')).initialize()

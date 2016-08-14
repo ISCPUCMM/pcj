@@ -20,16 +20,16 @@
     h4 = t('.notes_header')
     = simple_format(@problem.notes, class: 'small')
 
-  = form_for @problem_solution, url: test_solution_student_portal_problem_solution_path(@problem_solution), method: 'post', html: { id: 'submit_proble_solution', class: "form form-horizontal problem" } do |f|
+  = form_for @problem_solution, url: submit_student_portal_problem_solution_path(@problem_solution), method: 'post', html: { id: 'submit_problem_solution', class: "form form-horizontal problem" } do |f|
     .form-group
-      .code-group
+      .code-group.autosave-editor data-autosave_path=save_code_student_portal_problem_solution_path(@problem_solution)
         .navbar.navbar-default
           .container-fluid
             .navbar-header
               .navbar-brand  Language
             .navbar-left.navbar-form
               .form-group
-                select.form-control.code-select name="problem[language]" id='#problem_language'
+                select.form-control.code-select name="student_portal_problem_solution[language]" id='#student_portal_problem_language'
                   option value=''
                   - language_selection_options.each do |opt|
                     option value=opt[:value] = opt[:text]
@@ -40,9 +40,12 @@
         .pull-right
           = content_tag :a, t('.test_solution_button'), id: 'foobar', href: "#run_modal", class: 'btn btn-info', data: {toggle: 'modal'}
           '
-          = f.submit t('.submit_solution_button'), :class => 'btn btn-primary'
+          = f.submit t('.submit_solution_button'), name: 'student_portal_problem_solution[submit]', class: 'btn btn-primary'
 
 = modal_dialog id: "run_modal",
          header: { show_close: true, dismiss: 'modal', title: t('.run_modal_title') },
          body:   { content:  (render partial: 'test_solution_form') },
          footer: { content: content_tag(:a, 'Close', href: '#run_modal',class: 'btn', data: {toggle: 'modal'}) }
+
+coffee:
+  new CodeEditor($('#submit_problem_solution .code-group')).initialize()

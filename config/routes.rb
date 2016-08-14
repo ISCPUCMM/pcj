@@ -52,7 +52,9 @@ Rails.application.routes.draw do
 
   namespace :student_portal do
     resources :problem_solutions, only: [] do
-      post 'test_solution', on: :member
+      post 'test', on: :member
+      post 'submit', on: :member
+      patch 'save_code', on: :member
     end
   end
 
