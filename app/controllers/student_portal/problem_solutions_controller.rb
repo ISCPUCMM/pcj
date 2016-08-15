@@ -17,7 +17,15 @@ module StudentPortal
     end
 
     def save_code
-      byebug
+      if @problem_solution.update_attributes(code: params[:code])
+        render json: {}, status: :ok
+      else
+        render json: { errors: @problem_solution.errors.full_messages.join('; ') }, status: :unprocessable_entity
+      end
+    end
+
+    private def submit_solution_params
+      params.require(:student_portal_problem_solution).permit(:id, :code, :language)
     end
 
     private  def test_solution_params

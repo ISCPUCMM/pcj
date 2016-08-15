@@ -1,8 +1,9 @@
 = render partial: 'problems_nav'
 
 .container
-  .blog-header
-    h1.blog-title = @problem.name
+  .header
+    h1.title = @problem.name
+    p.small = t('.time_limit_label', time_limit: @problem.time_limit)
 
     h3 = t('.statement_header')
     = simple_format(@problem.statement, class: 'lead')
@@ -22,7 +23,7 @@
 
   = form_for @problem_solution, url: submit_student_portal_problem_solution_path(@problem_solution), method: 'post', html: { id: 'submit_problem_solution', class: "form form-horizontal problem" } do |f|
     .form-group
-      .code-group.autosave-editor data-autosave_path=save_code_student_portal_problem_solution_path(@problem_solution)
+      .code-group data-autosave_path=save_code_student_portal_problem_solution_path(@problem_solution)
         .navbar.navbar-default
           .container-fluid
             .navbar-header
@@ -33,6 +34,7 @@
                   option value=''
                   - language_selection_options.each do |opt|
                     option value=opt[:value] = opt[:text]
+            p.navbar-text.code-save-msg id='code_save_msg'
         .code-editor id='editor'
         .mapping-hidden-text-area = f.text_area :code, :class => 'form-control'
     .form-group
@@ -40,7 +42,7 @@
         .pull-right
           = content_tag :a, t('.test_solution_button'), id: 'foobar', href: "#run_modal", class: 'btn btn-info', data: {toggle: 'modal'}
           '
-          = f.submit t('.submit_solution_button'), name: 'student_portal_problem_solution[submit]', class: 'btn btn-primary'
+          = f.submit t('.submit_solution_button'), name: 'student_portal_problem_solution[submit]', class: 'btn btn-primary', data: { disable_with: t('.on_submit_msg') }
 
 = modal_dialog id: "run_modal",
          header: { show_close: true, dismiss: 'modal', title: t('.run_modal_title') },
@@ -48,4 +50,6 @@
          footer: { content: content_tag(:a, 'Close', href: '#run_modal',class: 'btn', data: {toggle: 'modal'}) }
 
 coffee:
-  new CodeEditor($('#submit_problem_solution .code-group')).initialize()
+  code_editor = new CodeEditor $('#submit_problem_solution .code-group')
+  code_editor.initialize_default()
+  code_editor.initialize_autosave()

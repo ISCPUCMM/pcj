@@ -153,6 +153,7 @@ en:
         problems_path_text: Problems
         submissions_path_text: Submissions
       show:
+        time_limit_label: "time limit: %{time_limit}s"
         statement_header: Statement
         input_format_header: Input Format
         output_format_header: Output Format
@@ -161,5 +162,7 @@ en:
         test_solution_button: Test Solution
         submit_solution_button: Submit Solution
         run_modal_title: Test Solution
+        on_submit_msg: Submitting...
       test_solution_form:
         test_solution_button: Run
+        on_submit_msg: Running...

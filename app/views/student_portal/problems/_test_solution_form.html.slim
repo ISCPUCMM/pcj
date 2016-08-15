@@ -10,7 +10,7 @@
       = f.text_area :input, :class => 'form-control noresize', :wrap => 'off'
   .form-group
     .col-lg-12
-      .pull-right = f.submit t('.test_solution_button'), :class => 'btn btn-primary'
+      .pull-right = f.submit t('.test_solution_button'), class: 'btn btn-primary', data: { disable_with: t('.on_submit_msg') }
 
 .row
   .col-lg-12

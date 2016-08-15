@@ -41,7 +41,6 @@ class Problem < ActiveRecord::Base
   def generate_outputs(output_options)
     return false if output_options[:code].blank? || output_options[:language].blank?
     update_attributes(outputs_generated_at: nil, outputs_generation_in_progress: true)
-    byebug
     OutputGenerator.create(output_options.merge(problem_id: id, time_limit: time_limit)).commit
   end
 
