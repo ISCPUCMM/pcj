@@ -1,8 +1,10 @@
 = render partial: 'student_portal/shared/header'
 
 .container
+  = render partial: 'problems_nav'
   .jumbotron
     h3 = @assignment.name
+    = simple_format(@assignment.description, class: 'small')
     table.table.table-striped
       thead
         tr
@@ -11,7 +13,7 @@
       tbody
         - @problems.each do |problem|
           tr
-            td= link_to(problem.name, user_student_portal_course_assignment_problem_path(user_id: current_user, course_id: @course.id, assignment_id: @assignment.id, id: problem.id))
+            td= link_to(problem.name, user_student_portal_course_assignment_problem_path(user_id: current_user, course_id: @course.id, assignment_id: @assignment.id, id: problem.id), target: '_blank')
             td bgcolor="#FF9999" = 'WA :)'
   .row
     h3.col-md-5 = t('.time_remaining_text')

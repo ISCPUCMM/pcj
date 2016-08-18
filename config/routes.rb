@@ -50,6 +50,14 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :student_portal do
+    resources :problem_solutions, only: [] do
+      post 'test', on: :member
+      post 'submit', on: :member
+      patch 'save_code', on: :member
+    end
+  end
+
   resources :courses, except: [:index] do
     post 'add_student', on: :member
     delete 'remove_student', on: :member

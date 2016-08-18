@@ -140,12 +140,29 @@ en:
         end_time_header: End Time
         duration_header: Duration
     problems:
+      assignment_start_countdown:
+        countdown_info_label: "%{assignment_name} problems will be available in"
+        assignment_started_message: The problems are available and you now are being redirected.
       index:
         title: Problems
         problem_name_header: Name
         problem_status_header: Status
         time_remaining_text: 'Time remaining until deadline reached:'
         deadline_reached_message: The deadline for this problem set has been reached. You may still submit for 0 points.
-      assignment_start_countdown:
-        countdown_info_label: "%{assignment_name} problems will be available in"
-        assignment_started_message: The problems are available and you now are being redirected.
+      problems_nav:
+        problems_path_text: Problems
+        submissions_path_text: Submissions
+      show:
+        time_limit_label: "time limit: %{time_limit}s"
+        statement_header: Statement
+        input_format_header: Input Format
+        output_format_header: Output Format
+        examples_header: Examples
+        notes_header: Notes
+        test_solution_button: Test Solution
+        submit_solution_button: Submit Solution
+        run_modal_title: Test Solution
+        on_submit_msg: Submitting...
+      test_solution_form:
+        test_solution_button: Run
+        on_submit_msg: Running...

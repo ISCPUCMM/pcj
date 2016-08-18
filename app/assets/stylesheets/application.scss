@@ -14,6 +14,13 @@
  *= require_self
  */
 
+
+/*
+REFACTOR COLORS BY MOVING TO THEIR OWN FILE!!!
+ex:
+$saving-color: #595959;
+*/
+
 .centered-text {
     text-align:center
 }
@@ -33,4 +40,28 @@
   .mapping-hidden-text-area {
     display: none;
   }
+  .code-save-msg {
+    &.saved {
+      color: #468847;
+      background: #E2F9E3;
+      border: 1px solid #99CC99;
+      border-radius: 0.25em;
+    }
+    &.saving {
+      color: #804000;
+      background: #ffa64d;
+      border: 1px solid #ff8000;
+      border-radius: 0.25em;
+    }
+    &.failed {
+      color: #330000;
+      background: #ff4d4d;
+      border: 1px solid #cc0000;
+      border-radius: 0.25em;
+    }
+  }
+}
+
+.noresize {
+  resize: none;
 }
