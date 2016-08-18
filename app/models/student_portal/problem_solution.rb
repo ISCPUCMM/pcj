@@ -3,6 +3,8 @@ class StudentPortal::ProblemSolution < ActiveRecord::Base
   belongs_to :assignment
   belongs_to :problem
   belongs_to :user
+  has_many :submissions, class_name: 'StudentPortal::Submission'
+
   attr_accessor :input, :language
 
   validates_presence_of :course, :assignment, :problem, :user
