@@ -113,10 +113,11 @@ ActiveRecord::Schema.define(version: 20160818185154) do
   add_index "student_portal_problem_solutions", ["user_id"], name: "index_student_portal_problem_solutions_on_user_id", using: :btree
 
   create_table "student_portal_submissions", force: :cascade do |t|
+    t.string   "language",            limit: 255
+    t.integer  "status",              limit: 4,   default: 0
     t.integer  "problem_solution_id", limit: 4
-    t.integer  "status",              limit: 4, default: 0
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
   end
 
   create_table "tasks", force: :cascade do |t|

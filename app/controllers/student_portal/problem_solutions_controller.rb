@@ -4,16 +4,26 @@ module StudentPortal
     before_action :correct_user
 
     def test
-      task = Runner.new(test_solution_params.slice(:code, :input, :language).merge(time_limit: @problem_solution.time_limit))
-      if task.valid?
-        render json: task.commit, status: :ok
+      code = test_solution_params[:code]
+      input = test_solution_params[:input]
+      language = test_solution_params[:language]
+
+      runner = @problem_solution.runner(submitted_code: code, submitted_language: language, input: input)
+      if runner.valid?
+        render json: runner.commit, status: :ok
       else
-        render json: { errors: task.errors.full_messages.join('; ') }, status: :unprocessable_entity
+        render json: { errors: runner.errors.full_messages.join('; ') }, status: :unprocessable_entity
       end
     end
 
     def submit
-      byebug
+      if @problem_solution.submit(submitted_code: submit_solution_params[:code], language: submit_solution_params[:language])
+        flash[:info] = 'Solution submitted'
+      else
+        flash[:danger] = 'Code and Language can\'t be blank'
+      end
+
+      redirect_to problem_show_path_for(@problem_solution)
     end
 
     def save_code
@@ -43,6 +53,10 @@ module StudentPortal
         flash[:danger] = 'You do not have access to view page'
         redirect_to(root_url) and return false
       end
+    end
+
+    private def problem_show_path_for(problem_solution)
+      user_student_portal_course_assignment_problem_path(problem_solution.problem_mapping_attributes)
     end
   end
 end
