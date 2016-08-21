@@ -19,11 +19,12 @@ module StudentPortal
     def submit
       if @problem_solution.submit(submitted_code: submit_solution_params[:code], language: submit_solution_params[:language])
         flash[:info] = 'Solution submitted'
+        redirect_to submissions_path_for(@problem_solution)
       else
         flash[:danger] = 'Code and Language can\'t be blank'
+        redirect_to problem_show_path_for(@problem_solution)
       end
 
-      redirect_to problem_show_path_for(@problem_solution)
     end
 
     def save_code
@@ -57,6 +58,10 @@ module StudentPortal
 
     private def problem_show_path_for(problem_solution)
       user_student_portal_course_assignment_problem_path(problem_solution.problem_mapping_attributes)
+    end
+
+    private def submissions_path_for(problem_solution)
+      user_student_portal_course_assignment_submissions_path(problem_solution.problem_mapping_attributes.except(:id))
     end
   end
 end

@@ -1,0 +1,18 @@
+= render partial: 'student_portal/shared/header'
+
+.container
+  = render partial: 'student_portal/shared/problems_nav'
+  .jumbotron
+    h3 = 'Submissions'
+    table.table
+      thead
+        tr
+          th= t '.problem_name'
+          th= t '.submitted_at'
+          th= t '.submission_status'
+      tbody
+        - @submissions.each do |submission|
+          tr.alert class=submission_status_class_for(submission)
+            td = submission.problem.name
+            td = submission.created_at.strftime("%I:%M:%S %p on %m/%d/%Y(ET)")
+            td = submission.status
