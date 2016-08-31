@@ -13,8 +13,4 @@ module SubmissionsHelper
       ''
     end
   end
-
-  def capu_status_class_for(course, assignment, problem, user)
-
-  end
 end

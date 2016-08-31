@@ -146,6 +146,8 @@ en:
         problem_name: Problem
         submitted_at: Submitted at
         submission_status: Status
+        submission_info: Info
+        submission_grade: Grade
     problems:
       assignment_start_countdown:
         countdown_info_label: "%{assignment_name} problems will be available in"

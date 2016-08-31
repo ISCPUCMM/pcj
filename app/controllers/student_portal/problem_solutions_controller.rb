@@ -8,7 +8,7 @@ module StudentPortal
       input = test_solution_params[:input]
       language = test_solution_params[:language]
 
-      runner = @problem_solution.runner(submitted_code: code, submitted_language: language, input: input)
+      runner = @problem_solution.runner(submitted_code: code, submitted_language: language, submitted_input: input)
       if runner.valid?
         render json: runner.commit, status: :ok
       else
@@ -17,7 +17,7 @@ module StudentPortal
     end
 
     def submit
-      if @problem_solution.submit(submitted_code: submit_solution_params[:code], language: submit_solution_params[:language])
+      if @problem_solution.submit(submitted_code: submit_solution_params[:code], submitted_language: submit_solution_params[:language])
         flash[:info] = 'Solution submitted'
         redirect_to submissions_path_for(@problem_solution)
       else
