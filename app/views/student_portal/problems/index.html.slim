@@ -9,12 +9,13 @@
       thead
         tr
           th= t '.problem_name_header'
-          th= t '.problem_status_header'
+          th= t '.problem_grade_header'
       tbody
         - @problems.each do |problem|
+          - problem_solution = StudentPortal::ProblemSolution.matching(course: @course, assignment: @assignment, problem: problem, user: current_user)
           tr
             td= link_to(problem.name, user_student_portal_course_assignment_problem_path(user_id: current_user, course_id: @course.id, assignment_id: @assignment.id, id: problem.id), target: '_blank')
-            td
+            td.alert class=status_class_for(problem_solution) = problem_solution.grade
   .row
     h3.col-md-5 = t('.time_remaining_text')
     div.col-md-7 id='clockdiv'

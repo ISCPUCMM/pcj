@@ -1,5 +1,5 @@
-module SubmissionsHelper
-  def submission_status_class_for(submission)
+module StudentPortalHelper
+  def status_class_for(submission)
     case submission.status
     when 'pending'
       'alert-info'

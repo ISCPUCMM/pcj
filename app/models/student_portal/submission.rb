@@ -1,7 +1,7 @@
 class StudentPortal::Submission < ActiveRecord::Base
-  belongs_to :problem_solution, class_name: 'StudentPortal::ProblemSolution'
+  include ProblemStatus
 
-  enum status: { pending: 0, accepted: 1, wa: 2, tle: 3, error: 4 }
+  belongs_to :problem_solution, class_name: 'StudentPortal::ProblemSolution'
 
   after_create :upload_submission
   after_create :calculate_grade
@@ -50,9 +50,9 @@ class StudentPortal::Submission < ActiveRecord::Base
   end
 
   private def update_problem_solution
-    # if valid_submission? && !problem_solution.accepted?
-    #   problem_solution.status = status
-    # end
+    if valid_submission? && !problem_solution.accepted? && grade >= problem_solution.grade
+      problem_solution.update_attributes(status: status, grade: grade)
+    end
   end
 
   private def set_status(test_result)

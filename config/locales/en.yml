@@ -155,7 +155,7 @@ en:
       index:
         title: Problems
         problem_name_header: Name
-        problem_status_header: Status
+        problem_grade_header: Grade
         time_remaining_text: 'Time remaining until deadline reached:'
         deadline_reached_message: The deadline for this problem set has been reached. You may still submit for 0 points.
       show:

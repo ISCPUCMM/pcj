@@ -1,4 +1,6 @@
 class StudentPortal::ProblemSolution < ActiveRecord::Base
+  include ProblemStatus
+
   belongs_to :course
   belongs_to :assignment
   belongs_to :problem
@@ -8,6 +10,12 @@ class StudentPortal::ProblemSolution < ActiveRecord::Base
   attr_accessor :input, :language
 
   validates_presence_of :course, :assignment, :problem, :user
+  def self.matching(course:, assignment:, problem:, user:)
+    StudentPortal::ProblemSolution.find_or_create_by(course: course,
+                                                     assignment: assignment,
+                                                     problem: problem,
+                                                     user: user)
+  end
 
   def time_limit
     problem.time_limit
