@@ -59,7 +59,7 @@ class ProblemsController < ApplicationController
   end
 
   private  def problem_params
-    params.require(:problem).permit(:name, :statement, :input_format, :output_format, :examples, :notes, :time_limit)
+    params.require(:problem).permit(:name, :statement, :input_format, :output_format, :examples, :notes, :time_limit, test_cases_attributes: [:weight, :id])
   end
 
   private  def upload_input_files_params

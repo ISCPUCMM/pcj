@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160831225427) do
+ActiveRecord::Schema.define(version: 20160902230101) do
 
   create_table "assignment_problems", force: :cascade do |t|
     t.integer  "assignment_id", limit: 4
@@ -138,10 +138,10 @@ ActiveRecord::Schema.define(version: 20160831225427) do
 
   create_table "test_cases", force: :cascade do |t|
     t.integer  "problem_id", limit: 4
-    t.integer  "weight",     limit: 4
+    t.integer  "weight",     limit: 4, default: 10
     t.integer  "tc_index",   limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   create_table "user_connections", force: :cascade do |t|

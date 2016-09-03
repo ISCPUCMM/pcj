@@ -27,6 +27,8 @@ class Problem < ActiveRecord::Base
   belongs_to :owner, class_name: :User
   attr_accessor :code
 
+  accepts_nested_attributes_for :test_cases
+
   validates_presence_of :name, :owner, :statement
   validates :time_limit, inclusion: { within: TIME_LIMIT_RANGE, message: "must be between 1-15 seconds"  }
 

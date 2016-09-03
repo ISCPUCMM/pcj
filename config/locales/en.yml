@@ -95,6 +95,7 @@ en:
       header: Generated Files
       input_file: Input
       output_file: Output
+      update_weights_button: Update Weights
   users:
     administration:
       title: Administration

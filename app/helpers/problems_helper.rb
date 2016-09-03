@@ -21,4 +21,8 @@ module ProblemsHelper
   def time_limit_select
     Problem::TIME_LIMIT_RANGE.map { |t_l| ["#{t_l}s", t_l] }
   end
+
+  def test_case_weight_range
+    TestCase::WEIGHT_RANGE
+  end
 end
