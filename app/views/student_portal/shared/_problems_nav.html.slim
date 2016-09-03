@@ -2,4 +2,4 @@
   .container
     nav.problems-nav
       = link_to(t('.problems_path_text'), user_student_portal_course_assignment_problems_path(user_id: current_user, course_id: @course.id, assignment_id: @assignment.id), class: 'problems-nav-item')
-      a.problems-nav-item href="#" = t('.submissions_path_text')
+      = link_to(t('.submissions_path_text'), user_student_portal_course_assignment_submissions_path(user_id: current_user, course_id: @course.id, assignment_id: @assignment.id), class: 'problems-nav-item')

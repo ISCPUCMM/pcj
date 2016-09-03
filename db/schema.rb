@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160810204142) do
+ActiveRecord::Schema.define(version: 20160902230101) do
 
   create_table "assignment_problems", force: :cascade do |t|
     t.integer  "assignment_id", limit: 4
@@ -102,15 +102,27 @@ ActiveRecord::Schema.define(version: 20160810204142) do
     t.integer  "assignment_id", limit: 4
     t.integer  "problem_id",    limit: 4
     t.text     "code",          limit: 65535
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.float    "grade",         limit: 24,    default: 0.0
+    t.integer  "status",        limit: 4,     default: 0
   end
 
   add_index "student_portal_problem_solutions", ["assignment_id"], name: "index_student_portal_problem_solutions_on_assignment_id", using: :btree
-  add_index "student_portal_problem_solutions", ["course_id", "assignment_id", "problem_id", "user_id"], name: "problem_solution_index", unique: true, using: :btree
   add_index "student_portal_problem_solutions", ["course_id"], name: "index_student_portal_problem_solutions_on_course_id", using: :btree
   add_index "student_portal_problem_solutions", ["problem_id"], name: "index_student_portal_problem_solutions_on_problem_id", using: :btree
+  add_index "student_portal_problem_solutions", ["user_id", "course_id", "assignment_id", "problem_id"], name: "problem_solution_index", unique: true, using: :btree
   add_index "student_portal_problem_solutions", ["user_id"], name: "index_student_portal_problem_solutions_on_user_id", using: :btree
+
+  create_table "student_portal_submissions", force: :cascade do |t|
+    t.string   "language",            limit: 255
+    t.integer  "status",              limit: 4,   default: 0
+    t.integer  "problem_solution_id", limit: 4
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.string   "info",                limit: 255
+    t.float    "grade",               limit: 24
+  end
 
   create_table "tasks", force: :cascade do |t|
     t.integer  "time_limit",    limit: 4
@@ -126,10 +138,10 @@ ActiveRecord::Schema.define(version: 20160810204142) do
 
   create_table "test_cases", force: :cascade do |t|
     t.integer  "problem_id", limit: 4
-    t.integer  "weight",     limit: 4
+    t.integer  "weight",     limit: 4, default: 10
     t.integer  "tc_index",   limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   create_table "user_connections", force: :cascade do |t|

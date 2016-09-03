@@ -95,6 +95,7 @@ en:
       header: Generated Files
       input_file: Input
       output_file: Output
+      update_weights_button: Update Weights
   users:
     administration:
       title: Administration
@@ -127,6 +128,9 @@ en:
     shared:
       header:
         page_header_title: Student Portal
+      problems_nav:
+        problems_path_text: Problems
+        submissions_path_text: Submissions
     courses:
       index:
         title: My Courses
@@ -139,6 +143,12 @@ en:
         start_time_header: Start Time
         end_time_header: End Time
         duration_header: Duration
+      submissions:
+        problem_name: Problem
+        submitted_at: Submitted at
+        submission_status: Status
+        submission_info: Info
+        submission_grade: Grade
     problems:
       assignment_start_countdown:
         countdown_info_label: "%{assignment_name} problems will be available in"
@@ -146,12 +156,9 @@ en:
       index:
         title: Problems
         problem_name_header: Name
-        problem_status_header: Status
+        problem_grade_header: Grade
         time_remaining_text: 'Time remaining until deadline reached:'
         deadline_reached_message: The deadline for this problem set has been reached. You may still submit for 0 points.
-      problems_nav:
-        problems_path_text: Problems
-        submissions_path_text: Submissions
       show:
         time_limit_label: "time limit: %{time_limit}s"
         statement_header: Statement

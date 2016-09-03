@@ -42,6 +42,8 @@ Rails.application.routes.draw do
     namespace :student_portal do
       resources :courses, only: [:index] do
         resources :assignments, only: [:index] do
+          get 'submissions'
+
           resources :problems, only: [:index, :show] do
             get 'assignment_start_countdown', on: :collection, as: :asc
           end

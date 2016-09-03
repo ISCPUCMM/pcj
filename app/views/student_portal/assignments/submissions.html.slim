@@ -1,0 +1,23 @@
+= render partial: 'student_portal/shared/header'
+
+.container
+  = render partial: 'student_portal/shared/problems_nav'
+  .jumbotron
+    h3 = 'Submissions'
+    table.table
+      thead
+        tr
+          th= t '.problem_name'
+          th= t '.submitted_at'
+          th= t '.submission_status'
+          th= t '.submission_grade'
+          th= t '.submission_info'
+      tbody
+        - @submissions.each do |submission|
+          tr.alert class=status_class_for(submission)
+            td = link_to submission.problem.name, user_student_portal_course_assignment_problem_path(user_id: current_user, course_id: @course.id, assignment_id: @assignment.id, id: submission.problem.id)
+            td = submission.created_at.strftime("%I:%M:%S %p on %m/%d/%Y(ET)")
+            td = submission.status
+            td = submission.grade
+            td = submission.info
+

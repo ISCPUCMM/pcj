@@ -1,7 +1,11 @@
 require 'output_checker'
+require 'test_result'
 
 class Grader < Task
-  validates_presence_of :file_key, :submission_id, :problem_id, :time_limit, :language
+  belongs_to :submission, class_name: 'StudentPortal::Submission'
+  belongs_to :problem
+
+  validates_presence_of :submission, :problem, :time_limit, :language
 
   def commit
     prepare_files_for_processing
@@ -41,20 +45,22 @@ class Grader < Task
   end
 
   private def compare_outputs
-    input_file_keys.map do |key|
-      move_input_file(path: "#{input_files_directory}#{key}")
-      output_key = key.gsub('.in', '.out')
+    problem.test_cases.map do |test_case|
+      move_input_file(path: "#{input_files_directory}#{test_case.s3_input_key}")
+      output_key = test_case.s3_output_key
       run_code
 
-      { status: status,
-        accepted: status.eql?('OK') ? OutputChecker.new(student_output: output_file_location, professor_output: "#{output_files_directory}#{output_key}").valid_output? : false
-      }
+      TestResult.new(
+        status: status,
+        test_case: test_case,
+        accepted: status.eql?('OK') && OutputChecker.new(student_output: output_file_location, professor_output: "#{output_files_directory}#{output_key}").valid_output?
+      )
     end
   end
 
   private def download_submission
     File.open(code_file_location, 'wb') do |file|
-      reap = s3.get_object({ bucket:'pcj-user-submissions', key: file_key }, target: file)
+      reap = s3.get_object({ bucket:'pcj-user-submissions', key: submission.key }, target: file)
     end
   end
 end

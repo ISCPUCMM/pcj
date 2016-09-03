@@ -19,7 +19,7 @@ class Problem < ActiveRecord::Base
     ruby: '2.3'
   }.with_indifferent_access
 
-  TIME_LIMIT_RANGE = (1..60).to_a
+  TIME_LIMIT_RANGE = (1..15).to_a
 
   has_many :assignment_problems
   has_many :assignments, through: :assignment_problems
@@ -27,8 +27,10 @@ class Problem < ActiveRecord::Base
   belongs_to :owner, class_name: :User
   attr_accessor :code
 
+  accepts_nested_attributes_for :test_cases
+
   validates_presence_of :name, :owner, :statement
-  validates :time_limit, inclusion: { within: TIME_LIMIT_RANGE, message: "must be between 1-60 seconds"  }
+  validates :time_limit, inclusion: { within: TIME_LIMIT_RANGE, message: "must be between 1-15 seconds"  }
 
   scope :owned_by, -> (user) { where(owner: user) }
 
