@@ -86,7 +86,9 @@ class StudentPortal::Submission < ActiveRecord::Base
     end
 
     if valid_submission?
-      self.grade = (Float(test_results.select(&:accepted).count)/test_results.count)*100.0
+      denom = test_results.map(&:weight).sum
+      nom = test_results.select(&:accepted).map(&:weight).sum
+      self.grade = (Float(nom)/denom)*100.0
       update_problem_solution
     else
       self.grade = 0
