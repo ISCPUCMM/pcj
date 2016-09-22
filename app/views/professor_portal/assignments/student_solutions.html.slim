@@ -1,0 +1,28 @@
+= render partial: 'professor_portal/shared/header'
+
+.container
+  .jumbotron
+    h4.text-center = t '.submissions_container_title'
+    table.table
+      thead
+        tr
+          th= t '.problem_name'
+          th= t '.submitted_at'
+          th= t '.submission_status'
+          th= t '.submission_grade'
+          th= t '.submission_info'
+          th= t '.submitted_by'
+      tbody
+        - @submissions.each do |submission|
+          tr.alert class=status_class_for(submission)
+            td = submission.problem.name
+            td = submission.created_at.strftime("%I:%M:%S %p on %m/%d/%Y(ET)")
+            td = submission.status
+            td = submission.grade
+            td = submission.info
+            td = submission.user.name
+    = will_paginate @submissions
+.container
+  .jumbotron
+    h3 = t '.title'
+

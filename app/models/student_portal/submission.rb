@@ -8,7 +8,7 @@ class StudentPortal::Submission < ActiveRecord::Base
 
   attr_accessor :code
 
-  delegate :course, :assignment, :problem, to: :problem_solution
+  delegate :course, :assignment, :problem, :user, to: :problem_solution
 
 
   scope :course_assignment_submissions_for, -> (course, assignment) do

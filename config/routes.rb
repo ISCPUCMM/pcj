@@ -50,6 +50,14 @@ Rails.application.routes.draw do
         end
       end
     end
+
+    namespace :professor_portal do
+      resources :courses, only: [:index] do
+        resources :assignments, only: [:index] do
+          get 'student_solutions'
+        end
+      end
+    end
   end
 
   namespace :student_portal do
