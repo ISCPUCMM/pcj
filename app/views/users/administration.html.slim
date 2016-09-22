@@ -26,3 +26,6 @@ coffee:
     $('.management-tab-content').hide()
     $("##{$(@).data('table_id')}").show()
   )
+
+  locat = document.location.toString().split('#')[1]
+  $(".management-tabs li a[href='##{locat}']").click()

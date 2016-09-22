@@ -9,5 +9,7 @@ table.table.table-striped
         td= problem.name
         td
           = link_to t('.edit', :default => t("helpers.links.edit")), edit_problem_path(problem), :class => 'btn btn-info btn-xs'
-
-= link_to t('.new_problem_button'), new_problem_path, :class => 'btn btn-primary'
+div
+  = will_paginate @problems, param_name: 'problems_page'
+div
+  = link_to t('.new_problem_button'), new_problem_path, :class => 'btn btn-primary'
