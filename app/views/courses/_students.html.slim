@@ -17,16 +17,20 @@ div.container
                 span.fa.fa-times aria-hidden='true'
               end
 
-  = form_for @course, url: {action: 'add_student', id: @course.id}, html: { method: 'POST', class: "form form-horizontal course", id: 'add_student' } do |f|
-    .form_group
-      .row
-        .col-md-4
-          select.form-control name="course[student]" id='#course_student'
-            option value=''
-            - @course.unadded_students.each do |student|
-              option value="#{student.id}" = student.name
-            end
-        .col-md-8
+  .container.alert-info
+    = form_for @course, url: {action: 'add_students', id: @course.id}, html: { method: 'POST', class: "form form-horizontal course", id: 'add_student' } do |f|
+      .form-group
+        .col-md-8.offset-4
+          = f.collection_check_boxes(:students, @course.unadded_students, :id, :name_with_email) do |b|
+            .row
+              = b.label(class: 'checkbox') do
+                .col-xs-offset-1.col-xs-1
+                  = b.check_box(class: 'checkbox')
+                .col-xs-10-offset-1
+                  = b.object.name_with_email
+
+      .form-group
+        .col-md-12
           = f.submit t('.student_add'), :class => 'btn btn-primary'
 
 
