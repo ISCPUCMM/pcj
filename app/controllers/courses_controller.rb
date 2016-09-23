@@ -65,7 +65,7 @@ class CoursesController < ApplicationController
     else
       flash[:warning] = 'Invalid selection'
     end
-    redirect_to edit_course_path(params[:id])
+    redirect_to edit_course_path(params[:id], anchor: 'assignments')
   end
 
   def remove_assignment
@@ -78,7 +78,7 @@ class CoursesController < ApplicationController
       flash[:warning] = 'Something funky happened :)'
     end
 
-    redirect_to edit_course_path(params[:id])
+    redirect_to edit_course_path(params[:id], anchor: 'assignments')
   end
 
   def update

@@ -27,6 +27,15 @@ class CodeEditor
       @hidden_text.val(@editor.getSession().getValue())
     )
 
+  set_read_only: ->
+    @editor.setReadOnly(true)
+
+  inverse_editor: ->
+    @set_read_only()
+    @hidden_text.on('change', =>
+      @editor.getSession().setValue(@hidden_text.val())
+    )
+
   initialize_autosave: ->
 
     set_save_message = (message, class_name) =>

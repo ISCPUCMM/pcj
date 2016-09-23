@@ -146,6 +146,10 @@ en:
         submission_status: Status
         submission_info: Info
         submission_grade: Grade
+        submission_view: View
+        submission_view_btn: View
+        student_work_title: Student Work So Far
+        refresh_button: Refresh
   student_portal:
     shared:
       header:
@@ -171,6 +175,8 @@ en:
         submission_status: Status
         submission_info: Info
         submission_grade: Grade
+        submission_view: View
+        submission_view_btn: View
     problems:
       assignment_start_countdown:
         countdown_info_label: "%{assignment_name} problems will be available in"

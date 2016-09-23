@@ -38,6 +38,10 @@ class StudentPortal::Submission < ActiveRecord::Base
     "#{problem_solution.user_id}/#{id}"
   end
 
+  def submission_url
+    Aws::S3::Object.new('pcj-user-submissions', key).presigned_url(:get, expires_in: 1.minute)
+  end
+
   private def upload_submission
     Aws::S3::Client.new.put_object(bucket: 'pcj-user-submissions', key: key, body: code)
   end

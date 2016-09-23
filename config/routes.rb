@@ -61,10 +61,13 @@ Rails.application.routes.draw do
   end
 
   namespace :student_portal do
+    resources :submissions, only: [:show]
+
     resources :problem_solutions, only: [] do
-      post 'test', on: :member
       post 'submit', on: :member
       patch 'save_code', on: :member
+      post 'test', on: :member
+      post 'user_solutions', on: :collection
     end
   end
 

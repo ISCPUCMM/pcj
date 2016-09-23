@@ -12,6 +12,7 @@
           th= t '.submission_status'
           th= t '.submission_grade'
           th= t '.submission_info'
+          th= t '.submission_view'
       tbody
         - @submissions.each do |submission|
           tr.alert class=status_class_for(submission)
@@ -20,4 +21,6 @@
             td = submission.status
             td = submission.grade
             td = submission.info
+            td = link_to t('.submission_view_btn'), student_portal_submission_path(submission), class: 'btn btn-info btn-xs', target: '_blank'
+    = will_paginate @submissions
 
