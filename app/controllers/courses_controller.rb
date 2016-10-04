@@ -31,6 +31,18 @@ class CoursesController < ApplicationController
   #   redirect_to administration_user_path(current_user)
   # end
 
+  def add_students
+    @course =  Course.find(params[:id])
+
+    if(add_students_params[:students].present? && @course.add_students(add_students_params[:students]))
+      flash[:success] = 'Student added successfully to course'
+    else
+      flash[:warning] = 'Invalid selection'
+    end
+
+    redirect_to edit_course_path(params[:id])
+  end
+
   def add_student
     @course = Course.find(params[:id])
     student_id = student_params[:student]
@@ -65,7 +77,7 @@ class CoursesController < ApplicationController
     else
       flash[:warning] = 'Invalid selection'
     end
-    redirect_to edit_course_path(params[:id])
+    redirect_to edit_course_path(params[:id], anchor: 'assignments')
   end
 
   def remove_assignment
@@ -78,7 +90,7 @@ class CoursesController < ApplicationController
       flash[:warning] = 'Something funky happened :)'
     end
 
-    redirect_to edit_course_path(params[:id])
+    redirect_to edit_course_path(params[:id], anchor: 'assignments')
   end
 
   def update
@@ -101,6 +113,10 @@ class CoursesController < ApplicationController
 
   private def assignment_params
     params.require(:course).permit(:assignment)
+  end
+
+  private def add_students_params
+    params.require(:course).permit(students: [])
   end
 
   private def check_course_ownership

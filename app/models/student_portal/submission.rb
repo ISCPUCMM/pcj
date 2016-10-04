@@ -8,7 +8,7 @@ class StudentPortal::Submission < ActiveRecord::Base
 
   attr_accessor :code
 
-  delegate :course, :assignment, :problem, to: :problem_solution
+  delegate :course, :assignment, :problem, :user, to: :problem_solution
 
 
   scope :course_assignment_submissions_for, -> (course, assignment) do
@@ -36,6 +36,10 @@ class StudentPortal::Submission < ActiveRecord::Base
 
   def key
     "#{problem_solution.user_id}/#{id}"
+  end
+
+  def submission_url
+    Aws::S3::Object.new('pcj-user-submissions', key).presigned_url(:get, expires_in: 1.minute)
   end
 
   private def upload_submission

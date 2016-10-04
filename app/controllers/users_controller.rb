@@ -43,9 +43,9 @@ class UsersController < ApplicationController
 
   def administration
     @user = User.find(params[:id])
-    @courses = @user.course_ownerships
-    @problems = @user.problem_ownerships
-    @assignments = @user.assignment_ownerships
+    @courses = @user.course_ownerships.paginate(page: params[:courses_page], per_page: 10)
+    @problems = @user.problem_ownerships.paginate(page: params[:problems_page], per_page: 10)
+    @assignments = @user.assignment_ownerships.paginate(page: params[:assignments_page], per_page: 10)
   end
 
   def destroy

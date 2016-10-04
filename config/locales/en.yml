@@ -34,6 +34,7 @@ en:
       account: 'Account'
       profile: 'Profile'
       student_portal: 'Student Portal'
+      professor_portal: 'Professor Portal'
       users: 'Users'
       connections: 'Connections'
       administration: 'Administration'
@@ -123,7 +124,32 @@ en:
     show:
       connection_url: 'Connection URL(share with friends/students)'
       title: Profile
-
+  professor_portal:
+    shared:
+      header:
+        page_header_title: Professor Portal
+    courses:
+      index:
+        title: Owned Courses
+        course_name_header: Course
+    assignments:
+      index:
+        title: Owned Assignments
+        assignment_name_header: Assignment
+        start_time_header: Start Time
+        end_time_header: End Time
+        duration_header: Duration
+      student_solutions:
+        submissions_container_title: Submissions
+        problem_name: Problem
+        submitted_at: Submitted at
+        submission_status: Status
+        submission_info: Info
+        submission_grade: Grade
+        submission_view: View
+        submission_view_btn: View
+        student_work_title: Student Work So Far
+        refresh_button: Refresh
   student_portal:
     shared:
       header:
@@ -149,6 +175,8 @@ en:
         submission_status: Status
         submission_info: Info
         submission_grade: Grade
+        submission_view: View
+        submission_view_btn: View
     problems:
       assignment_start_countdown:
         countdown_info_label: "%{assignment_name} problems will be available in"

@@ -50,18 +50,30 @@ Rails.application.routes.draw do
         end
       end
     end
+
+    namespace :professor_portal do
+      resources :courses, only: [:index] do
+        resources :assignments, only: [:index] do
+          get 'student_solutions'
+        end
+      end
+    end
   end
 
   namespace :student_portal do
+    resources :submissions, only: [:show]
+
     resources :problem_solutions, only: [] do
-      post 'test', on: :member
       post 'submit', on: :member
       patch 'save_code', on: :member
+      post 'test', on: :member
+      post 'user_solutions', on: :collection
     end
   end
 
   resources :courses, except: [:index] do
     post 'add_student', on: :member
+    post 'add_students', on: :member
     delete 'remove_student', on: :member
     post 'add_assignment', on: :member
     delete 'remove_assignment', on: :member

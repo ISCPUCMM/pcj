@@ -12,7 +12,8 @@ module StudentPortal
 
     def submissions
       @submissions = StudentPortal::Submission
-        .course_assignment_user_submissions_for(@course, @assignment, @user).most_recent
+        .course_assignment_user_submissions_for(@course, @assignment, @user)
+          .most_recent.paginate(page: params[:page], per_page: 20)
     end
   end
 end

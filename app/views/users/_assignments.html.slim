@@ -13,5 +13,7 @@ table.table.table-striped
         td= assignment.ends_at.strftime("%I:%M%p on %m/%d/%Y(ET)")
         td
           = link_to t('.edit', :default => t("helpers.links.edit")), edit_assignment_path(assignment), :class => 'btn btn-info btn-xs'
-
-= link_to t('.new_assignment_button'), new_assignment_path, :class => 'btn btn-primary'
+div
+  = will_paginate @assignments, param_name: 'assignments_page'
+div
+  = link_to t('.new_assignment_button'), new_assignment_path, :class => 'btn btn-primary'

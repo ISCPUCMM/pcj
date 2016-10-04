@@ -1,0 +1,20 @@
+= render partial: 'professor_portal/shared/header'
+
+.container
+  .jumbotron
+    h3 = t '.title'
+    table.table.table-striped
+      thead
+        tr
+          th= t '.assignment_name_header'
+          th= t '.start_time_header'
+          th= t '.end_time_header'
+          th= t '.duration_header'
+
+      tbody
+        - @assignments.each do |assignment|
+          tr
+            td= link_to(assignment.name, user_professor_portal_course_assignment_student_solutions_path(user_id: current_user, course_id: @course.id, assignment_id: assignment.id))
+            td= assignment.starts_at.strftime("%I:%M%p on %m/%d/%Y(ET)")
+            td= assignment.ends_at.strftime("%I:%M%p on %m/%d/%Y(ET)")
+            td= distance_of_time_in_words(assignment.starts_at, assignment.ends_at)

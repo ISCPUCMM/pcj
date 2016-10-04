@@ -1,7 +1,8 @@
 module StudentPortal
   class ProblemSolutionsController < ApplicationController
-    before_action :load_problem_solution
-    before_action :correct_user
+    before_action :load_problem_solution, except: :user_solutions
+    before_action :correct_user?, except: :user_solutions
+    before_action :course_owner?, only: :user_solutions
 
     def test
       code = test_solution_params[:code]
@@ -24,7 +25,6 @@ module StudentPortal
         flash[:danger] = 'Code and Language can\'t be blank'
         redirect_to problem_show_path_for(@problem_solution)
       end
-
     end
 
     def save_code
@@ -35,6 +35,10 @@ module StudentPortal
       end
     end
 
+    def user_solutions
+      render json: StudentPortal::ProblemSolution.where(user_solutions_params).select(:problem_id, :code), status: :ok
+    end
+
     private def submit_solution_params
       params.require(:student_portal_problem_solution).permit(:id, :code, :language)
     end
@@ -43,16 +47,30 @@ module StudentPortal
       params.require(:student_portal_problem_solution).permit(:id, :input, :code, :language)
     end
 
+    private def user_solutions_params
+      params.require(:student_portal_problem_solutions).permit(:course_id, :assignment_id, :user_id)
+    end
+
     private def load_problem_solution
       @problem_solution = StudentPortal::ProblemSolution.find_by_id(params[:id]) or not_found
     end
 
-    private def correct_user
+    private def correct_user?
       if current_user?(@problem_solution.user)
         true
       else
         flash[:danger] = 'You do not have access to view page'
         redirect_to(root_url) and return false
+      end
+    end
+
+    private def course_owner?
+      course = Course.find_by_id(user_solutions_params[:course_id]) or not_found
+
+      if course.owner.eql?(current_user)
+        true
+      else
+        unauthorized_access_message_and_redirect_to root_url
       end
     end
 

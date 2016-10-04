@@ -1,0 +1,13 @@
+= render partial: 'professor_portal/shared/header'
+
+.container
+  .jumbotron
+    h3 = t '.title'
+    table.table.table-striped
+      thead
+        tr
+          th= t '.course_name_header'
+      tbody
+        - @courses.each do |course|
+          tr
+            td= link_to(course.name, user_professor_portal_course_assignments_path(user_id: current_user, course_id: course.id))

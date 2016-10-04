@@ -10,4 +10,7 @@
           td= course.name
           td
             = link_to t('.edit', :default => t("helpers.links.edit")), edit_course_path(course), :class => 'btn btn-info btn-xs'
+div
+  = will_paginate @courses, param_name: 'courses_page'
+div
   = link_to t('.new_course_button'), new_course_path, :class => 'btn btn-primary'

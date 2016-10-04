@@ -22,11 +22,29 @@ class Course < ActiveRecord::Base
     student_relation.present? ? student_relation.destroy : false
   end
 
+  def add_students(student_ids)
+    student_ids.reject!(&:blank?)
+
+    return false if student_ids.empty?
+
+    student_objects = student_ids.map { |sid| students.find_by_id(sid) }
+
+    if student_objects.all?(&:nil?)
+      owner.connections.where(id: student_ids).find_each do |student|
+        students << student
+      end
+
+      true
+    else
+      false
+    end
+  end
+
   def add_student(student_id)
     if (student_id.blank? || students.find_by_id(student_id))
       false
     else
-      students << User.find_by_id(student_id)
+      students << owner.find_by_id(student_id)
       true
     end
   end
