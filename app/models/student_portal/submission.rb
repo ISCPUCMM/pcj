@@ -59,39 +59,36 @@ class StudentPortal::Submission < ActiveRecord::Base
     end
   end
 
-  private def set_status(test_result)
-    case test_result.status
+  private def set_status(status_info)
+    case status_info[:status]
+    when 'AC'
+      accepted!
     when 'OK'
-      self.info = "WA test #{test_result.tc_index + 1}"
+      self.info = "WA test #{status_info[:test_num]}"
       wa!
     when 'Compilation Error', 'Runtime Error'
-      self.info = "#{test_result.status} test #{test_result.tc_index + 1}"
+      self.info = "#{status_info[:status]} test #{status_info[:test_num]}"
       error!
     when 'Time Limit Exceeded'
-      self.info = "#{test_result.status} test #{test_result.tc_index + 1}"
+      self.info = "#{status_info[:status]} test #{status_info[:test_num]}"
       tle!
     end
   end
 
   private def calculate_grade
-    test_results = run_tests
+    test_groups = run_tests
 
-    # This ugly logic is temporary
-    if test_results.map(&:accepted).all?
-      self.accepted!
-      self.info = 'OK'
+    failed_group = test_groups.find { |tg| !tg.accepted? }
+
+    if failed_group.present?
+      set_status failed_group.status_info
     else
-      test_results.each do |test_result|
-        if !test_result.accepted
-          set_status(test_result)
-          break
-        end
-      end
+      set_status test_groups.first.status_info
     end
 
     if valid_submission?
-      denom = test_results.map(&:weight).sum
-      nom = test_results.select(&:accepted).map(&:weight).sum
+      denom = test_groups.map(&:weight).sum
+      nom = test_groups.reduce(0) { |sum, tg| sum + (tg.accepted? ? tg.weight : 0) }
       self.grade = (Float(nom)/denom)*100.0
       update_problem_solution
     else

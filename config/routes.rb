@@ -87,6 +87,9 @@ Rails.application.routes.draw do
   resources :problems do
     put 'upload_input_files', on: :member
     post 'generate_outputs', on: :member
+    patch 'group_test_cases', on: :member
+    patch 'group_individual_test_cases', on: :member
+    delete 'ungroup_test_cases', on: :member
   end
 
   resources :test_cases, only: [] do

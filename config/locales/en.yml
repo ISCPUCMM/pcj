@@ -93,10 +93,18 @@ en:
       generate_outputs_button: Generate
       outputs_generated_at_label: Output files generated at %{generation_date}
     test_cases_table:
-      header: Generated Files
+      header: Generated Files(Select Test Cases For Grading)
       input_file: Input
       output_file: Output
-      update_weights_button: Update Weights
+      group_test_cases_button: Group Selected Test Cases
+      add_all_individual_button: Add Test Cases as Separate Entities
+    selected_test_cases_table:
+      header: Selected Test Cases
+      ungroup_test_cases_header: Ungroup
+      input_output_files: Inputs/Outputs
+      weight: Weight
+      update_group_weights_button: Update Weights
+
   users:
     administration:
       title: Administration

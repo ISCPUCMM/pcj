@@ -10,7 +10,7 @@ div.container
         li role="presentation" data-form_id='test-cases-form'
           a href="#test_cases" = t('.test_cases_tab')
         li role="presentation" data-form_id='output-gen-form'
-          a href="#presentation" = t('.output_gen_tab')
+          a href="#output_gen" = t('.output_gen_tab')
         li role="presentation" data-form_id='checker-form'
           a href="#presentation" = t('.checker_tab')
 
@@ -34,3 +34,6 @@ coffee:
     $('.problem-tab-content').hide()
     $("##{$(@).data('form_id')}").show()
   )
+
+  locat = document.location.toString().split('#')[1]
+  $(".problem-tabs li a[href='##{locat}']").click()

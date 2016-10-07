@@ -1,16 +1,19 @@
 div.container
   h3 = t('.header')
-  = form_for @problem do |f|
+  = form_for @problem, url: {action: 'group_test_cases'} do |f|
     table.table.table-striped
       thead
         tr
           th= t('.input_file')
           th= t('.output_file')
-          th= t('.weight')
+          th= t('.select')
         tbody
-          = f.fields_for :test_cases, @problem.test_cases do |tcf|
+          = f.fields_for :test_cases, @problem.test_cases.ungrouped do |tcf|
             tr
               td= link_to tc_input_file_row_text_for(tcf.object), show_input_file_test_case_path(tcf.object), target: '_blank'
               td= link_to tc_output_file_row_text_for(tcf.object), show_output_file_test_case_path(tcf.object), target: '_blank'
-              td= tcf.number_field :weight, within: test_case_weight_range
-    = f.submit t('.update_weights_button'), class: 'btn btn-primary'
+              td= tcf.check_box :selected
+
+    = f.submit t('.group_test_cases_button'), class: 'btn btn-primary'
+    = link_to t('.add_all_individual_button'), group_individual_test_cases_problem_path(@problem), method: :patch, class: 'btn btn-default'
+

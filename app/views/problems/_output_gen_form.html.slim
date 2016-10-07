@@ -24,6 +24,8 @@
     .alert.alert-info = "Last output generation info: #{@problem.outputs_generation_info}"
 hr
   = render partial: 'test_cases_table'
+hr
+  = render partial: 'selected_test_cases_table'
 
 coffee:
   new CodeEditor($('#generate_outputs_form .code-group')).initialize_default()
