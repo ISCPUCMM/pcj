@@ -20,6 +20,46 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(params[:id])
   end
 
+  def group_test_cases
+    @problem = Problem.find(params[:id])
+    test_group = TestGroup.new(problem: @problem)
+    problem_params[:test_cases_attributes].values.select { |v| v[:selected] == '1' }
+      .map { |v| TestCase.find(v[:id]) }.each do |tc|
+        test_group.test_cases << tc
+      end
+
+    test_group.save! unless test_group.test_cases.empty?
+
+    redirect_to(edit_problem_path(@problem, anchor: 'output_gen'))
+  end
+
+  def group_individual_test_cases
+    @problem = Problem.find(params[:id])
+
+    @problem.test_cases.ungrouped.each do |tc|
+      test_group = TestGroup.new(problem: @problem)
+      test_group.test_cases << tc
+      test_group.save!
+    end
+
+    redirect_to(edit_problem_path(@problem, anchor: 'output_gen'))
+  end
+
+  def ungroup_test_cases
+    @problem = Problem.find(params[:id])
+    test_group = @problem.test_groups.find_by(id: params[:group_id])
+
+    if test_group.present?
+      test_group.test_cases.update_all(test_group_id: nil)
+      test_group.destroy
+      flash[:success] = 'Ungrouping successful'
+    else
+      flash[:danger] = 'There was an error ungrouping'
+    end
+
+    redirect_to(edit_problem_path(@problem, anchor: 'output_gen'))
+  end
+
   def upload_input_files
     @problem = Problem.find(params[:id])
     flash[:success] = 'Input files uploaded successfully' if @problem.upload_input_files(upload_input_files_params)
@@ -34,7 +74,7 @@ class ProblemsController < ApplicationController
       flash[:danger] = 'Unable to generate output with provided options.'
     end
 
-    redirect_to(edit_problem_path(@problem))
+    redirect_to(edit_problem_path(@problem, anchor: 'output_gen'))
   end
 
   def create
@@ -49,9 +89,12 @@ class ProblemsController < ApplicationController
 
   def update
     @problem = Problem.find(params[:id])
+    redirect_params = {}
+    redirect_params[:anchor] = params[:anchor] if params[:anchor].present?
+
     if @problem.update_attributes(problem_params)
       flash[:success] = 'Problem updated successfully'
-      redirect_to edit_problem_path(@problem)
+      redirect_to edit_problem_path(@problem, redirect_params)
     else
       flash[:danger] = 'There was an error updating the problem'
       render 'edit'
@@ -59,7 +102,7 @@ class ProblemsController < ApplicationController
   end
 
   private  def problem_params
-    params.require(:problem).permit(:name, :statement, :input_format, :output_format, :examples, :notes, :time_limit, test_cases_attributes: [:weight, :id])
+    params.require(:problem).permit(:name, :statement, :input_format, :output_format, :examples, :notes, :time_limit, test_cases_attributes: [:id, :selected], test_groups_attributes: [:weight, :id])
   end
 
   private  def upload_input_files_params

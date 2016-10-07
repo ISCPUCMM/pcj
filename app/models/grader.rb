@@ -1,4 +1,5 @@
 require 'output_checker'
+require 'test_group_result'
 require 'test_result'
 
 class Grader < Task
@@ -45,16 +46,23 @@ class Grader < Task
   end
 
   private def compare_outputs
-    problem.test_cases.map do |test_case|
-      move_input_file(path: "#{input_files_directory}#{test_case.s3_input_key}")
-      output_key = test_case.s3_output_key
-      run_code
+    problem.test_groups.map do |test_group|
 
-      TestResult.new(
-        status: status,
-        test_case: test_case,
-        accepted: status.eql?('OK') && OutputChecker.new(student_output: output_file_location, professor_output: "#{output_files_directory}#{output_key}").valid_output?
-      )
+      test_group_result = TestGroupResult.new(test_group: test_group)
+
+      test_group.test_cases.each do |test_case|
+        move_input_file(path: "#{input_files_directory}#{test_case.s3_input_key}")
+        output_key = test_case.s3_output_key
+        run_code
+
+        test_group_result.push(TestResult.new(
+          status: status,
+          test_case: test_case,
+          accepted: status.eql?('OK') && OutputChecker.new(student_output: output_file_location, professor_output: "#{output_files_directory}#{output_key}").valid_output?
+        ))
+      end
+
+      test_group_result
     end
   end
 

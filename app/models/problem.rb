@@ -24,10 +24,12 @@ class Problem < ActiveRecord::Base
   has_many :assignment_problems
   has_many :assignments, through: :assignment_problems
   has_many :test_cases
+  has_many :test_groups
   belongs_to :owner, class_name: :User
   attr_accessor :code
 
   accepts_nested_attributes_for :test_cases
+  accepts_nested_attributes_for :test_groups
 
   validates_presence_of :name, :owner, :statement
   validates :time_limit, inclusion: { within: TIME_LIMIT_RANGE, message: "must be between 1-15 seconds"  }

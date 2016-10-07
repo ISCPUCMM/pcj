@@ -1,11 +1,13 @@
 class TestCase < ActiveRecord::Base
-  WEIGHT_MIN = 1
-  WEIGHT_MAX = 1000
-  WEIGHT_RANGE = (WEIGHT_MIN..WEIGHT_MAX)
+  scope :ungrouped, -> { where(test_group: nil) }
+  scope :grouped, -> { where('test_group_id is NOT NULL') }
+
+  belongs_to :test_group
+
+  attr_accessor :selected
 
   belongs_to :problem
   validates_presence_of :problem
-  validates_numericality_of :weight, only_integer: true, greater_than_or_equal_to: WEIGHT_MIN, less_than_or_equal_to: WEIGHT_MAX
 
   def s3_input_key
     "#{problem_id}/#{tc_index}.in"

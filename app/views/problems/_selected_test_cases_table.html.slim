@@ -1,0 +1,26 @@
+div.container
+  h3 = t('.header')
+  = form_for @problem, url: { action: 'update', anchor: 'output_gen' } do |f|
+    table.table.table-striped
+      thead
+        tr
+          th= t('.input_output_files')
+          th= t('.weight')
+          th= t('.ungroup_test_cases_header')
+        tbody
+          = f.fields_for :test_groups, @problem.test_groups do |tcg|
+            tr
+              td
+                - tcg.object.test_cases.each do |tc|
+                  .row
+                    .col-xs-6
+                      = link_to tc_input_file_row_text_for(tc), show_input_file_test_case_path(tc), target: '_blank'
+                    .col-xs-6
+                      = link_to tc_output_file_row_text_for(tc), show_output_file_test_case_path(tc), target: '_blank'
+              td= tcg.number_field :weight, within: test_group_weight_range
+              td
+                = link_to ungroup_test_cases_problem_path(id: @problem.id, group_id: tcg.object.id), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
+                  do
+                    span.fa.fa-times aria-hidden='true'
+                  end
+    = f.submit t('.update_group_weights_button'), class: 'btn btn-primary'

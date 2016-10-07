@@ -17,6 +17,7 @@ class CodeEditor
 
       editor.session.setMode("ace/mode/#{mode}")
     )
+    $(@code_group).find('select.code-select').trigger('change')
 
   initialize_editor: ->
     @editor.setTheme('ace/theme/tomorrow_night')
