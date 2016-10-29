@@ -33,9 +33,6 @@
       .form-group
         .col-lg-12
           = f.select :user_id, student_work_so_far_dropdown_for(@course), { include_blank: true }, { class: 'form-control' }
-      .form-group
-        .col-lg-10
-          = f.submit t('.refresh_button'), class: 'btn btn-primary'
 
     .container
       - @assignment.problems.each do |problem|
@@ -62,20 +59,4 @@ coffee:
     editor.inverse_editor()
   )
 
-  $('#student_solutions #student_portal_problem_solutions_user_id').on('change', ->
-    $(@.form).find("input[type='submit']").click()
-  )
-
-  $('#student_solutions').submit( ->
-    $('.code-group .mapping-hidden-text-area textarea').val('')
-    $('.code-group .mapping-hidden-text-area textarea').trigger('change')
-  )
-
-  $('#student_solutions').on('ajax:success', (e, data, status, xhr) ->
-    $(JSON.parse(xhr.responseText)).each( ->
-      $("#problem_text_#{@.problem_id}").val(@.code)
-      $("#problem_text_#{@.problem_id}").trigger('change')
-    )
-
-  ).on 'ajax:error', (e, xhr, status, error) ->
-    #foo
+  new SolutionsPollSetter()

@@ -46,12 +46,12 @@ gem 'delayed_job_active_record'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'rspec-rails', '~> 3.0'
   gem 'faker',          '1.6.3'
+  gem 'railroady'
 end
 
 group :development do

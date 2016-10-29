@@ -32,10 +32,16 @@ class CodeEditor
     @editor.setReadOnly(true)
 
   inverse_editor: ->
+    @editor.renderer.$cursorLayer.element.style.display = 'none'
+    @editor.setHighlightActiveLine(false);
+
     @set_read_only()
     @hidden_text.on('change', =>
+      line_num = (@editor.getFirstVisibleRow()+@editor.getLastVisibleRow())/2 + 1
       @editor.getSession().setValue(@hidden_text.val())
+      @editor.gotoLine(line_num);
     )
+
 
   initialize_autosave: ->
 
