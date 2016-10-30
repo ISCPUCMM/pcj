@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :assignment_ownerships, class_name: :Assignment, foreign_key: 'owner_id'
   has_many :course_ownerships, class_name: :Course, foreign_key: 'owner_id'
   has_many :problem_ownerships, class_name: :Problem, foreign_key: 'owner_id'
+  has_many :problem_solutions, class_name: StudentPortal::ProblemSolution
   has_many :user_connections
   has_many :connections, through: :user_connections
 

@@ -55,6 +55,7 @@ Rails.application.routes.draw do
       resources :courses, only: [:index] do
         resources :assignments, only: [:index] do
           get 'student_solutions'
+          get 'student_statistics'
         end
       end
     end

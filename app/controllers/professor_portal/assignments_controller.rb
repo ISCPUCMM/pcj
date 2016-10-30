@@ -17,5 +17,9 @@ module ProfessorPortal
       @submissions = StudentPortal::Submission.course_assignment_submissions_for(@course, @assignment)
                        .most_recent.paginate(page: params[:page], per_page: 10)
     end
+
+    def student_statistics
+      @student_solutions = StudentPortal::ProblemSolution.course_assignment_solutions_for(@course, @assignment)
+    end
   end
 end

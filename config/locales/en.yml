@@ -136,6 +136,9 @@ en:
     shared:
       header:
         page_header_title: Professor Portal
+      solutions_and_stats_nav:
+        solutions_path_text: Student Solutions
+        stats_path_text: Statistics
     courses:
       index:
         title: Owned Courses
@@ -158,6 +161,8 @@ en:
         submission_view_btn: View
         student_work_title: Student Work So Far
         refresh_button: Refresh
+      student_statistics:
+        student_name: Student
   student_portal:
     shared:
       header:

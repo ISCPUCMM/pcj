@@ -1,0 +1,54 @@
+= render partial: 'professor_portal/shared/header'
+.container
+  = render  partial: 'professor_portal/shared/solutions_and_stats_nav'
+  table.table.table-bordered
+    thead
+      tr
+        th = t '.student_name'
+        - @assignment.problems.order(name: :asc).each.with_index do |problem, idx|
+          th = "p#{idx}: #{problem.name}"
+
+    tbody
+      - @course.students.each do |student|
+        tr
+          td = student.name
+          - @assignment.problems.order(name: :asc).each do |problem|
+            - solution = student.problem_solutions.find_by(course: @course, assignment: @assignment, problem: problem)
+            td.alert class=status_class_for(solution) = solution.grade
+
+  - @assignment.problems.order(name: :asc).each do |problem|
+    .row
+      .col-xs-6.problem-stat id="chart-sols-#{problem.id}" data-problem_stats=pie_chart_solution_stats_for(course: @course, assignment: @assignment, problem: problem).to_json
+      .col-xs-6.problem-stat id="chart-subs-#{problem.id}" data-problem_stats=pie_chart_submission_stats_for(course: @course, assignment: @assignment, problem: problem).to_json
+
+  = javascript_include_tag 'https://www.gstatic.com/charts/loader.js'
+coffee:
+  $('.problem-stat').each( ->
+    stats = $(@).data('problem_stats')
+    chart_id = @.id
+    title = stats.title
+    rows = stats.rows
+    colors = stats.colors
+
+    drawChart = =>
+      data = new (google.visualization.DataTable)
+      data.addColumn 'string', 'status'
+      data.addColumn 'number', 'count'
+      data.addRows rows
+      # Set chart options
+      options =
+        'title': title
+        'width': 600
+        'height': 400
+        'colors': colors
+
+      chart = new (google.visualization.PieChart)(document.getElementById(chart_id))
+      chart.draw data, options
+      return
+
+    google.charts.load 'current', 'packages': [ 'corechart' ]
+    google.charts.setOnLoadCallback drawChart
+  )
+
+
+

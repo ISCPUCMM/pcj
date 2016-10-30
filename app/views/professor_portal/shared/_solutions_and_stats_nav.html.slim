@@ -1,0 +1,5 @@
+.problems-nav-masthead
+  .container
+    nav.problems-nav
+      = link_to(t('.solutions_path_text'), user_professor_portal_course_assignment_student_solutions_path(user_id: current_user, course_id: @course.id, assignment_id: @assignment.id), class: 'problems-nav-item')
+      = link_to(t('.stats_path_text'), user_professor_portal_course_assignment_student_statistics_path(user_id: current_user, course_id: @course.id, assignment_id: @assignment.id), class: 'problems-nav-item')

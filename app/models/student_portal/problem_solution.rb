@@ -9,12 +9,26 @@ class StudentPortal::ProblemSolution < ActiveRecord::Base
 
   attr_accessor :input, :language
 
+  scope :course_assignment_solutions_for, -> (course, assignment) do
+    where(course_id: course, assignment_id: assignment)
+  end
+
   validates_presence_of :course, :assignment, :problem, :user
   def self.matching(course:, assignment:, problem:, user:)
     StudentPortal::ProblemSolution.find_or_create_by(course: course,
                                                      assignment: assignment,
                                                      problem: problem,
                                                      user: user)
+  end
+
+  def self.stats_for(course:, assignment:, problem:)
+    q = self.where(course: course, assignment: assignment, problem: problem)
+
+    {}.tap do |h|
+      self.statuses.each do |k, v|
+        h[k] =  q.where(status: v).count
+      end
+    end
   end
 
   def time_limit
@@ -31,6 +45,7 @@ class StudentPortal::ProblemSolution < ActiveRecord::Base
     update_attributes(code: submitted_code)
     new_submission = submissions.create!(language: submitted_language, code: submitted_code)
   end
+
 
   def problem_mapping_attributes
     {

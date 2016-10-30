@@ -16,6 +16,11 @@ class StudentPortal::Submission < ActiveRecord::Base
       .where(student_portal_problem_solutions: { course_id: course, assignment_id: assignment })
   end
 
+  scope :course_assignment_problem_submissions_for, -> (course, assignment, problem) do
+    course_assignment_submissions_for(course, assignment)
+      .where(student_portal_problem_solutions: { problem_id: problem })
+  end
+
   scope :course_assignment_user_submissions_for, -> (course, assignment, user) do
     course_assignment_submissions_for(course, assignment)
       .where(student_portal_problem_solutions: { user_id: user })
@@ -28,6 +33,16 @@ class StudentPortal::Submission < ActiveRecord::Base
 
   scope :most_recent, -> do
     order(created_at: :desc)
+  end
+
+  def self.stats_for(course:, assignment:, problem:)
+    q = self.course_assignment_problem_submissions_for(course, assignment, problem)
+
+    {}.tap do |h|
+      self.statuses.each do |k, v|
+        h[k] =  q.where(status: v).count
+      end
+    end
   end
 
   def valid_submission?

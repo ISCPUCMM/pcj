@@ -1,6 +1,6 @@
 module StudentPortalHelper
-  def status_class_for(submission)
-    case submission.status
+  def status_class_for(problem_status)
+    case problem_status.status
     when 'pending'
       'alert-info'
     when 'accepted'
