@@ -1,9 +1,10 @@
 = render partial: 'professor_portal/shared/header'
 
 .container
+  = render partial: 'professor_portal/shared/solutions_and_stats_nav'
   .jumbotron
     h3.text-center = t '.submissions_container_title'
-    table.table
+    table.table.table-hover
       thead
         tr
           th= t '.problem_name'
