@@ -3,6 +3,7 @@ class StudentPortal::Submission < ActiveRecord::Base
 
   belongs_to :problem_solution, class_name: 'StudentPortal::ProblemSolution'
 
+  after_create :set_pending
   after_create :upload_submission
   after_create :calculate_grade
 
@@ -88,6 +89,12 @@ class StudentPortal::Submission < ActiveRecord::Base
       self.info = "#{status_info[:status]} test #{status_info[:test_num]}"
       tle!
     end
+  end
+
+  private def set_pending
+    self.pending!
+    problem_solution.pending! if problem_solution.status.eql?('no_status')
+    true
   end
 
   private def calculate_grade

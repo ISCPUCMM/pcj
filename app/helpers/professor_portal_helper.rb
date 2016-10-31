@@ -5,6 +5,7 @@ module ProfessorPortalHelper
 
   def color_map(stat)
     {
+      'no_status' => '#cfd2d6',
       'pending' => '#507aba',
       'accepted' => '#30a046',
       'wa' => '#ff0505',

@@ -22,4 +22,4 @@
 //= require ace-min/mode-plain_text
 //= require ace-min/mode-python
 //= require ace-min/mode-ruby
-
+//= require gcharts

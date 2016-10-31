@@ -21,7 +21,6 @@
       .col-xs-6.problem-stat id="chart-sols-#{problem.id}" data-problem_stats=pie_chart_solution_stats_for(course: @course, assignment: @assignment, problem: problem).to_json
       .col-xs-6.problem-stat id="chart-subs-#{problem.id}" data-problem_stats=pie_chart_submission_stats_for(course: @course, assignment: @assignment, problem: problem).to_json
 
-  = javascript_include_tag 'https://www.gstatic.com/charts/loader.js'
 coffee:
   $('.problem-stat').each( ->
     stats = $(@).data('problem_stats')

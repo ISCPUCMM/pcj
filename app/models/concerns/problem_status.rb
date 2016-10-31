@@ -2,6 +2,6 @@ module ProblemStatus
   extend ActiveSupport::Concern
 
   included do
-    enum status: { pending: 0, accepted: 1, wa: 2, tle: 3, error: 4 }
+    enum status: { no_status: 0, pending: 1, accepted: 2, wa: 3, tle: 4, error: 5 }
   end
 end
