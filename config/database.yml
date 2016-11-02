@@ -14,6 +14,7 @@ default: &default
   encoding: utf8
   pool: 5
   username: root
+  host: localhost
   password: <%= ENV['JUDGE_DB_PASSWORD'] %>
   socket: /tmp/mysql.sock
 
@@ -52,4 +53,5 @@ production:
   database: judge_production
   username: judge
   password: <%= ENV['JUDGE_PRODUCTION_DB_PASSWORD'] %>
+  host: localhost
   socket: /var/run/mysqld/mysqld.sock
