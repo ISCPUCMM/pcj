@@ -52,3 +52,4 @@ production:
   database: judge_production
   username: root
   password: <%= ENV['JUDGE_DB_PASSWORD'] %>
+  socket: /var/run/mysqld/mysqld.sock
