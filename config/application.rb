@@ -28,5 +28,6 @@ module Judge
     config.api_token = ENV['JUDGE_TOKEN']
     config.active_job.queue_adapter = :delayed_job
     config.time_zone = 'Eastern Time (US & Canada)'
+    config.tmp_dir_options = [nil, '/Users/mpgaillard/Dropbox/proyecto_final/judge/tmp/code_to_execute/']
   end
 end
