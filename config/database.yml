@@ -51,5 +51,5 @@ production:
   <<: *default
   database: judge_production
   username: judge
-  password: <%= ENV['JUDGE_DB_PASSWORD'] %>
+  password: <%= ENV['JUDGE_PRODUCTION_DB_PASSWORD'] %>
   socket: /var/run/mysqld/mysqld.sock
