@@ -50,6 +50,6 @@ test:
 production:
   <<: *default
   database: judge_production
-  username: root
+  username: judge
   password: <%= ENV['JUDGE_DB_PASSWORD'] %>
   socket: /var/run/mysqld/mysqld.sock
