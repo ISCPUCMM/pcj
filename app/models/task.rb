@@ -22,12 +22,7 @@ class Task < ActiveRecord::Base
   end
 
   private def create_tmp_directory
-    #when on linux machine
-    #@tmp_directory = Dir.mktmpdir
-
-    #TEMPORARY HACK NEEDED ON MAC
-
-    @tmp_directory = Dir.mktmpdir(nil, '/Users/mpgaillard/Dropbox/proyecto_final/judge/tmp/code_to_execute/')
+    @tmp_directory = Dir.mktmpdir(*Judge::Application.config.tmp_dir_options)
   end
 
   private def code_file_location
