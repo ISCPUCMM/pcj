@@ -1,5 +1,5 @@
 # Change these
-server '104.236.51.1', roles: [:web, :app, :db], primary: true
+server '104.236.51.1', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'git@github.com:mpgaillard/programming_class_judge.git'
 set :application,     'programming_class_judge'
