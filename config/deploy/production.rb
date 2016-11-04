@@ -6,8 +6,11 @@
 # server 'example.com', user: 'deploy', roles: %w{app db web}, my_property: :my_value
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
-Rails.application.configure do
-  config.action_mailer.default_url_options = { host: '104.236.51.1', protocol: 'https' }
+
+module Judge
+  class Application < Rails::Application
+    config.action_mailer.default_url_options = { host: '104.236.51.1', protocol: 'https' }
+  end
 end
 
 # role-based syntax
