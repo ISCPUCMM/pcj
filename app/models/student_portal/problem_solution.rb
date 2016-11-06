@@ -31,8 +31,9 @@ class StudentPortal::ProblemSolution < ActiveRecord::Base
     end
   end
 
+  #LIMIT RUNNING TEST CODE TO 2s UNTIL RUNS ARE ASYNC AS WELL
   def time_limit
-    problem.time_limit
+    [2, problem.time_limit].min
   end
 
   def runner(submitted_language:, submitted_code:, submitted_input:)
