@@ -1,5 +1,6 @@
 # Change these
 server '104.236.51.1', port: 22, roles: [:web, :app, :db], primary: true
+server '104.236.51.1', port: 22, roles: [:dj]
 
 set :repo_url,        'git@github.com:mpgaillard/programming_class_judge.git'
 set :application,     'programming_class_judge'
@@ -23,6 +24,7 @@ set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
 
+set delayed_job_server_role: :dj
 ## Defaults:
 # set :scm,           :git
 # set :branch,        :master
@@ -77,6 +79,7 @@ namespace :deploy do
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
   after  :finishing,    :restart
+  after :finishing, 'delayed_job:restart'
 end
 
 # ps aux | grep puma    # Get puma pid
