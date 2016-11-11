@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161005020206) do
+ActiveRecord::Schema.define(version: 20161110230418) do
 
   create_table "assignment_problems", force: :cascade do |t|
     t.integer  "assignment_id", limit: 4
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(version: 20161005020206) do
     t.datetime "updated_at",                                null: false
     t.float    "grade",         limit: 24,    default: 0.0
     t.integer  "status",        limit: 4,     default: 0
+    t.string   "language",      limit: 255
   end
 
   add_index "student_portal_problem_solutions", ["assignment_id"], name: "index_student_portal_problem_solutions_on_assignment_id", using: :btree
@@ -146,7 +147,7 @@ ActiveRecord::Schema.define(version: 20161005020206) do
   end
 
   create_table "test_groups", force: :cascade do |t|
-    t.integer "weight",     limit: 4, default: 0
+    t.integer "weight",     limit: 4, default: 10
     t.integer "problem_id", limit: 4
   end
 

@@ -28,7 +28,7 @@ module StudentPortal
     end
 
     def save_code
-      if @problem_solution.update_attributes(code: params[:code])
+      if @problem_solution.update_attributes({code: params[:code], language: params[:language]})
         render json: {}, status: :ok
       else
         render json: { errors: @problem_solution.errors.full_messages.join('; ') }, status: :unprocessable_entity
@@ -36,7 +36,7 @@ module StudentPortal
     end
 
     def user_solutions
-      render json: StudentPortal::ProblemSolution.where(user_solutions_params).select(:problem_id, :code), status: :ok
+      render json: StudentPortal::ProblemSolution.where(user_solutions_params).select(:problem_id, :code, :language), status: :ok
     end
 
     private def submit_solution_params

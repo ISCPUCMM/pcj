@@ -33,7 +33,7 @@
                 select.form-control.code-select name="student_portal_problem_solution[language]" id='#student_portal_problem_language'
                   option value=''
                   - language_selection_options.each do |opt|
-                    option value=opt[:value] = opt[:text]
+                    option value=opt[:value] selected=opt[:value].eql?(@problem_solution.language) = opt[:text]
             p.navbar-text.code-save-msg id='code_save_msg'
         .code-editor id='editor'
         .mapping-hidden-text-area = f.text_area :code, :class => 'form-control'

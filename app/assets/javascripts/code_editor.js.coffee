@@ -4,18 +4,22 @@ class CodeEditor
     @editor = ace.edit(@editor_id)
     @hidden_text = $(@code_group).find('.mapping-hidden-text-area textarea')
     @current_text = @hidden_text.val()
+    @current_language = ''
+
+  set_editor_mode: ->
+    mode = switch @current_language
+      when 'c', 'c_plus_plus' then 'c_cpp'
+      when 'java' then 'java'
+      when 'ruby' then 'ruby'
+      when 'python' then 'python'
+      else 'plain_text'
+
+    @editor.session.setMode("ace/mode/#{mode}")
 
   initialize_languages: ->
-    editor = @editor
-    $(@code_group).find('select.code-select').change( () ->
-      mode = switch @.value
-        when 'c', 'c_plus_plus' then 'c_cpp'
-        when 'java' then 'java'
-        when 'ruby' then 'ruby'
-        when 'python' then 'python'
-        else 'plain_text'
-
-      editor.session.setMode("ace/mode/#{mode}")
+    $(@code_group).find('select.code-select').change( (e) =>
+      @current_language = e.target.value
+      @set_editor_mode()
     )
     $(@code_group).find('select.code-select').trigger('change')
 
@@ -58,7 +62,7 @@ class CodeEditor
         $.ajax({
           url: autosave_path,
           type: 'PATCH',
-          data: { 'code': @current_text }
+          data: { 'code': @current_text, 'language': @current_language }
           dataType: 'json'
           timeout: 4000
         }).done(->

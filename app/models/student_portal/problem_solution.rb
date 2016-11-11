@@ -7,7 +7,7 @@ class StudentPortal::ProblemSolution < ActiveRecord::Base
   belongs_to :user
   has_many :submissions, class_name: 'StudentPortal::Submission'
 
-  attr_accessor :input, :language
+  attr_accessor :input
 
   scope :course_assignment_solutions_for, -> (course, assignment) do
     where(course_id: course, assignment_id: assignment)
@@ -43,7 +43,7 @@ class StudentPortal::ProblemSolution < ActiveRecord::Base
   def submit(submitted_language:, submitted_code:)
     return false if submitted_code.blank? || submitted_language.blank?
 
-    update_attributes(code: submitted_code)
+    update_attributes(code: submitted_code, language: submitted_language)
     new_submission = submissions.create!(language: submitted_language, code: submitted_code)
   end
 
