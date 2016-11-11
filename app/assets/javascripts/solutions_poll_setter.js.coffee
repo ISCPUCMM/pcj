@@ -21,6 +21,8 @@ class SolutionsPollSetter
       $(JSON.parse(xhr.responseText)).each( ->
         $("#problem_text_#{@.problem_id}").val(@.code)
         $("#problem_text_#{@.problem_id}").trigger('change')
+        $("#problem_language_#{@.problem_id}").val(@.language)
+        $("#problem_language_#{@.problem_id}").trigger('change')
       )
     ).on 'ajax:error', (e, xhr, status, error) ->
 
