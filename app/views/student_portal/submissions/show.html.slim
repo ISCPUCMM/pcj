@@ -1,0 +1,28 @@
+.container
+  .header
+    h1.title = t('.title', problem: @submission.problem.name, user: @submission.user.name, email: @submission.user.email)
+
+    .container.row
+      h3.col-md-2 class=status_class_for(@submission) = "#{@submission.status}"
+      .col-md-10
+  .code-group
+    .navbar.navbar-default
+      .container-fluid
+        .navbar-header
+          .navbar-brand  Language
+        .navbar-left.navbar-form
+          .form-group
+            select.form-control.code-select disabled=true
+              option value=''
+              - language_selection_options.each do |opt|
+                option value=opt[:value] selected=opt[:value].eql?(@submission.language) = opt[:text]
+        p.navbar-text.code-save-msg id='code_save_msg'
+    .code-editor.tall-editor id='editor'
+    .mapping-hidden-text-area = text_area_tag :code, @submission.download_submission
+
+
+coffee:
+  code_editor = new CodeEditor $('.code-group')
+  code_editor.initialize_default()
+  code_editor.set_read_only()
+

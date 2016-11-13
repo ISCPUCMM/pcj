@@ -5,7 +5,6 @@ module StudentPortal
     before_action :can_view_submission
 
     def show
-      redirect_to @submission.submission_url
     end
 
     private def load_submission

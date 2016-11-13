@@ -36,6 +36,9 @@ $saving-color: #595959;
     position: relative;
     width: 100%;
     height: 25em;
+    &.tall-editor {
+      height: 40em;
+    }
   }
   .mapping-hidden-text-area {
     display: none;

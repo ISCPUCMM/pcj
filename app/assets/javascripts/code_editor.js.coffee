@@ -6,7 +6,8 @@ class CodeEditor
     @current_text = @hidden_text.val()
     @current_language = ''
 
-  set_editor_mode: ->
+  set_editor_mode: (language) ->
+    @current_language = language
     mode = switch @current_language
       when 'c', 'c_plus_plus' then 'c_cpp'
       when 'java' then 'java'
@@ -19,7 +20,7 @@ class CodeEditor
   initialize_languages: ->
     $(@code_group).find('select.code-select').change( (e) =>
       @current_language = e.target.value
-      @set_editor_mode()
+      @set_editor_mode(e.target.value)
     )
     $(@code_group).find('select.code-select').trigger('change')
 

@@ -214,3 +214,6 @@ en:
       test_solution_form:
         test_solution_button: Run
         on_submit_msg: Running...
+    submissions:
+      show:
+        title: Submission for %{problem} by %{user}(%{email})

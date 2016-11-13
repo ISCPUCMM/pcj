@@ -55,11 +55,15 @@ class StudentPortal::Submission < ActiveRecord::Base
   end
 
   def submission_url
-    Aws::S3::Object.new('pcj-user-submissions', key).presigned_url(:get, expires_in: 1.minute)
+    Aws::S3::Object.new(bucket, key).presigned_url(:get, expires_in: 1.minute)
+  end
+
+  def download_submission
+    Aws::S3::Client.new.get_object(bucket: bucket, key: key).body.read
   end
 
   private def upload_submission
-    Aws::S3::Client.new.put_object(bucket: 'pcj-user-submissions', key: key, body: code)
+    Aws::S3::Client.new.put_object(bucket: bucket, key: key, body: code)
   end
 
   private def run_tests
@@ -67,6 +71,10 @@ class StudentPortal::Submission < ActiveRecord::Base
                    problem: problem,
                    time_limit: problem.time_limit,
                    language: language).commit
+  end
+
+  private def bucket
+    'pcj-user-submissions'
   end
 
   private def update_problem_solution
