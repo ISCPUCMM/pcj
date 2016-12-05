@@ -129,6 +129,7 @@ en:
       name: Name
       new_problem_button: New Problem
       problem_id: ID
+      polygon_upload_button: Polygon Upload
     show:
       connection_url: 'Connection URL(share with friends/students)'
       title: Profile

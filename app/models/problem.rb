@@ -36,6 +36,10 @@ class Problem < ActiveRecord::Base
 
   scope :owned_by, -> (user) { where(owner: user) }
 
+  def self.polygon_create(polygon_params)
+    PolygonUploader.new(zip_folder_path: polygon_params[:polygon_files].path, owner: polygon_params[:owner]).commit
+  end
+
   def upload_input_files(input_files_params)
     update_attributes(input_files_uploaded_at: nil)
     InputFileUploader.new(problem_id: id, zip_inputs_path: input_files_params[:input_files].path).commit

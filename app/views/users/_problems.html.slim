@@ -13,3 +13,13 @@ div
   = will_paginate @problems, param_name: 'problems_page'
 div
   = link_to t('.new_problem_button'), new_problem_path, :class => 'btn btn-primary'
+hr
+= form_for :problem, url: polygon_create_problems_path, method: 'post', html: { class: "form form-horizontal course" } do |f|
+  .form-group
+    = f.label :polygon_files, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.file_field :polygon_files, :class => 'form-control btn btn-primary'
+  .form-group
+    .col-lg-offset-2.col-lg-10
+      = f.submit t('.polygon_upload_button'), :class => 'btn btn-primary'
+

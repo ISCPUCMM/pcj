@@ -1,6 +1,6 @@
 class ProblemsController < ApplicationController
   before_action :logged_in_user
-  before_action :check_problem_ownership, except: [:index, :new, :create]
+  before_action :check_problem_ownership, except: [:index, :new, :create, :polygon_create]
   before_action :check_input_files_uploaded, only: [:generate_outputs]
 
   def index
@@ -101,12 +101,21 @@ class ProblemsController < ApplicationController
     end
   end
 
+  def polygon_create
+    flash[:success] = 'Your polygon zip was uploaded and is processing your problem' if Problem.polygon_create(upload_polygon_params.merge(owner: current_user))
+    redirect_to :back
+  end
+
   private  def problem_params
     params.require(:problem).permit(:name, :statement, :input_format, :output_format, :examples, :notes, :time_limit, test_cases_attributes: [:id, :selected], test_groups_attributes: [:weight, :id])
   end
 
   private  def upload_input_files_params
     params.require(:problem).permit(:input_files)
+  end
+
+  private  def upload_polygon_params
+    params.require(:problem).permit(:polygon_files)
   end
 
   private def generate_outputs_params

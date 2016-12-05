@@ -91,6 +91,7 @@ Rails.application.routes.draw do
     patch 'group_test_cases', on: :member
     patch 'group_individual_test_cases', on: :member
     delete 'ungroup_test_cases', on: :member
+    post 'polygon_create', on: :collection
   end
 
   resources :test_cases, only: [] do
