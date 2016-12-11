@@ -18,8 +18,9 @@ nav.navbar.navbar-inverse
 
       ul.nav.navbar-nav.navbar-right
         - if logged_in?
-          li
-            = link_to(t('.professor_portal') , user_professor_portal_courses_path(current_user))
+          - if current_user.professor?
+            li
+              = link_to(t('.professor_portal') , user_professor_portal_courses_path(current_user))
           li
             = link_to(t('.student_portal') , user_student_portal_courses_path(current_user))
           li.dropdown
@@ -31,8 +32,9 @@ nav.navbar.navbar-inverse
                 = link_to t('.profile'), current_user
               li
                 = link_to t('.connections'), connections_user_path(current_user)
-              li
-                = link_to t('.administration'), administration_user_path(current_user)
+              - if current_user.professor?
+                li
+                  = link_to t('.administration'), administration_user_path(current_user)
               li.divider role="separator"
               li
                 = link_to t('.log_out'), logout_path, method: :delete
