@@ -38,4 +38,7 @@
     .col-lg-offset-2.col-lg-10
       = f.submit nil, :class => 'btn btn-primary'
       '
+      - if @problem.persisted?
+        = link_to 'Preview', preview_problem_path(@problem), class: 'btn btn-info', target: 'blank'
+      '
       = link_to t('.dashboard'), administration_user_path(current_user, anchor: 'problems'), :class => 'btn'

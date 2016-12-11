@@ -1,0 +1,21 @@
+.header
+  h1.title = @problem.name
+  p.small = t('.time_limit_label', time_limit: @problem.time_limit)
+
+  h3 = t('.statement_header')
+  = simple_format(@problem.statement, class: 'lead')
+
+  h3 = t('.input_format_header')
+  = simple_format @problem.input_format
+
+  h3 = t('.output_format_header')
+  = simple_format @problem.output_format
+
+  h3 = t('.examples_header')
+  blockquote
+    = simple_format @problem.examples
+
+  h4 = t('.notes_header')
+  = simple_format(@problem.notes, class: 'small')
+
+script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async='true'

@@ -201,13 +201,14 @@ en:
         problem_grade_header: Grade
         time_remaining_text: 'Time remaining until deadline reached:'
         deadline_reached_message: The deadline for this problem set has been reached. You may still submit for 0 points.
-      show:
+      problem_description:
         time_limit_label: "time limit: %{time_limit}s"
         statement_header: Statement
         input_format_header: Input Format
         output_format_header: Output Format
         examples_header: Examples
         notes_header: Notes
+      show:
         test_solution_button: Test Solution
         submit_solution_button: Submit Solution
         run_modal_title: Test Solution

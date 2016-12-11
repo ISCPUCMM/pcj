@@ -1,25 +1,7 @@
 = render partial: 'student_portal/shared/problems_nav'
 
 .container
-  .header
-    h1.title = @problem.name
-    p.small = t('.time_limit_label', time_limit: @problem.time_limit)
-
-    h3 = t('.statement_header')
-    = simple_format(@problem.statement, class: 'lead')
-
-    h3 = t('.input_format_header')
-    = simple_format @problem.input_format
-
-    h3 = t('.output_format_header')
-    = simple_format @problem.output_format
-
-    h3 = t('.examples_header')
-    blockquote
-      = simple_format @problem.examples
-
-    h4 = t('.notes_header')
-    = simple_format(@problem.notes, class: 'small')
+  = render partial: 'problem_description'
 
   = form_for @problem_solution, url: submit_student_portal_problem_solution_path(@problem_solution), method: 'post', html: { id: 'submit_problem_solution', class: "form form-horizontal problem" } do |f|
     .form-group
@@ -48,8 +30,6 @@
          header: { show_close: true, dismiss: 'modal', title: t('.run_modal_title') },
          body:   { content:  (render partial: 'test_solution_form') },
          footer: { content: content_tag(:a, 'Close', href: '#run_modal',class: 'btn', data: {toggle: 'modal'}) }
-
-script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async='true'
 
 coffee:
   code_editor = new CodeEditor $('#submit_problem_solution .code-group')

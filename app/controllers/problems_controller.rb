@@ -20,6 +20,10 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(params[:id])
   end
 
+  def preview
+    @problem = Problem.find(params[:id])
+  end
+
   def group_test_cases
     @problem = Problem.find(params[:id])
     test_group = TestGroup.new(problem: @problem)
