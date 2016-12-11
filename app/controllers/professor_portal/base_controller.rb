@@ -10,7 +10,7 @@ module ProfessorPortal
     end
 
     private def correct_user
-      if current_user?(@user)
+      if current_user?(@user) && current_user.professor?
         true
       else
         flash[:danger] = 'You do not have access to view page'

@@ -13,12 +13,17 @@ class User < ActiveRecord::Base
   before_save   :downcase_email
   before_create :create_activation_digest
   before_create :create_connection_token
+  before_create :toggle_professor #DO THIS WITH ROLE AND USER_ROLE MODEL INSTEAD
+
+
   validates :name, presence: true, length: { maximum: 50 }
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true,
                     length: { maximum: 255 },
                     format: { with: EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
+
+  validate :validate_email_domain
 
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
@@ -30,12 +35,12 @@ class User < ActiveRecord::Base
     BCrypt::Password.create(string, cost: cost)
   end
 
-  def name_with_email
-    "#{name}(#{email})"
-  end
-
   def self.new_token
     SecureRandom.urlsafe_base64
+  end
+
+  def name_with_email
+    "#{name}(#{email})"
   end
 
   def remember
@@ -84,6 +89,11 @@ class User < ActiveRecord::Base
     self.email = email.downcase
   end
 
+  private def toggle_professor
+    local, domain = email.split('@')
+    self.professor = true if (/^\d{8}$/ =~ local).nil?
+  end
+
   private def create_activation_digest
     self.activation_token  = User.new_token
     self.activation_digest = User.digest(activation_token)
@@ -91,5 +101,14 @@ class User < ActiveRecord::Base
 
   private def create_connection_token
     self.connection_token = User.new_token
+  end
+
+  private def valid_domains
+    %w(ce.pucmm.edu.do)
+  end
+
+  private def validate_email_domain
+    local, domain = email.split('@')
+    errors.add(:email, :invalid, message: 'this domain is not part of the accepted list') unless valid_domains.include?(domain)
   end
 end
