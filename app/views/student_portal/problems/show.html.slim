@@ -49,6 +49,8 @@
          body:   { content:  (render partial: 'test_solution_form') },
          footer: { content: content_tag(:a, 'Close', href: '#run_modal',class: 'btn', data: {toggle: 'modal'}) }
 
+script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async='true'
+
 coffee:
   code_editor = new CodeEditor $('#submit_problem_solution .code-group')
   code_editor.initialize_default()
