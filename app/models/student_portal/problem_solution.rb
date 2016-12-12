@@ -14,6 +14,7 @@ class StudentPortal::ProblemSolution < ActiveRecord::Base
   end
 
   validates_presence_of :course, :assignment, :problem, :user
+
   def self.matching(course:, assignment:, problem:, user:)
     StudentPortal::ProblemSolution.find_or_create_by(course: course,
                                                      assignment: assignment,

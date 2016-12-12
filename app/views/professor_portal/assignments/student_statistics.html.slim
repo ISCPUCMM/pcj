@@ -13,7 +13,7 @@
         tr
           td = student.name
           - @assignment.problems.order(name: :asc).each do |problem|
-            - solution = student.problem_solutions.find_by(course: @course, assignment: @assignment, problem: problem)
+            - solution = StudentPortal::ProblemSolution.matching(course: @course, assignment: @assignment, problem: problem, user: student)
             td.alert class=status_class_for(solution) = solution.grade
 
   - @assignment.problems.order(name: :asc).each do |problem|
